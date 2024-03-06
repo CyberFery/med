@@ -1,0 +1,79 @@
+@startuml MedicalRecord
+
+left to right direction
+actor "Doctor" as Doctor
+actor "Patient" as Patient
+actor "Health Professional" as proHealth
+actor "User" as user
+
+rectangle MedicalRecord {
+  usecase "Consult medical record" as consultMedicalRecord
+  usecase "Authentification" as authentification   
+}
+
+user <|- Doctor
+user <|- Patient
+user <|- proHealth
+
+user --> consultMedicalRecord
+consultMedicalRecord --> authentification: <<include>>
+
+@enduml
+
+@startuml DoctorUsecase
+
+left to right direction
+
+actor "Doctor" as Doctor
+actor "User" as user
+
+rectangle DoctorUsecase {
+  usecase "Consult medical record" as consultMedicalRecord
+  usecase "Modify medical record" as modifyMedicalRecord
+  usecase "Cancel modification to medical record" as cancelModification
+  usecase "Archive Modification to medical record" as archiveModif
+  usecase "Save modifications to medical record" as saveModif  
+}
+
+user <|- Doctor
+user --> consultMedicalRecord
+
+consultMedicalRecord <-- modifyMedicalRecord: <<extends>>
+consultMedicalRecord <-- cancelModification: <<extends>>
+modifyMedicalRecord --> archiveModif: <<include>>
+modifyMedicalRecord --> saveModif: <<include>>
+
+@enduml
+
+@startuml PatientUsecase
+
+left to right direction
+actor "User" as user
+actor "Patient" as Patient
+
+rectangle PatientUsecase {
+  usecase "Consult medical record" as consultMedicalRecord
+  usecase "Modify contact information" as modifyContactInfo  
+}
+
+user <|- Patient
+user --> consultMedicalRecord
+consultMedicalRecord <-- modifyContactInfo: <<extends>>
+
+@enduml
+
+
+@startuml RAMQUsecase
+
+left to right direction
+actor "RAMQ" as ramq
+
+rectangle RAMQUsecase {
+  usecase "Create medical record" as createMedicalRecord
+  usecase "Reconstruct medical record" as reconstructMedicalRecord
+}
+
+ramq --> createMedicalRecord
+createMedicalRecord <-- reconstructMedicalRecord: <<extends>>
+
+@enduml
