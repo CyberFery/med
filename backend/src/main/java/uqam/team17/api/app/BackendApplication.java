@@ -1,4 +1,4 @@
-package uqam.team17.backend;
+package uqam.team17.api.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
