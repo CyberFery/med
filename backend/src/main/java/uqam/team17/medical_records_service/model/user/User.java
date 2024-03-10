@@ -1,6 +1,6 @@
-package uqam.team17.api.model.user;
+package uqam.team17.healthcare_professionals_medical_records_service.model.user;
 
-import uqam.team17.api.model.Person;
+import uqam.team17.healthcare_professionals_medical_records_service.model.Person;
 
 public abstract class User extends Person {
     protected abstract void consultMedicalRecord();

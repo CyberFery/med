@@ -1,4 +1,4 @@
-package uqam.team17.api.model.user.patient.contact_information;
+package uqam.team17.healthcare_professionals_medical_records_service.model.user.patient.contact_information;
 
 public class ContactInformation {
     private ResidentialAddress residentialAddress;

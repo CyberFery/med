@@ -1,4 +1,4 @@
-package uqam.team17.api.model.user;
+package uqam.team17.healthcare_professionals_medical_records_service.model.user;
 
 class HealthcareProfessional extends User {
     @Override

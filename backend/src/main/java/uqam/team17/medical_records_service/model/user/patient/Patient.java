@@ -1,9 +1,9 @@
-package uqam.team17.api.model.user.patient;
+package uqam.team17.healthcare_professionals_medical_records_service.model.user.patient;
 
-import uqam.team17.api.model.Person;
-import uqam.team17.api.model.user.User;
-import uqam.team17.api.model.user.patient.contact_information.ContactInformation;
-import uqam.team17.api.service.ContactInformationModifier;
+import uqam.team17.healthcare_professionals_medical_records_service.model.Person;
+import uqam.team17.healthcare_professionals_medical_records_service.model.user.User;
+import uqam.team17.healthcare_professionals_medical_records_service.model.user.patient.contact_information.ContactInformation;
+import uqam.team17.healthcare_professionals_medical_records_service.service.ContactInformationModifier;
 
 import java.util.Date;
 import java.util.List;

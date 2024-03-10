@@ -1,6 +1,6 @@
-package uqam.team17.api.model.medical_record;
+package uqam.team17.healthcare_professionals_medical_records_service.model.medical_record;
 
-import uqam.team17.api.model.user.patient.Patient;
+import uqam.team17.healthcare_professionals_medical_records_service.model.user.patient.Patient;
 
 import java.util.List;
 

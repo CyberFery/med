@@ -1,4 +1,4 @@
-package uqam.team17.api.model;
+package uqam.team17.healthcare_professionals_medical_records_service.model;
 
 public class Person {
     protected String firstName;

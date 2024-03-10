@@ -1,4 +1,4 @@
-package uqam.team17.api.model.medical_record;
+package uqam.team17.healthcare_professionals_medical_records_service.model.medical_record;
 
 import java.util.Date;
 

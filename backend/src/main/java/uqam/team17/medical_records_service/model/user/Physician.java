@@ -1,6 +1,6 @@
-package uqam.team17.api.model.user;
+package uqam.team17.healthcare_professionals_medical_records_service.model.user;
 
-import uqam.team17.api.service.MedicalRecordModifier;
+import uqam.team17.healthcare_professionals_medical_records_service.service.MedicalRecordModifier;
 
 public class Physician extends User implements MedicalRecordModifier {
     private String specialization;
