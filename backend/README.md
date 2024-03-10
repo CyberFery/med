@@ -36,7 +36,7 @@ Il faut s'assurer d'ajouter au moins un service dans le fichier `compose.yaml`.
 
 1. **Structure du projet** :
     - **src/main/java** : Contient le code source Java.
-        - **uqam.team17.api** : Package racine de l'application.
+        - **uqam.team17.ramq_services** : Package racine de l'application.
             - **controller** : Contient les classes de contrôleur responsables de la gestion des requêtes HTTP entrantes
               et du retour des réponses HTTP.
             - **service** : Contient les classes de service qui implémentent la logique métier/affaire.
@@ -101,7 +101,7 @@ Il faut s'assurer d'ajouter au moins un service dans le fichier `compose.yaml`.
 
 ## Explication plus détaillée de la structure de packages
 
-1. **uqam.team17.api** :
+1. **uqam.team17.ramq_services** :
     - Il s'agit du package racine de votre application, généralement nommé d'après votre projet ou votre organisation.
     - Il est courant d'utiliser le placeholder "demo" pour des projets d'échantillon ou des prototypes.
 
