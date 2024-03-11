@@ -1,4 +1,4 @@
-package uqam.team17.medical_records_service.medical_record;
+package uqam.team17.medical_records_service.model.medical_record;
 
 import uqam.team17.medical_records_service.model.user.patient.Patient;
 

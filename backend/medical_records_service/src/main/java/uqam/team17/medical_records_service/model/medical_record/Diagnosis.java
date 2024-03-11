@@ -1,4 +1,4 @@
-package uqam.team17.medical_records_service.medical_record;
+package uqam.team17.medical_records_service.model.medical_record;
 
 class Diagnosis {
     private String description;
