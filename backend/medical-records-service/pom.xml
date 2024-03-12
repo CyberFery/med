@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>uqam.team17</groupId>
-    <artifactId>authenticator_service</artifactId>
+    <artifactId>medical-records-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>authenticator_service</name>
-    <description>authenticator_service</description>
+    <name>medical_records_service</name>
+    <description>medical_records_service</description>
     <properties>
         <java.version>21</java.version>
     </properties>
