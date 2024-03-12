@@ -1,13 +1,13 @@
-package uqam.team17.authenticationprovider;
+package uqam.team17.authenticationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuthenticationProviderApplication {
+public class AuthenticationServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthenticationProviderApplication.class, args);
+        SpringApplication.run(AuthenticationServiceApplication.class, args);
     }
 
 }

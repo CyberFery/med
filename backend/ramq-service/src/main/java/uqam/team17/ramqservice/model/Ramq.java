@@ -1,6 +1,6 @@
-package uqam.team17.medical_records_service.model;
+package uqam.team17.ramqservice.model;
 
-import uqam.team17.medical_records_service.model.medical_record.MedicalRecord;
+import uqam.team17.ramqservice.model.medical_record.MedicalRecord;
 
 public class Ramq {
     void registerPerson() {
