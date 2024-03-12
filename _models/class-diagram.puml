@@ -2,7 +2,9 @@
 
 title "overview of system classes"
 
-class User 
+class Person 
+
+class User extends Person
 
 class Patient extends User
 
@@ -66,12 +68,12 @@ interface RecordModifier {
 +cancelModification():void
 }
 
-enum Person {
+class Person {
 firstName: String
 lastName: String
 }
 
-class User implements RecordViewer {
+class User extends Person implements RecordViewer {
 -userId: String
 -record: RecordViewer
 }
@@ -99,14 +101,12 @@ class Doctor extends User implements RecordModifier{
 -speciality: String
 }
 
-class HealthProfessional extends User{
+class HealthProfessional extends User {
 
 }
 
-User --> Person
 Patient --> "1\ngender" Gender
 Patient --> "1\ncontacts" ContactInformation
-Patient --> Person
 
 @enduml
 
