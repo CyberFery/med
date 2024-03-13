@@ -16,7 +16,7 @@ class HealthProfessional extends User
 
 class RAMQ 
 
-RAMQ -- MedicalRecordRegistry : uses
+RAMQ -- MedicalRecordRegistry
 
 class MedicalRecordRegistry 
 
@@ -124,7 +124,7 @@ class RAMQ {
 +recreateMedicalRecord(mr: MedicalRecord, modification: String):MedicalRecord
 }
 
-RAMQ -- MedicalRecordRegistry : uses
+RAMQ -- MedicalRecordRegistry
 
 class MedicalRecordRegistry implements RecordCreator {
 +getMedicalRecord(healthInsuranceNumber:String): MedicalRecord
