@@ -8,12 +8,12 @@
 
 ### Informations
 
-| Nom       | Prénom  | Code Permanent | Adresse Courriel         | Moyen De Communication          |
+| Nom       | Prénom  | Code Permanent | Adresse Courriel        | Moyen De Communication          |
 |-----------|---------|---------------|--------------------------|---------------------------------|
 | Montpetit | Carl    | MONC08069000  | montpetit.carl@courrier.uqam.ca | Courriel, Discord et Mattermost |
 | Blemur    | Lindsay | BLEL21578506  | blemur.lindsay@courrier.uqam.ca | Courriel, Discord et Mattermost |
 | Damas     | Johanie | DAMJ73520007  | damas.johanie@courrier.uqam.ca  | Courriel, Discord |
-| Item1.4   | Item2.4 | Item3.4       | Item4.4                  | Item5.4                         |
+| Ferrat    | Yacine  | FERY14099608  | ferrat.yacine@courrier.uqam.ca  | Courriel, Discord et Mattermost |
 
 ### Disponibilités
 
@@ -22,7 +22,7 @@
 | Montpetit | Carl    | Toujours, sauf le vendredi|
 | Blemur    | Lindsay | mardi au dimanche         |
 | Damas     | Johanie | Lundi au samedi           |
-| Item1.4   | Item2.4 | Item3.4                   |
+| Yacine    | Ferrat  | Toujours, sauf le lundi   |
 
 ### Descriptions
 
