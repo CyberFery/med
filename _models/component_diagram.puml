@@ -1,0 +1,132 @@
+@startuml
+!include _common.style
+left to right direction
+title "Medical Record Creation System"
+
+
+component "RAMQ" as rq
+
+component "Creator" as cr {
+portout " " as cp1
+}
+
+component "Recorder" as rec {
+portin " " as rp1
+}
+
+database "SQLite3" as sql {
+artifact "medical_records.sqlite" as mr
+}
+
+cr "realizes" -u0)-- "uses" rq : create  record
+rp1 -u0)- cp1 : "save modification"
+rec ..> mr : writes
+
+@enduml
+
+@startuml
+!include _common.style
+left to right direction
+title "Authentication System"
+
+component "User" as u {
+
+}
+
+component "User GUI" as uui {
+portout " " as up1
+}
+
+
+component "Administrator" as admin {
+portin " " as adp1
+portout " " as adp2
+portout " " as adp3
+}
+
+component "Server Session" as sess{
+
+portin " " as sesp1
+portout " " as sesp2
+}
+
+database "SQLite3" as sql {
+artifact "authentication.sqlite" as authdb
+}
+
+
+u ..> uui :uses
+adp1 -u0)- up1: "login account"
+adp3 ..> authdb : "check Access"
+sesp1 -u0)- adp2: "open session"
+
+@enduml
+
+@startuml
+!include _common.style
+left to right direction
+title "Medical Record Consultation System"
+component "User" as u {
+
+}
+
+component "User GUI" as uui {
+
+portout " " as up1
+}
+
+component "Viewer" as view {
+portin " " as vp1
+}
+
+database SQLite3 as sql {
+artifact medical_records.sqlite as mr
+}
+
+u ..> uui :uses
+vp1 -u0)- up1
+view ..> mr :  reads
+
+@enduml
+
+
+@startuml
+!include _common.style
+skinparam linetype polyline
+left to right direction
+title "Medical Record Modification System"
+
+component "Doctor" as doc {
+}
+
+component "Doctor GUI" as dui {
+portout " " as dp1
+}
+
+component "Modificator" as mod {
+
+portin " " as mp1
+portout " " as mp2
+}
+
+component "Recorder" as rec {
+
+portin " " as rp1
+}
+
+database SQLite3 as sql {
+artifact "modification_archives.sqlite" as ma
+}
+
+doc ..> dui : uses
+mp1 -u0)- dp1 : "modify record"
+mp1 -u0)- dp1 : "cancel modification"
+rp1 -u0)- mp2 : "save modification"
+rec ..> ma : "writes"
+
+'rec -[hidden]r->mod
+@enduml
+
+
+
+

@@ -1,0 +1,85 @@
+@startuml
+!include _common.style
+left to right direction
+title "Centralized Medical Record Deployment"
+
+
+
+node "Doctor workstation" as dw {
+node "CentralizedRecords.exe" as cenr{
+}
+}
+
+node "Patient PC" as ppc{
+node "web browser" as wb{
+
+}
+}
+
+node "Patient Mobile Device" as pmd{
+component "Hospital Application" as ha{
+}
+}
+
+node "API Server" as apiserv{
+component "API Gateway" as ag {
+portin " " as agp1
+portout " " as agp2
+portout " " as agp3
+portout " " as agp4
+portout " " as agp5
+}
+}
+
+node "Authentication Server" as authserv {
+component "Authentication Service" as auths {
+portin " " as authp1
+}
+}
+
+node "RAMQ server" as rqserv {
+component "RAMQ services" as rqs {
+portin " " as rqp1
+}
+}
+
+node "Medical Record Server" as mrserv {
+component "Medical Record Registry" as mrs {
+portin " " as mrrp1
+}
+component "Modification Archive Services" as modas {
+portin " " as modp1
+}
+}
+
+node "database server" as db{
+component "Medical Record Database" as mrd
+component "Modifications archive" as modarch
+component "Authentication database" as authdb
+component "Medical Record Copies archive" as mrcp
+}
+
+
+agp1 -- cenr: HTTP
+agp1 -- wb: HTTP
+agp1 -- ha: HTTP
+
+
+authp1 -u0)- agp2 : REST API
+mrrp1 -u0)- agp3: REST API
+modp1 -u0)- agp4: REST API
+rqp1 -u0)- agp5: REST API
+
+
+rqs ..> mrcp
+modas ..> modarch
+mrs ..> mrd
+auths ..> authdb
+
+
+apiserv -[hidden]d-> db
+dw -[hidden]d-> apiserv
+ppc -[hidden]d-> apiserv
+pmd -[hidden]d-> apiserv
+
+@enduml
