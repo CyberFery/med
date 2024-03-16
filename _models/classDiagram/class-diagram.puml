@@ -1,0 +1,188 @@
+@startuml SystemDiagram
+
+title "overview of system classes"
+
+class Person 
+
+class User extends Person
+
+class Patient extends User
+
+class ContactInformation
+
+class Doctor extends User
+
+class HealthProfessional extends User
+
+class RAMQ 
+
+RAMQ -- MedicalRecordRegistry
+
+class MedicalRecordRegistry 
+
+class MedicalRecord 
+
+class MedicalHistory{
+}
+
+class Illness{
+
+}
+
+class MedicalVisit{
+
+}
+
+class Diagnosis {
+
+}
+
+enum Gender
+
+User -> MedicalRecordRegistry
+MedicalRecordRegistry *--> "1..*\n-records" MedicalRecord
+MedicalVisit "1" *--> "0.." Diagnosis
+MedicalHistory "1" *--> "0..*" Illness
+MedicalRecord *-- "0..*\n -listOfVisits  " MedicalVisit
+MedicalRecord *-- "0..*\n -listOfHistory  " MedicalHistory
+
+Patient --> "1\ngender" Gender
+Patient --> "1\ncontacts" ContactInformation
+
+@enduml
+
+
+
+@startuml Users
+
+title "The actors"
+
+class Person {
+firstName: String
+lastName: String
+}
+
+class User extends Person {
+-userId: String
+-record: RecordViewer
+}
+
+class Patient extends User  {
+-healthInsuranceNumber: String
+-dateOfBirth: Date
+-knownParents: List<Person>
+-cityOfBirth: String
+-contactInformation: ContactInformation
+}
+
+enum Gender {
+FEMALE
+MALE
+}
+
+class ContactInformation {
+-address: String
+-phoneNumber: String
+-email: String
+}
+
+class Doctor extends User {
+-speciality: String
+}
+
+class HealthProfessional extends User {
+-speciality: String
+}
+
+Patient --> "1\ngender" Gender
+Patient --> "1\ncontacts" ContactInformation
+
+@enduml
+
+
+@startuml MedicalRecordRegistry
+
+title "The Medical Record Registry"
+
+interface RecordCreator {
++createMedicalRecord():MedicalRecord
+}
+
+class RAMQ {
+-recreateMedicalRecord(mr: MedicalRecord, date: Date):MedicalRecord
+-recreateMedicalRecord(mr: MedicalRecord, modification: String):MedicalRecord
+}
+
+RAMQ -- MedicalRecordRegistry
+
+class MedicalRecordRegistry implements RecordCreator {
++getMedicalRecord(healthInsuranceNumber:String): MedicalRecord
++viewMedicalRecord(healthInsuranceNumber:String):String[]
+}
+
+class MedicalRecord {
+-patientData: Patient
++getPatientData(): Patient
+}
+
+class User  {
+-userId: String
+-record: RecordViewer
+}
+
+User -> MedicalRecordRegistry
+MedicalRecordRegistry *--> "1..*\n-records" MedicalRecord
+
+@enduml
+
+@startuml MedicalRecord
+
+title "The Medical Record"
+
+interface RecordViewer {
++consultMedicalRecord(healthInsuranceNumber:String):String
+}
+
+interface RecordModifier {
++updateMedicalRecord():MedicalRecord
++cancelModification():void
+}
+
+class MedicalRecord implements RecordModifier, RecordViewer{
+-patientData: Patient
+}
+
+class MedicalHistory{
+-diagnosis: String
+-treatment: String
+-illness: List<Illness>
+-primaryPhysician: Doctor
+}
+
+class Illness{
+-description: String
+-onsetOfIllnessDate: Date
+-endOfIllnessDate: Date
+}
+
+class MedicalVisit{
+-visitedEstablishmnet: String
+-seenDoctor: Doctor
+-visitDate: Date
+-diagnosis: List<Diagnosis>
+-summaryOfVisit: String
+-doctorsNotes: String
+
+}
+
+class Diagnosis {
+-description: String
+-treatment: String
+}
+
+MedicalVisit "1" *--> "0.." Diagnosis
+MedicalHistory "1" *--> "0..*" Illness
+MedicalRecord *-- "0..*\n -listOfVisits" MedicalVisit
+MedicalRecord *-- "0..*\n -listOfHistory" MedicalHistory
+
+@enduml
