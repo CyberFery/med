@@ -1,4 +1,4 @@
-@startuml systemDiagram
+@startuml SystemDiagram
 
 title "overview of system classes"
 
@@ -37,6 +37,8 @@ class Diagnosis {
 
 }
 
+enum Gender
+
 User -> MedicalRecordRegistry
 MedicalRecordRegistry *--> "1..*\n-records" MedicalRecord
 MedicalVisit "1" *--> "0.." Diagnosis
@@ -51,34 +53,21 @@ Patient --> "1\ncontacts" ContactInformation
 
 
 
-@startuml users
+@startuml Users
 
 title "The actors"
-
-interface ContactModifier {
-+updateContactInformation():ContactInformation
-}
-
-interface RecordViewer {
-+consultMedicalRecord(healthInsuranceNumber:String)
-}
-
-interface RecordModifier {
-+updateMedicalRecord():MedicalRecord
-+cancelModification():void
-}
 
 class Person {
 firstName: String
 lastName: String
 }
 
-class User extends Person implements RecordViewer {
+class User extends Person {
 -userId: String
 -record: RecordViewer
 }
 
-class Patient extends User implements ContactModifier {
+class Patient extends User  {
 -healthInsuranceNumber: String
 -dateOfBirth: Date
 -knownParents: List<Person>
@@ -91,18 +80,18 @@ FEMALE
 MALE
 }
 
-class ContactInformation{
+class ContactInformation {
 -address: String
 -phoneNumber: String
 -email: String
 }
 
-class Doctor extends User implements RecordModifier{
+class Doctor extends User {
 -speciality: String
 }
 
 class HealthProfessional extends User {
-
+-speciality: String
 }
 
 Patient --> "1\ngender" Gender
@@ -120,8 +109,8 @@ interface RecordCreator {
 }
 
 class RAMQ {
-+recreateMedicalRecord(mr: MedicalRecord, date: Date):MedicalRecord
-+recreateMedicalRecord(mr: MedicalRecord, modification: String):MedicalRecord
+-recreateMedicalRecord(mr: MedicalRecord, date: Date):MedicalRecord
+-recreateMedicalRecord(mr: MedicalRecord, modification: String):MedicalRecord
 }
 
 RAMQ -- MedicalRecordRegistry
@@ -131,9 +120,15 @@ class MedicalRecordRegistry implements RecordCreator {
 +viewMedicalRecord(healthInsuranceNumber:String):String[]
 }
 
-class MedicalRecord
+class MedicalRecord {
+-patientData: Patient
++getPatientData(): Patient
+}
 
-class User 
+class User  {
+-userId: String
+-record: RecordViewer
+}
 
 User -> MedicalRecordRegistry
 MedicalRecordRegistry *--> "1..*\n-records" MedicalRecord
@@ -155,7 +150,6 @@ interface RecordModifier {
 
 class MedicalRecord implements RecordModifier, RecordViewer{
 -patientData: Patient
-+getPatientData(): Patient
 }
 
 class MedicalHistory{
