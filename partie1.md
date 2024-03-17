@@ -18,11 +18,12 @@
 
 ## Table des matières
 
-...
-
+- [Architecture Microservices](#architecture-one)
+- [Diagramme des composants](#composant-one) 
 ---
 
 # Architecture Microservices
+<a id="architecture-one"></a>
 
 > TODO Si vous pouvez juste ajouter l'image du diagramme UML ici svp.
 
@@ -86,3 +87,12 @@ sans affecter négativement les performances de notre système.
 Grâce à cette séparation des responsabilités, notre architecture offre une **modularité** et une **flexibilité**
 accrues, permettant à chaque microservice de se concentrer sur des **tâches spécifiques** et de <u>garantir un
 fonctionnement optimal</u> de l'ensemble de notre système.
+
+
+# Diagramme des composants
+<a id="composant-one"></a>
+
+Les diagrammes de composants sont un type de vue statique qui représente la structure du système. Un diagramme de 
+composant décrit le système modélisé sous forme de composants réutilisables et met en évidence leurs relations de 
+dépendances. Un composant est une entité indépendante et exécutable qui fournit des services à d'autres composants ou 
+utilise des services. 
