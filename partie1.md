@@ -57,7 +57,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Utilisation du patron `forte cohésion`
         - Justification des méthodes publiques du dossier médical
 
-- Diagrammes de séquence
+- [Diagrammes de séquence](#sequence-main)
     - Diagrammes de Séquence pour les interactions entre les classes
         - Consultation d'un dossier médical
         - Mise à jour d'un dossier médical par un médecin
@@ -73,7 +73,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Annulation d'une modification de dossier
         - Authentification d'utilisateur
         - Visualisation de dossier médical
-- Diagrammes de package
+- [Diagrammes de package](#package-main)
     - FRONTEND
         - Structure des Dossiers
     - BACKEND
@@ -166,6 +166,9 @@ La classe `MedicalRecord` offre les services suivants :
 - Modifier et supprimer les modifications apporter au dossier médical en utilisant les méthodes `updateMedicalRecord` et `cancelMedicalRecord()` en implémentant l'interface `RecordModifier`.
 
 Ces méthodes sont publiques, car elles permettent à la classe `MedicalRecord` d'acquitter ces responsabilités.
+
+# Diagrammes de Séquence
+<a id="sequence-main"></a>
 
 # Diagrammes de Séquence pour les interactions entre les classes
 
@@ -317,6 +320,7 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 **Justification :** Ce flux illustre une opération de consultation de données sécurisée et efficace. L'utilisation d'un API Gateway centralise les requêtes et renforce la sécurité en contrôlant l'accès aux services internes. Le service API des dossiers médicaux agit comme un intermédiaire entre la base de données et l'interface utilisateur, permettant une abstraction de la logique d'accès aux données et facilitant d'éventuelles évolutions du système de stockage des données. Cette séparation des responsabilités assure une meilleure maintenance du système et une plus grande sécurité des données sensibles, en limitant l'accès direct à la base de données. La demande de visualisation d'un dossier médical est une fonctionnalité essentielle dans les systèmes de gestion des dossiers médicaux, permettant aux utilisateurs autorisés d'accéder rapidement et de façon sécurisée aux informations médicales nécessaires.
 
 # Diagrammes de packages 
+<a id="package-main"></a>
 
 ## FRONTEND
 
