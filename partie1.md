@@ -138,7 +138,81 @@ La classe `MedicalRecord` offre les services suivants :
 - Consulter un dossier médical en utilisant la méthode `consultMedicalRecord()`. Elle obtient cette méthode en implémentant l'interface `RecordViewer`.
 - Modifier et supprimer les modifications apporter au dossier médical en utilisant les méthodes `updateMedicalRecord` et `cancelMedicalRecord()` en implémentant l'interface `RecordModifier`.
 
-Ces méthodes sont publiques, car elles permettent à la classe `MedicalRecord` d'acquitter ces responsabilités.  
+Ces méthodes sont publiques, car elles permettent à la classe `MedicalRecord` d'acquitter ces responsabilités.
+
+# Diagrammes de Séquence pour les interactions entre les classes
+
+Ces diagrammes de séquence illustrent différents aspects de l'interaction entre les classes de  l'application de gestion des dossiers médicaux.
+
+## 1. Consultation d'un dossier médical
+
+### Participants
+- Utilisateur (User)
+- Registre des Dossiers Médicaux (Medical Record Registry)
+- Dossier Médical (Medical Record)
+
+### Processus
+L'utilisateur demande à consulter un dossier médical par son numéro d'assurance maladie. Le registre cherche et retrouve le dossier correspondant, puis déclenche la consultation du dossier. Enfin, les informations du dossier médical sont affichées à l'utilisateur.
+
+### Justification
+Ce processus garantit que les informations médicales sont accessibles rapidement et de manière sécurisée. L'activation et la désactivation des composants illustrent le contrôle de flux et la gestion des ressources, assurant ainsi que le système est efficace et sécurisé.
+
+## 2. Mise à jour d'un dossier médical par un médecin
+
+### Participants
+- Médecin (Doctor)
+- Registre des Dossiers Médicaux (MedicalRecordRegistry)
+- Dossier Médical (MedicalRecord)
+
+### Processus
+Le médecin demande le dossier médical d'un patient. Une fois reçu, il procède à la mise à jour du dossier. La confirmation de la mise à jour est ensuite renvoyée au médecin.
+
+### Justification
+Ce diagramme montre l'importance de maintenir les dossiers médicaux à jour pour la prise en charge des patients. Le passage par le registre assure l'intégrité et la centralisation des données.
+
+## 3. Annulation d'une modification d'un dossier médical par un médecin
+
+### Processus et participants
+Similaires au diagramme de mise à jour.
+
+### Justification
+Ce scénario souligne la flexibilité du système en permettant aux médecins d'annuler des modifications. Cela peut être crucial en cas d'erreur de saisie ou de changement d'avis, contribuant ainsi à l'exactitude des dossiers médicaux.
+
+## 4. Création d'un dossier médical
+
+### Participants
+- RAMQ
+- Registre des Dossiers Médicaux (MedicalRecordRegistry)
+
+### Processus
+La RAMQ envoie une demande de création d'un nouveau dossier médical. Le registre traite cette demande et confirme la création.
+
+### Justification
+Ce processus illustre la collaboration entre la RAMQ et le registre pour assurer que chaque citoyen dispose d'un dossier médical, facilitant ainsi la gestion de la santé publique.
+
+## 5. & 6. Recréation d'un dossier médical
+
+### Participants
+- RAMQ
+- Registre des Dossiers Médicaux (MedicalRecordRegistry)
+
+### Processus
+Après avoir récupéré un dossier médical, la RAMQ effectue une opération de recréation du dossier, soit en spécifiant une date, soit une modification particulière.
+
+### Justification
+Ces diagrammes peuvent refléter des scénarios où il est nécessaire de restaurer ou de mettre à jour un dossier médical à la suite d'une perte de données ou d'une correction d'erreurs, assurant ainsi l'intégrité et la continuité des soins.
+
+## 7. Mise à jour des informations de contact d'un patient
+
+### Participants
+- Patient
+- Informations de Contact (ContactInformation)
+
+### Processus
+Le patient met à jour ses informations de contact (adresse, numéro de téléphone, email) au besoin.
+
+### Justification
+Ce processus est essentiel pour maintenir une communication efficace entre les patients et les prestataires de soins de santé. La possibilité de mettre à jour ces informations de manière indépendante par le patient souligne l'importance de l'autonomie du patient et de la précision des données dans le système de santé.
 
 # Diagramme de conception architecturale
 <a id="architecture-main"></a>
