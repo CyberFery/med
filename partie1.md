@@ -44,7 +44,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
     - Diagramme de cas d'utilisation du médecin
     - Diagramme de cas d'utilisation du patient
     - Diagramme de cas d'utilisation de la RAMQ
-- [Diagrammes de classes](#class-main)
+- [Diagrammes de classes](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagrammes-de-classes)
     - Vue d'ensemble des différentes classes du systèmes
     - Diagramme de classes des acteurs
         - Utilisation du patron `Polymorphisme`
@@ -57,7 +57,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Utilisation du patron `forte cohésion`
         - Justification des méthodes publiques du dossier médical
 
-- [Diagrammes de séquence](#sequence-main)
+- [Diagrammes de séquence](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagrammes-de-s%C3%A9quence)
     - Diagrammes de Séquence pour les interactions entre les classes
         - Consultation d'un dossier médical
         - Mise à jour d'un dossier médical par un médecin
@@ -73,12 +73,12 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Annulation d'une modification de dossier
         - Authentification d'utilisateur
         - Visualisation de dossier médical
-- [Diagrammes de package](#package-main)
+- [Diagrammes de package](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagrammes-de-packages)
     - FRONTEND
         - Structure des Dossiers
     - BACKEND
         - Structure des Dossiers
-- [Diagrammes de conception architecturale](#architecture-main)
+- [Diagrammes de conception architecturale](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagramme-de-conception-architecturale)
     - Frontend - User interface - Application VuesJS et/ou une application Java
     - Backend - APIs RESTful - Applications Springboot
         - API Gateway
@@ -90,7 +90,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Explication des microservices
     - Résumé
 
-- [Diagrammes de composants](#composant-main)
+- [Diagrammes de composants](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagramme-des-composants)
   - Système de création de dossier médical
   - Système d'authentification
   - Système de consultation de dossier médical
