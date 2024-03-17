@@ -289,6 +289,60 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 
 **Justification :** Ce flux illustre une opération de consultation de données sécurisée et efficace. L'utilisation d'un API Gateway centralise les requêtes et renforce la sécurité en contrôlant l'accès aux services internes. Le service API des dossiers médicaux agit comme un intermédiaire entre la base de données et l'interface utilisateur, permettant une abstraction de la logique d'accès aux données et facilitant d'éventuelles évolutions du système de stockage des données. Cette séparation des responsabilités assure une meilleure maintenance du système et une plus grande sécurité des données sensibles, en limitant l'accès direct à la base de données. La demande de visualisation d'un dossier médical est une fonctionnalité essentielle dans les systèmes de gestion des dossiers médicaux, permettant aux utilisateurs autorisés d'accéder rapidement et de façon sécurisée aux informations médicales nécessaires.
 
+# Diagrammes de packages 
+
+## FRONTEND
+
+![](./_models/Package/package_frontend.png)
+
+### Structure des Dossiers
+
+- `public/` : Contient les fichiers statiques tels que l'index HTML de base, les icônes, les fichiers manifestes, etc. Ces fichiers sont accessibles tels quels par le navigateur de l'utilisateur.
+
+- `src/` : Dossier principal contenant le code source du frontend. C'est ici que la majorité du développement prend place.
+
+- `assets/` : Utilisé pour stocker les ressources telles que les images, les feuilles de style (CSS) et éventuellement d'autres médias utilisés dans l'application.
+
+- `components/` : Contient les composants réutilisables. Dans des frameworks comme Vue.js, un composant peut être une partie d'interface utilisateur encapsulée qui peut être réutilisée à travers différentes parties de l'application.
+
+- `views/` : Spécifiquement dédié aux vues, qui sont souvent liées aux routes. Une vue est une page complète (par exemple, la page d'accueil, la page de contact, etc.).
+
+- `App.vue` : Le fichier racine pour une application Vue.js, servant de point d'ancrage pour l'application.
+
+- `main.ts` : Le point d'entrée du frontend. Initialise le framework (Vue.js dans cet exemple) ainsi que les plugins nécessaires.
+
+- `router.ts` : Gère les routes de l'application à l'aide de Vue Router, permettant la navigation entre les différentes vues.
+
+- `tests/` : Dossier destiné aux tests, qu'ils soient unitaires (testant des fonctionnalités isolées) ou end-to-end (testant des flux d'utilisation complets).
+
+## BACKEND
+
+![](./_models/Package/package_backend.png)
+
+### Structure des Dossiers
+
+- `Util/` : Contient des outils et helpers pour des manipulations courantes, simplifiant le développement et favorisant la réutilisation du code.
+
+- `Service/` : Gère la logique métier, comme la gestion des informations des patients et des dossiers médicaux dans un contexte de santé.
+
+- `Security/` : Responsable de la sécurité de l'application, incluant l'authentification et l'autorisation des utilisateurs.
+
+- `Repository/` : Interagit avec la base de données, en encapsulant la logique d'accès aux données.
+
+- `Model/` : Définit la structure des entités de l'application et leur mappage avec la base de données.
+
+- `Exception/` : Gère les erreurs et exceptions, permettant une meilleure gestion des cas d'erreurs et une réponse adéquate à l'utilisateur ou au système.
+
+- `DTO/` (Data Transfer Object) : Utilisé pour le transfert de données entre différentes parties de l'application, optimisant les interactions, notamment en réduisant le nombre d'appels à la base de données.
+
+- `Controller/` : Traite les requêtes HTTP, agissant comme intermédiaire entre le frontend et le backend, en transférant les données requises.
+
+- `Config/` : Contient la configuration de l'application et des APIs, comme les paramètres de connexion à la base de données, les configurations de sécurité, etc.
+
+- `App/` : Classe principale de lancement de l'application dans un cadre Spring Boot, configurant et démarrant le serveur backend.
+
+
+
 # Diagramme de conception architecturale
 <a id="architecture-main"></a>
 Cette section illustre le diagramme de conception architecturale de notre système, optant pour une architecture microservices pour son développement.
