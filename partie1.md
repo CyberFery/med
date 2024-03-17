@@ -96,10 +96,10 @@ Un dossier médical est créé pour chaque personne inscrite à la RAMQ. De plus
 Cette section présente les diagrammes de classes du système, illustrant les relations entre les différentes classes. Elle détaille également les responsabilités de chacune d'entre elles.
 
 ## Vue d'ensemble des différentes classes du systèmes
-![](./_models/classDiagram/SystemDiagram.png)
+![](./_models/classDiagram/systemDiagram.png)
 
 ## Diagramme de classes des acteurs
-![](./_models/classDiagram/Users.png)
+![](./_models/classDiagram/users.png)
 
 ### - Utilisation du patron `Polymorphisme`
 Ce patron a été utilisé pour représenter les différents types d'acteurs qui intéragit avec notre système. En effet, la classe `User` hérite de la classe `Person`, les classes `Patient`, `Doctor`et `HealthProfessional` héritent de la classe `User`. 
