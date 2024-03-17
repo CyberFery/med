@@ -214,6 +214,49 @@ Le patient met à jour ses informations de contact (adresse, numéro de téléph
 ### Justification
 Ce processus est essentiel pour maintenir une communication efficace entre les patients et les prestataires de soins de santé. La possibilité de mettre à jour ces informations de manière indépendante par le patient souligne l'importance de l'autonomie du patient et de la précision des données dans le système de santé.
 
+
+# Diagrammes de Séquence pour les interactions entre les APIs
+
+Les diagrammes de séquence suivants représentent différentes opérations réalisées au sein de l'application de gestion des dossiers médicaux. Ils illustrent les interactions entre l'interface utilisateur, les gateways, les services d'API, les bases de données, et les services d'archivage.
+
+## 1. Création de dossier médical
+
+**Interactions :** L'utilisateur initie la demande de création d'un dossier médical via l'interface utilisateur. Cette demande est transmise à travers un API Gateway qui relaye la demande au service API Ramq, lequel crée le dossier et le sauvegarde via le service API des dossiers médicaux. Enfin, le dossier est ajouté à la base de données des dossiers médicaux.
+
+**Justification :** Ce flux garantit une séparation claire des responsabilités entre les différents services et permet une meilleure modularité et sécurité. L'utilisation d'un API Gateway facilite la gestion des requêtes et la sécurisation des accès.
+
+## 2. Reconstitution de dossier à partir de modifications
+
+**Interactions :** À la demande de l'utilisateur, le système récupère une modification spécifique via l'API Gateway et le service API Ramq, qui demande ensuite au service des dossiers médicaux de récupérer cette modification dans le service d'archivage des modifications. Le dossier médical est reconstruit à partir de cette modification et sauvegardé dans une base de données dédiée.
+
+**Justification :** Ce processus permet de retracer et d'appliquer des modifications spécifiques à un dossier médical existant, assurant ainsi l'intégrité des données et la possibilité de revenir à un état antérieur si nécessaire.
+
+## 3. Reconstitution de dossier à partir d'une date
+
+**Interactions :** L'utilisateur demande la reconstitution d'un dossier à partir d'une date donnée. Le service API Ramq récupère les données pertinentes pour cette date et les traite pour reconstruire le dossier, qui est ensuite sauvegardé dans une copie de base de données.
+
+**Justification :** Ce flux est utile pour restaurer l'état d'un dossier médical à un moment précis, permettant une flexibilité et une gestion efficace des historiques de dossiers médicaux.
+
+## 4. Application d'une modification sur un dossier
+
+**Interactions :** Une modification est demandée par l'utilisateur et traitée par le service des dossiers médicaux, qui met à jour le dossier dans la base de données et enregistre la modification dans le service d'archive des modifications.
+
+**Justification :** Ce processus assure que toutes les modifications apportées à un dossier sont correctement enregistrées et traçables, ce qui est crucial pour la gestion des données médicales et leur intégrité.
+
+## 5. Annulation d'une modification de dossier
+
+**Interactions :** Sur demande de l'utilisateur, une modification spécifique d'un dossier est annulée. Le dossier est mis à jour pour refléter l'annulation, et la modification est supprimée de l'archive des modifications.
+
+**Justification :** Ce mécanisme permet de gérer efficacement les erreurs ou les changements d'avis en permettant l'annulation de modifications précédemment appliquées, garantissant ainsi la flexibilité et la correction des données.
+
+## 6. Authentification d'utilisateur
+
+**Interactions :** L'utilisateur soumet ses identifiants via l'interface, qui sont vérifiés par le service d'authentification. En cas de succès, un jeton d'accès est généré et retourné à l'utilisateur. En cas d'échec, un message d'erreur est affiché.
+
+**Justification :** Ce processus est essentiel pour sécuriser l'accès au système, en s'assurant que seuls les utilisateurs autorisés peuvent effectuer des opérations sensibles ou accéder à des informations confidentielles.
+
+Chaque diagramme illustre un aspect spécifique de la gestion des dossiers médicaux dans un système informatique, mettant en évidence l'importance de la modularité, de la sécurité, et de la traçabilité dans la conception de tels systèmes.
+
 # Diagramme de conception architecturale
 <a id="architecture-main"></a>
 Cette section illustre le diagramme de conception architecturale de notre système, optant pour une architecture microservices pour son développement.
