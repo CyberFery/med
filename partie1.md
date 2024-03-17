@@ -38,7 +38,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 
 
 ## Table des matières
-- [Diagrammes de cas d'utilisation](#usecase-main) 
+- [Diagrammes de cas d'utilisation](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagrammes-de-cas-dutilisation) 
     - Diagramme de cas d'utilisation du dossier médical 
         - Cas d'utilisation : Consulter dossier médical
     - Diagramme de cas d'utilisation du médecin
@@ -95,11 +95,11 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
   - Système d'authentification
   - Système de consultation de dossier médical
   - Système de modification de dossier médical
-- [Diagrammes de déploiement](#deploiement-main)
+- [Diagrammes de déploiement](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie1.md?ref_type=heads#diagramme-de-d%C3%A9ploiement)
 
 ---
 # Diagrammes de cas d'utilisation 
-<a id="usecase-main"></a>
+
 Cette section présente les diagrammes de cas d'utilisation modélisant les fonctionnalités du système du point de vue des acteurs.
 
 ## Diagramme de cas d'utilisation du dossier médical 
@@ -125,7 +125,7 @@ Un dossier médical est créé pour chaque personne inscrite à la RAMQ. De plus
 
 
 # Diagrammes de classes
-<a id="class-main"></a>
+
 Cette section présente les diagrammes de classes du système, illustrant les relations entre les différentes classes. Elle détaille également les responsabilités de chacune d'entre elles.
 
 ## Vue d'ensemble des différentes classes du systèmes
@@ -324,7 +324,7 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 **Justification :** Ce flux illustre une opération de consultation de données sécurisée et efficace. L'utilisation d'un API Gateway centralise les requêtes et renforce la sécurité en contrôlant l'accès aux services internes. Le service API des dossiers médicaux agit comme un intermédiaire entre la base de données et l'interface utilisateur, permettant une abstraction de la logique d'accès aux données et facilitant d'éventuelles évolutions du système de stockage des données. Cette séparation des responsabilités assure une meilleure maintenance du système et une plus grande sécurité des données sensibles, en limitant l'accès direct à la base de données. La demande de visualisation d'un dossier médical est une fonctionnalité essentielle dans les systèmes de gestion des dossiers médicaux, permettant aux utilisateurs autorisés d'accéder rapidement et de façon sécurisée aux informations médicales nécessaires.
 
 # Diagrammes de packages 
-<a id="package-main"></a>
+
 
 ## FRONTEND
 
@@ -444,7 +444,7 @@ fonctionnement optimal</u> de l'ensemble de notre système.
 
 
 # Diagramme des composants
-<a id="composant-main"></a>
+
 
 Les diagrammes de composants sont un type de vue statique qui représente la structure du système. Un diagramme de 
 composant décrit le système modélisé sous forme de composants réutilisables et met en évidence leurs relations de 
@@ -494,7 +494,7 @@ est le même que celui utilisé dans le système de création de dossiers médic
 à sa modularité.
 
 # Diagramme de déploiement
-<a id="deploiement-main"></a>
+
 Cette section présente le diagramme de déploiement du système de documentation médicale centralisée décrit dans ce 
 rapport. Le diagramme de déploiement identifie les éléments matériels du système.
 
