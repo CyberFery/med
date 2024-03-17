@@ -1,81 +1,108 @@
-# Vuetify (Default)
+# Vuetify (Par défaut)
 
-This is the official scaffolding tool for Vuetify, designed to give you a head start in building your new Vuetify application. It sets up a base template with all the necessary configurations and standard directory structure, enabling you to begin development without the hassle of setting up the project from scratch.
+Ceci est l'outil de base officiel pour Vuetify, conçu pour vous donner un coup de pouce dans la construction de votre
+nouvelle application Vuetify. Il met en place un modèle de base avec toutes les configurations nécessaires et une
+structure de répertoires standard, vous permettant de commencer le développement sans les tracas de la configuration du
+projet à partir de zéro.
 
-## ❗️ Important Links
+## ❗️ Liens Importants
 
-- 📄 [Docs](https://vuetifyjs.com/)
-- 🚨 [Issues](https://issues.vuetifyjs.com/)
-- 🏬 [Store](https://store.vuetifyjs.com/)
-- 🎮 [Playground](https://play.vuetifyjs.com/)
+- 📄 [Documentation](https://vuetifyjs.com/)
+- 🚨 [Problèmes](https://issues.vuetifyjs.com/)
+- 🏬 [Boutique](https://store.vuetifyjs.com/)
+- 🎮 [Espace de jeu](https://play.vuetifyjs.com/)
 - 💬 [Discord](https://community.vuetifyjs.com)
 
-## 💿 Install
+## 💿 Installation
 
-Set up your project using your preferred package manager. Use the corresponding command to install the dependencies:
+Configurez votre projet en utilisant votre gestionnaire de paquets préféré. Utilisez la commande correspondante pour
+installer les dépendances :
 
-| Package Manager                                                | Command        |
-|---------------------------------------------------------------|----------------|
-| [yarn](https://yarnpkg.com/getting-started)                   | `yarn install` |
-| [npm](https://docs.npmjs.com/cli/v7/commands/npm-install)     | `npm install`  |
-| [pnpm](https://pnpm.io/installation)                          | `pnpm install` |
-| [bun](https://bun.sh/#getting-started)                        | `bun install`  |
+| Gestionnaire de Paquets                                   | Commande       |
+|-----------------------------------------------------------|----------------|
+| [yarn](https://yarnpkg.com/getting-started)               | `yarn install` |
+| [npm](https://docs.npmjs.com/cli/v7/commands/npm-install) | `npm install`  |
+| [pnpm](https://pnpm.io/installation)                      | `pnpm install` |
+| [bun](https://bun.sh/#getting-started)                    | `bun install`  |
 
-After completing the installation, your environment is ready for Vuetify development.
+Une fois l'installation terminée, votre environnement est prêt pour le développement Vuetify.
 
-## ✨ Features
+## ✨ Fonctionnalités
 
-- 🖼️ **Optimized Front-End Stack**: Leverage the latest Vue 3 and Vuetify 3 for a modern, reactive UI development experience. [Vue 3](https://v3.vuejs.org/) | [Vuetify 3](https://vuetifyjs.com/en/)
-- 🗃️ **State Management**: Integrated with [Pinia](https://pinia.vuejs.org/), the intuitive, modular state management solution for Vue.
-- 🚦 **Routing and Layouts**: Utilizes Vue Router for SPA navigation and vite-plugin-vue-layouts for organizing Vue file layouts. [Vue Router](https://router.vuejs.org/) | [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts)
-- 💻 **Enhanced Development Experience**: Benefit from TypeScript's static type checking and the ESLint plugin suite for Vue, ensuring code quality and consistency. [TypeScript](https://www.typescriptlang.org/) | [ESLint Plugin Vue](https://eslint.vuejs.org/)
-- ⚡ **Next-Gen Tooling**: Powered by Vite, experience fast cold starts and instant HMR (Hot Module Replacement). [Vite](https://vitejs.dev/)
-- 🧩 **Automated Component Importing**: Streamline your workflow with unplugin-vue-components, automatically importing components as you use them. [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
-- 🛠️ **Strongly-Typed Vue**: Use vue-tsc for type-checking your Vue components, and enjoy a robust development experience. [vue-tsc](https://github.com/johnsoncodehk/volar/tree/master/packages/vue-tsc)
+- 🖼️ **Stack Front-End Optimisée** : Utilisez les dernières versions de Vue 3 et Vuetify 3 pour une expérience de
+  développement d'interface utilisateur moderne et
+  réactive. [Vue 3](https://v3.vuejs.org/) | [Vuetify 3](https://vuetifyjs.com/en/)
+- 🗃️ **Gestion de l'État** : Intégré avec [Pinia](https://pinia.vuejs.org/), la solution de gestion de l'état intuitive
+  et modulaire pour Vue.
+- 🚦 **Routing et Mises en Page** : Utilise Vue Router pour la navigation SPA et vite-plugin-vue-layouts pour organiser
+  les mises en page des fichiers
+  Vue. [Vue Router](https://router.vuejs.org/) | [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts)
+- 💻 **Expérience de Développement Améliorée** : Bénéficiez de la vérification de type statique de TypeScript et de la
+  suite de plugins ESLint pour Vue, assurant la qualité et la cohérence du
+  code. [TypeScript](https://www.typescriptlang.org/) | [Plugin ESLint Vue](https://eslint.vuejs.org/)
+- ⚡ **Outils de Nouvelle Génération** : Alimenté par Vite, bénéficiez de démarrages rapides et de remplacement
+  instantané des modules chauds (HMR). [Vite](https://vitejs.dev/)
+- 🧩 **Importation Automatique des Composants** : Simplifiez votre flux de travail avec unplugin-vue-components, qui
+  importe automatiquement les composants au fur et à mesure de leur
+  utilisation. [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
+- 🛠️ **Vue à Typage Fort** : Utilisez vue-tsc pour vérifier le type de vos composants Vue et profitez d'une expérience
+  de développement robuste. [vue-tsc](https://github.com/johnsoncodehk/volar/tree/master/packages/vue-tsc)
 
-These features are curated to provide a seamless development experience from setup to deployment, ensuring that your Vuetify application is both powerful and maintainable.
+Ces fonctionnalités sont conçues pour offrir une expérience de développement fluide de la configuration au déploiement,
+garantissant que votre application Vuetify est à la fois puissante et maintenable.
 
-## 💡 Usage
+## 💡 Utilisation
 
-This section covers how to start the development server and build your project for production.
+Cette section couvre comment démarrer le serveur de développement et construire votre projet pour la production.
 
-### Starting the Development Server
+### Démarrage du Serveur de Développement
 
-To start the development server with hot-reload, run the following command. The server will be accessible at [http://localhost:3000](http://localhost:3000):
+Pour démarrer le serveur de développement avec le rechargement à chaud, exécutez la commande suivante. Le serveur sera
+accessible à [http://localhost:3000](http://localhost:3000) :
 
 ```bash
 yarn dev
 ```
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+(Répétez pour npm, pnpm et bun avec les commandes respectives.)
 
-> NODE_OPTIONS='--no-warnings' is added to suppress the JSON import warnings that happen as part of the Vuetify import mapping. If you are on Node [v21.3.0](https://nodejs.org/en/blog/release/v21.3.0) or higher, you can change this to NODE_OPTIONS='--disable-warning=5401'. If you don't mind the warning, you can remove this from your package.json dev script.
+> NODE_OPTIONS='--no-warnings' est ajouté pour supprimer les avertissements d'importation JSON qui se produisent dans le
+> cadre de l'association d'
 
-### Building for Production
+importation de Vuetify. Si vous utilisez Node [v21.3.0](https://nodejs.org/en/blog/release/v21.3.0) ou une version
+supérieure, vous pouvez changer cela en NODE_OPTIONS='--disable-warning=5401'. Si les avertissements ne vous dérangent
+pas, vous pouvez supprimer ceci de votre script dev package.json.
 
-To build your project for production, use:
+### Construction pour la Production
+
+Pour construire votre projet pour la production, utilisez :
 
 ```bash
 yarn build
 ```
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+(Répétez pour npm, pnpm et bun avec les commandes respectives.)
 
-Once the build process is completed, your application will be ready for deployment in a production environment.
+Une fois le processus de construction terminé, votre application sera prête pour le déploiement dans un environnement de
+production.
 
-## 💪 Support Vuetify Development
+## 💪 Soutenir le Développement Vuetify
 
-This project is built with [Vuetify](https://vuetifyjs.com/en/), a UI Library with a comprehensive collection of Vue components. Vuetify is an MIT licensed Open Source project that has been made possible due to the generous contributions by our [sponsors and backers](https://vuetifyjs.com/introduction/sponsors-and-backers/). If you are interested in supporting this project, please consider:
+Ce projet est construit avec [Vuetify](https://vuetifyjs.com/en/), une bibliothèque d'interface utilisateur avec une
+collection complète de composants Vue. Vuetify est un projet Open Source sous licence MIT rendu possible grâce aux
+généreuses contributions de nos [sponsors et backers](https://vuetifyjs.com/introduction/sponsors-and-backers/). Si vous
+êtes intéressé par le soutien de ce projet, veuillez envisager :
 
-- [Requesting Enterprise Support](https://support.vuetifyjs.com/)
-- [Sponsoring John on Github](https://github.com/users/johnleider/sponsorship)
-- [Sponsoring Kael on Github](https://github.com/users/kaelwd/sponsorship)
-- [Supporting the team on Open Collective](https://opencollective.com/vuetify)
-- [Becoming a sponsor on Patreon](https://www.patreon.com/vuetify)
-- [Becoming a subscriber on Tidelift](https://tidelift.com/subscription/npm/vuetify)
-- [Making a one-time donation with Paypal](https://paypal.me/vuetify)
+- [Demander un Support Entreprise](https://support.vuetifyjs.com/)
+- [Sponsoriser John sur Github](https://github.com/users/johnleider/sponsorship)
+- [Sponsoriser Kael sur Github](https://github.com/users/kaelwd/sponsorship)
+- [Soutenir l'équipe sur Open Collective](https://opencollective.com/vuetify)
+- [Devenir sponsor sur Patreon](https://www.patreon.com/vuetify)
+- [Devenir abonné sur Tidelift](https://tidelift.com/subscription/npm/vuetify)
+- [Faire un don ponctuel avec Paypal](https://paypal.me/vuetify)
 
-## 📑 License
+## 📑 Licence
+
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2016-present Vuetify, LLC
+Droits d'auteur (c) 2016-présent Vuetify, LLC
