@@ -1,0 +1,80 @@
+@startuml
+
+package "public" #A9DFBF {
+    [index.html]
+
+}
+
+package "src" #AED6F1 {
+    package "assets" #F9E79F {
+        package "images" #D7BDE2 {
+        }
+        package "styles" #FAD7A0 {
+        }
+    }
+    package "components" #ABEBC6 {
+        [Header.vue]
+        [Sidebar.vue]
+    }
+    package "views" #D6EAF8 {
+        [Home.vue]
+        [About.vue]
+    }
+    [App.vue] #A3E4D7
+    [main.ts] #EDBB99
+    [router.ts] #F5CBA7
+}
+
+package "tests" #CACFD2 {
+    [unit]
+    [integration]
+}
+
+@enduml
+
+@startuml
+skinparam folderBackgroundColor #D9EAD3
+skinparam folderBorderColor #6AA84F
+
+folder backend {
+    folder database #E6B8AF {
+        database "medical_records.sqlite" #EAD1DC
+        database "modifications_archive.sqlite" #EAD1DC
+        database "medical_records_copies.sqlite" #EAD1DC
+        database "authentication.sqlite" #EAD1DC
+    }
+
+    folder "uqam.team17.<api>" #A4C2F4{
+        folder app #C9DAF8 {
+        }
+
+        folder config #C9DAF8 {
+        }
+
+        folder controller #C9DAF8 {
+        }
+
+        folder dto #C9DAF8 {
+        }
+
+        folder exception #C9DAF8 {
+        }
+
+        folder model #C9DAF8 {
+        }
+
+        folder repository #C9DAF8 {
+        }
+
+        folder security #C9DAF8 {
+        }
+
+        folder service #C9DAF8 {
+        }
+
+        folder util #C9DAF8 {
+        }
+    }
+}
+
+@enduml
