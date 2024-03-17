@@ -74,6 +74,10 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Authentification d'utilisateur
         - Visualisation de dossier médical
 - Diagrammes de package
+    - FRONTEND
+        - Structure des Dossiers
+    - BACKEND
+        - Structure des Dossiers
 - [Diagrammes de conception architecturale](#architecture-main)
     - Frontend - User interface - Application VuesJS et/ou une application Java
     - Backend - APIs RESTful - Applications Springboot
