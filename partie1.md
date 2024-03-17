@@ -91,7 +91,11 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
     - Résumé
 
 - [Diagrammes de composants](#composant-main)
-- Diagrammes de déploiement
+  - Système de création de dossier médical
+  - Système d'authentification
+  - Système de consultation de dossier médical
+  - Système de modification de dossier médical
+- [Diagrammes de déploiement](#deploiement-main)
 
 ---
 # Diagrammes de cas d'utilisation 
@@ -448,3 +452,46 @@ dépendances. Un composant est une entité indépendante et exécutable qui four
 utilise des services. Cette section représente les diagrammes de composant des différents systèmes qui compose 
 l'application. 
 
+### Système de création de dossier médical
+
+![](./_models/ComponentDiagram/Creation_component.png)
+
+La création d'un dossier médical implique l'interaction de plusieurs composants abstraits. La `RAMQ` requiert une 
+interface pour créer un dossier médical. Cette interface est fournie par le composant `Creator`, dont la responsabilité 
+est de créer un objet, en l'occurrence un dossier médical dans ce contexte. Pour compléter la création du dossier 
+médical, `Creator` nécessite une interface fournie par le composant `Recorder`. Cette interface communique avec `Recorder`
+afin que le dossier médical soit enregistré. La responsabilité de `Recorder` est de sauvegarder les objets qu'il reçoit 
+dans la base de données appropriée.
+
+### Système d'authentification
+
+![](./_models/ComponentDiagram/Authentication_component.png)
+
+Tous les utilisateurs du système doivent s'authentifier. Pour ce faire, l'utilisateur `User` utilise l'interface graphique
+utilisateur `User GUI` pour envoyer une demande de connexion. Pour connecter l'utilisateur, `UserGUI` requiert une 
+interface fournie par le composant `Administrator`. Le composant `Administrator` est composé de différentes classes 
+qui ont la responsabilité de vérifier les accès de l'utilisateur en fonction des informations de la base de données
+et d'ouvrir sa session.
+
+### Système de consultation de dossier médical
+
+![](./_models/ComponentDiagram/Consultation_component.png)
+
+Après l'ouverture de sa session, l'utilisateur peut consulter le dossier médical auquel il a accès. Pour ce faire, 
+`UserGUI` utilise une interface offerte par Viewer. La composante `Viewer` a pour seule responsabilité de lire une 
+base de données. Les informations fournies au composant lui permettent d'établir quel objet `Viewer` doit renvoyer 
+sous forme de lecture seule.
+
+### Système de modification de dossier médical
+
+![](./_models/ComponentDiagram/Modification_component.png)
+
+Les médecins utilisent une interface graphique utilisateur spécialisée, `DoctorGUI`, lorsqu'ils souhaitent modifier un 
+dossier médical. `DoctorGUI` fait appel aux interfaces du composant `Modificator` pour effectuer des modifications ou 
+annuler une modification dans un dossier médical. La responsabilité de `Modificator` est de recevoir ces modifications 
+et d'utiliser les services offerts par `Recorder` pour les enregistrer dans la base de données. Le composant `Recorder`
+est le même que celui utilisé dans le système de création de dossiers médicaux, ce dernier pouvant être réutilisé grâce 
+à sa modularité.
+
+# Diagramme de déploiement
+<a id="deploiement-main"></a>
