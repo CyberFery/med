@@ -155,16 +155,17 @@ database "medical_records.sqlite" as MedicalDB
 database "medical_records_copies.sqlite" as RamqDB
 
 
-UI -> Gateway: requestRecreationFromModification(record, modificationID)
-Gateway -> RamqService: recreateFromModification(record, modificationID)
-RamqService -> RecordService: retrieveModification(record, modificationID)
+UI -> Gateway: requestRecreationFromModification(healthInsuranceNumber, modificationID)
+Gateway -> RamqService: recreateFromModification(healthInsuranceNumber, modificationID)
+RamqService -> RecordService: retrieveModification(healthInsuranceNumber, modificationID)
 
 
 RecordService -> ArchiveService: getModification(modificationID)
 ArchiveService --> RecordService: return modification
 
 
-RecordService -> MedicalDB: rebuildFromModification(record, modification)
+
+RecordService -> MedicalDB: rebuildFromModification(healthInsuranceNumber, modification)
 MedicalDB --> RecordService:
 
 
@@ -221,13 +222,13 @@ database "medical_records.sqlite" as MedicalDB
 database "modifications_archive.sqlite" as ModDB
 
 
-UI -> Gateway: requestModification(record, modification)
+UI -> Gateway: requestModification(healthInsuranceNumber, modification)
 
 
-Gateway -> RecordService: applyModification(record, modification)
+Gateway -> RecordService: applyModification(healthInsuranceNumber, modification)
 
 
-RecordService -> MedicalDB: updateRecord(record, modification)
+RecordService -> MedicalDB: updateRecord(healthInsuranceNumber, modification)
 MedicalDB --> RecordService: return updateConfirmation
 
 
@@ -254,11 +255,11 @@ database "medical_records.sqlite" as MedicalDB
 database "modifications_archive.sqlite" as ModDB
 
 
-UI -> Gateway: requestCancelModification(record, modification)
+UI -> Gateway: requestCancelModification(healthInsuranceNumber, modification)
 
 
-Gateway -> RecordService: cancelModification(record, modification)
-RecordService -> MedicalDB: cancelModification(record, modification)
+Gateway -> RecordService: cancelModification(healthInsuranceNumber, modification)
+RecordService -> MedicalDB: cancelModification(healthInsuranceNumber, modification)
 MedicalDB --> RecordService: cancelConfirmation
 
 RecordService -> ArchiveService: remove(modification)
@@ -295,3 +296,20 @@ else credentials invalid
 end
 @enduml
 
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Medical Record Service" as MedRecordService
+database "Medical Records DB" as MedDB
+
+UI -> Gateway: requestViewMedicalRecord(healthInsuranceNumber)
+
+
+Gateway -> MedRecordService: getMedicalRecord(healthInsuranceNumber)
+
+MedRecordService -> MedDB: fetchMedicalRecord(healthInsuranceNumber)
+MedDB --> MedRecordService:return medicalRecord
+
+MedRecordService --> Gateway: return medicalRecord
+Gateway -> UI: display(medicalRecord)
+@enduml
