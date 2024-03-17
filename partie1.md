@@ -30,13 +30,13 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 
 
 ## Table des matières
-- Diagrammes de cas d'utilisation 
+- [Diagrammes de cas d'utilisation](#usecase-main) 
     - Diagramme de cas d'utilisation du dossier médical 
         - Cas d'utilisation : Consulter dossier médical
     - Diagramme de cas d'utilisation du médecin
     - Diagramme de cas d'utilisation du patient
     - Diagramme de cas d'utilisation de la RAMQ
-- Diagrammes de classes
+- [Diagrammes de classes](#class-main)
     - Vue d'ensemble des différentes classes du systèmes
     - Diagramme de classes des acteurs
         - Utilisation du patron `Polymorphisme`
@@ -51,7 +51,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 
 - Diagrammes de séquence
 - Diagrammes de package
-- Diagrammes de conception architecturale
+- [Diagrammes de conception architecturale](#architecture-main)
     - Frontend - User interface - Application VuesJS et/ou une application Java
     - Backend - APIs RESTful - Applications Springboot
         - API Gateway
@@ -63,11 +63,12 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Explication des microservices
     - Résumé
 
-- Diagrammes de composants
+- [Diagrammes de composants](#composant-main)
 - Diagrammes de déploiement
 
 ---
 # Diagrammes de cas d'utilisation 
+<a id="usecase-main"></a>
 Cette section présente les diagrammes de cas d'utilisation modélisant les fonctionnalités du système du point de vue des acteurs.
 
 ## Diagramme de cas d'utilisation du dossier médical 
@@ -93,6 +94,7 @@ Un dossier médical est créé pour chaque personne inscrite à la RAMQ. De plus
 
 
 # Diagrammes de classes
+<a id="class-main"></a>
 Cette section présente les diagrammes de classes du système, illustrant les relations entre les différentes classes. Elle détaille également les responsabilités de chacune d'entre elles.
 
 ## Vue d'ensemble des différentes classes du systèmes
@@ -139,6 +141,7 @@ La classe `MedicalRecord` offre les services suivants :
 Ces méthodes sont publiques, car elles permettent à la classe `MedicalRecord` d'acquitter ces responsabilités.  
 
 # Diagramme de conception architecturale
+<a id="architecture-main"></a>
 Cette section illustre le diagramme de conception architecturale de notre système, optant pour une architecture microservices pour son développement.
 
 > TODO Si vous pouvez juste ajouter l'image du diagramme UML ici svp.
@@ -203,7 +206,7 @@ fonctionnement optimal</u> de l'ensemble de notre système.
 
 
 # Diagramme des composants
-<a id="composant-one"></a>
+<a id="composant-main"></a>
 
 Les diagrammes de composants sont un type de vue statique qui représente la structure du système. Un diagramme de 
 composant décrit le système modélisé sous forme de composants réutilisables et met en évidence leurs relations de 
