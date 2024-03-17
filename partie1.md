@@ -16,6 +16,14 @@
   doivent être disponible à la racine de votre projet dans la branche principale (_main_ dans notre cas) avant le **17
   mars 2024 à 23h55**.
 
+
+# Dossier Médical Centralisé
+## INF5153 - Génie logiciel : Conception - HIVER 2024
+### UQAM - Département Informatique - Groupe 30
+#### Sous la supervision de Serge Dogny
+
+---
+
 # Rapport du dossier médical centralisé
 Le dossier médical centralisé est un logiciel permettant aux utilisateurs du système de santé québécois d'avoir un dossier médical centralisé, peu importe le médecin ou l'établissement qu'ils fréquentent. Ce rapport modélise la conception du système.
 
@@ -50,6 +58,21 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Justification des méthodes publiques du dossier médical
 
 - Diagrammes de séquence
+    - Diagrammes de Séquence pour les interactions entre les classes
+        - Consultation d'un dossier médical
+        - Mise à jour d'un dossier médical par un médecin
+        - Annulation d'une modification d'un dossier médical par un médecin
+        - Création d'un dossier médical
+        - Recréation d'un dossier médical
+        - Mise à jour des informations de contact d'un patien
+    - Diagrammes de Séquence pour les interactions entre les APIs
+        - Création de dossier médical
+        - Reconstitution de dossier à partir de modifications
+        - Reconstitution de dossier à partir d'une date
+        - Application d'une modification sur un dossier
+        - Annulation d'une modification de dossier
+        - Authentification d'utilisateur
+        - Visualisation de dossier médical
 - Diagrammes de package
 - [Diagrammes de conception architecturale](#architecture-main)
     - Frontend - User interface - Application VuesJS et/ou une application Java
