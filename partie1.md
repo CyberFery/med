@@ -16,6 +16,14 @@
   doivent être disponible à la racine de votre projet dans la branche principale (_main_ dans notre cas) avant le **17
   mars 2024 à 23h55**.
 
+
+# Dossier Médical Centralisé
+## INF5153 - Génie logiciel : Conception - HIVER 2024
+### UQAM - Département Informatique - Groupe 30
+#### Sous la supervision de Serge Dogny
+
+---
+
 # Rapport du dossier médical centralisé
 Le dossier médical centralisé est un logiciel permettant aux utilisateurs du système de santé québécois d'avoir un dossier médical centralisé, peu importe le médecin ou l'établissement qu'ils fréquentent. Ce rapport modélise la conception du système.
 
@@ -49,8 +57,27 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
         - Utilisation du patron `forte cohésion`
         - Justification des méthodes publiques du dossier médical
 
-- Diagrammes de séquence
-- Diagrammes de package
+- [Diagrammes de séquence](#sequence-main)
+    - Diagrammes de Séquence pour les interactions entre les classes
+        - Consultation d'un dossier médical
+        - Mise à jour d'un dossier médical par un médecin
+        - Annulation d'une modification d'un dossier médical par un médecin
+        - Création d'un dossier médical
+        - Recréation d'un dossier médical
+        - Mise à jour des informations de contact d'un patien
+    - Diagrammes de Séquence pour les interactions entre les APIs
+        - Création de dossier médical
+        - Reconstitution de dossier à partir de modifications
+        - Reconstitution de dossier à partir d'une date
+        - Application d'une modification sur un dossier
+        - Annulation d'une modification de dossier
+        - Authentification d'utilisateur
+        - Visualisation de dossier médical
+- [Diagrammes de package](#package-main)
+    - FRONTEND
+        - Structure des Dossiers
+    - BACKEND
+        - Structure des Dossiers
 - [Diagrammes de conception architecturale](#architecture-main)
     - Frontend - User interface - Application VuesJS et/ou une application Java
     - Backend - APIs RESTful - Applications Springboot
@@ -138,13 +165,220 @@ La classe `MedicalRecord` offre les services suivants :
 - Consulter un dossier médical en utilisant la méthode `consultMedicalRecord()`. Elle obtient cette méthode en implémentant l'interface `RecordViewer`.
 - Modifier et supprimer les modifications apporter au dossier médical en utilisant les méthodes `updateMedicalRecord` et `cancelMedicalRecord()` en implémentant l'interface `RecordModifier`.
 
-Ces méthodes sont publiques, car elles permettent à la classe `MedicalRecord` d'acquitter ces responsabilités.  
+Ces méthodes sont publiques, car elles permettent à la classe `MedicalRecord` d'acquitter ces responsabilités.
+
+# Diagrammes de Séquence
+<a id="sequence-main"></a>
+
+# Diagrammes de Séquence pour les interactions entre les classes
+
+Ces diagrammes de séquence illustrent différents aspects de l'interaction entre les classes de  l'application de gestion des dossiers médicaux.
+
+## 1. Consultation d'un dossier médical
+
+![](./_models/SequenceDiagrams/Class_ConsultMedicalRecord.png)
+
+### Participants
+- Utilisateur (User)
+- Registre des Dossiers Médicaux (Medical Record Registry)
+- Dossier Médical (Medical Record)
+
+### Processus
+L'utilisateur demande à consulter un dossier médical par son numéro d'assurance maladie. Le registre cherche et retrouve le dossier correspondant, puis déclenche la consultation du dossier. Enfin, les informations du dossier médical sont affichées à l'utilisateur.
+
+### Justification
+Ce processus garantit que les informations médicales sont accessibles rapidement et de manière sécurisée. L'activation et la désactivation des composants illustrent le contrôle de flux et la gestion des ressources, assurant ainsi que le système est efficace et sécurisé.
+
+## 2. Mise à jour d'un dossier médical par un médecin
+
+![](./_models/SequenceDiagrams/Class_updateRecord.png)
+
+### Participants
+- Médecin (Doctor)
+- Registre des Dossiers Médicaux (MedicalRecordRegistry)
+- Dossier Médical (MedicalRecord)
+
+### Processus
+Le médecin demande le dossier médical d'un patient. Une fois reçu, il procède à la mise à jour du dossier. La confirmation de la mise à jour est ensuite renvoyée au médecin.
+
+### Justification
+Ce diagramme montre l'importance de maintenir les dossiers médicaux à jour pour la prise en charge des patients. Le passage par le registre assure l'intégrité et la centralisation des données.
+
+## 3. Annulation d'une modification d'un dossier médical par un médecin
+
+![](./_models/SequenceDiagrams/Class_cancelModification.png)
+
+### Processus et participants
+Similaires au diagramme de mise à jour.
+
+### Justification
+Ce scénario souligne la flexibilité du système en permettant aux médecins d'annuler des modifications. Cela peut être crucial en cas d'erreur de saisie ou de changement d'avis, contribuant ainsi à l'exactitude des dossiers médicaux.
+
+## 4. Création d'un dossier médical
+
+![](./_models/SequenceDiagrams/Class_CreateRecord.png)
+
+### Participants
+- RAMQ
+- Registre des Dossiers Médicaux (MedicalRecordRegistry)
+
+### Processus
+La RAMQ envoie une demande de création d'un nouveau dossier médical. Le registre traite cette demande et confirme la création.
+
+### Justification
+Ce processus illustre la collaboration entre la RAMQ et le registre pour assurer que chaque citoyen dispose d'un dossier médical, facilitant ainsi la gestion de la santé publique.
+
+## 5. & 6. Recréation d'un dossier médical
+
+![](./_models/SequenceDiagrams/Class_RecreateFromModification.png)
+![](./_models/SequenceDiagrams/Class_RecreateFromDate.png)
+
+### Participants
+- RAMQ
+- Registre des Dossiers Médicaux (MedicalRecordRegistry)
+
+### Processus
+Après avoir récupéré un dossier médical, la RAMQ effectue une opération de recréation du dossier, soit en spécifiant une date, soit une modification particulière.
+
+### Justification
+Ces diagrammes peuvent refléter des scénarios où il est nécessaire de restaurer ou de mettre à jour un dossier médical à la suite d'une perte de données ou d'une correction d'erreurs, assurant ainsi l'intégrité et la continuité des soins.
+
+## 7. Mise à jour des informations de contact d'un patient
+
+![](./_models/SequenceDiagrams/Class_updateInfo.png)
+
+### Participants
+- Patient
+- Informations de Contact (ContactInformation)
+
+### Processus
+Le patient met à jour ses informations de contact (adresse, numéro de téléphone, email) au besoin.
+
+### Justification
+Ce processus est essentiel pour maintenir une communication efficace entre les patients et les prestataires de soins de santé. La possibilité de mettre à jour ces informations de manière indépendante par le patient souligne l'importance de l'autonomie du patient et de la précision des données dans le système de santé.
+
+
+# Diagrammes de Séquence pour les interactions entre les APIs
+
+Les diagrammes de séquence suivants représentent différentes opérations réalisées au sein de l'application de gestion des dossiers médicaux. Ils illustrent les interactions entre l'interface utilisateur, les gateways, les services d'API, les bases de données, et les services d'archivage.
+
+## 1. Création de dossier médical
+
+![](./_models/SequenceDiagrams/API_CreateRecord.png)
+
+**Interactions :** L'utilisateur initie la demande de création d'un dossier médical via l'interface utilisateur. Cette demande est transmise à travers un API Gateway qui relaye la demande au service API Ramq, lequel crée le dossier et le sauvegarde via le service API des dossiers médicaux. Enfin, le dossier est ajouté à la base de données des dossiers médicaux.
+
+**Justification :** Ce flux garantit une séparation claire des responsabilités entre les différents services et permet une meilleure modularité et sécurité. L'utilisation d'un API Gateway facilite la gestion des requêtes et la sécurisation des accès.
+
+## 2. Reconstitution de dossier à partir de modifications
+
+![](./_models/SequenceDiagrams/API_RecreateFromModification.png)
+
+**Interactions :** À la demande de l'utilisateur, le système récupère une modification spécifique via l'API Gateway et le service API Ramq, qui demande ensuite au service des dossiers médicaux de récupérer cette modification dans le service d'archivage des modifications. Le dossier médical est reconstruit à partir de cette modification et sauvegardé dans une base de données dédiée.
+
+**Justification :** Ce processus permet de retracer et d'appliquer des modifications spécifiques à un dossier médical existant, assurant ainsi l'intégrité des données et la possibilité de revenir à un état antérieur si nécessaire.
+
+## 3. Reconstitution de dossier à partir d'une date
+![](./_models/SequenceDiagrams/API_RecreateFromDate.png)
+
+
+**Interactions :** L'utilisateur demande la reconstitution d'un dossier à partir d'une date donnée. Le service API Ramq récupère les données pertinentes pour cette date et les traite pour reconstruire le dossier, qui est ensuite sauvegardé dans une copie de base de données.
+
+**Justification :** Ce flux est utile pour restaurer l'état d'un dossier médical à un moment précis, permettant une flexibilité et une gestion efficace des historiques de dossiers médicaux.
+
+## 4. Application d'une modification sur un dossier
+
+![](./_models/SequenceDiagrams/API_updateRecord.png)
+
+
+**Interactions :** Une modification est demandée par l'utilisateur et traitée par le service des dossiers médicaux, qui met à jour le dossier dans la base de données et enregistre la modification dans le service d'archive des modifications.
+
+**Justification :** Ce processus assure que toutes les modifications apportées à un dossier sont correctement enregistrées et traçables, ce qui est crucial pour la gestion des données médicales et leur intégrité.
+
+## 5. Annulation d'une modification de dossier
+
+![](./_models/SequenceDiagrams/API_CancelModification.png)
+
+**Interactions :** Sur demande de l'utilisateur, une modification spécifique d'un dossier est annulée. Le dossier est mis à jour pour refléter l'annulation, et la modification est supprimée de l'archive des modifications.
+
+**Justification :** Ce mécanisme permet de gérer efficacement les erreurs ou les changements d'avis en permettant l'annulation de modifications précédemment appliquées, garantissant ainsi la flexibilité et la correction des données.
+
+## 6. Authentification d'utilisateur
+
+![](./_models/SequenceDiagrams/API_Auth.png)
+
+**Interactions :** L'utilisateur soumet ses identifiants via l'interface, qui sont vérifiés par le service d'authentification. En cas de succès, un jeton d'accès est généré et retourné à l'utilisateur. En cas d'échec, un message d'erreur est affiché.
+
+**Justification :** Ce processus est essentiel pour sécuriser l'accès au système, en s'assurant que seuls les utilisateurs autorisés peuvent effectuer des opérations sensibles ou accéder à des informations confidentielles.
+
+## 7. Visualisation de dossier médical
+
+![](./_models/SequenceDiagrams/API_ConsultRecord.png)
+
+**Interactions :** L'utilisateur initie une demande de visualisation d'un dossier médical en fournissant un numéro d'assurance maladie via l'interface utilisateur. Cette demande est transmise à travers un API Gateway vers le service API des dossiers médicaux. Le service interroge ensuite la base de données des dossiers médicaux pour récupérer le dossier correspondant au numéro fourni. Une fois le dossier médical récupéré, il est retourné à l'API Gateway, puis à l'interface utilisateur qui l'affiche.
+
+**Justification :** Ce flux illustre une opération de consultation de données sécurisée et efficace. L'utilisation d'un API Gateway centralise les requêtes et renforce la sécurité en contrôlant l'accès aux services internes. Le service API des dossiers médicaux agit comme un intermédiaire entre la base de données et l'interface utilisateur, permettant une abstraction de la logique d'accès aux données et facilitant d'éventuelles évolutions du système de stockage des données. Cette séparation des responsabilités assure une meilleure maintenance du système et une plus grande sécurité des données sensibles, en limitant l'accès direct à la base de données. La demande de visualisation d'un dossier médical est une fonctionnalité essentielle dans les systèmes de gestion des dossiers médicaux, permettant aux utilisateurs autorisés d'accéder rapidement et de façon sécurisée aux informations médicales nécessaires.
+
+# Diagrammes de packages 
+<a id="package-main"></a>
+
+## FRONTEND
+
+![](./_models/Package/package_frontend.png)
+
+### Structure des Dossiers
+
+- `public/` : Contient les fichiers statiques tels que l'index HTML de base, les icônes, les fichiers manifestes, etc. Ces fichiers sont accessibles tels quels par le navigateur de l'utilisateur.
+
+- `src/` : Dossier principal contenant le code source du frontend. C'est ici que la majorité du développement prend place.
+
+- `assets/` : Utilisé pour stocker les ressources telles que les images, les feuilles de style (CSS) et éventuellement d'autres médias utilisés dans l'application.
+
+- `components/` : Contient les composants réutilisables. Dans des frameworks comme Vue.js, un composant peut être une partie d'interface utilisateur encapsulée qui peut être réutilisée à travers différentes parties de l'application.
+
+- `views/` : Spécifiquement dédié aux vues, qui sont souvent liées aux routes. Une vue est une page complète (par exemple, la page d'accueil, la page de contact, etc.).
+
+- `App.vue` : Le fichier racine pour une application Vue.js, servant de point d'ancrage pour l'application.
+
+- `main.ts` : Le point d'entrée du frontend. Initialise le framework (Vue.js dans cet exemple) ainsi que les plugins nécessaires.
+
+- `router.ts` : Gère les routes de l'application à l'aide de Vue Router, permettant la navigation entre les différentes vues.
+
+- `tests/` : Dossier destiné aux tests, qu'ils soient unitaires (testant des fonctionnalités isolées) ou end-to-end (testant des flux d'utilisation complets).
+
+## BACKEND
+
+![](./_models/Package/package_backend.png)
+
+### Structure des Dossiers
+
+- `Util/` : Contient des outils et helpers pour des manipulations courantes, simplifiant le développement et favorisant la réutilisation du code.
+
+- `Service/` : Gère la logique métier, comme la gestion des informations des patients et des dossiers médicaux dans un contexte de santé.
+
+- `Security/` : Responsable de la sécurité de l'application, incluant l'authentification et l'autorisation des utilisateurs.
+
+- `Repository/` : Interagit avec la base de données, en encapsulant la logique d'accès aux données.
+
+- `Model/` : Définit la structure des entités de l'application et leur mappage avec la base de données.
+
+- `Exception/` : Gère les erreurs et exceptions, permettant une meilleure gestion des cas d'erreurs et une réponse adéquate à l'utilisateur ou au système.
+
+- `DTO/` (Data Transfer Object) : Utilisé pour le transfert de données entre différentes parties de l'application, optimisant les interactions, notamment en réduisant le nombre d'appels à la base de données.
+
+- `Controller/` : Traite les requêtes HTTP, agissant comme intermédiaire entre le frontend et le backend, en transférant les données requises.
+
+- `Config/` : Contient la configuration de l'application et des APIs, comme les paramètres de connexion à la base de données, les configurations de sécurité, etc.
+
+- `App/` : Classe principale de lancement de l'application dans un cadre Spring Boot, configurant et démarrant le serveur backend.
+
+
 
 # Diagramme de conception architecturale
 <a id="architecture-main"></a>
 Cette section illustre le diagramme de conception architecturale de notre système, optant pour une architecture microservices pour son développement.
 
-> TODO Si vous pouvez juste ajouter l'image du diagramme UML ici svp.
+![](./_models/Architecture/architecture.png)
 
 ## Frontend - User interface - Application VuesJS et/ou une application Java
 

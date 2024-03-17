@@ -1,0 +1,54 @@
+@startuml
+
+package "frontend" #D9EAD3 {
+    [User Interface] #D9EAD3
+}
+
+package "backend" #C9DAF8 {
+    [API Gateway] #C9DAF8
+
+    package "microservices" #F9CB9C {
+        package "domain medical record" #F4CCCC {
+            [API Medical Record Service] #F4CCCC
+            [API Modifications Archive Service] #F4CCCC
+        }
+
+        package "domain ramq" #D9D2E9 {
+            [API Ramq Service] #D9D2E9
+        }
+
+        package "domain authentication" #FFE599 {
+            [API Authentication Service] #FFE599
+        }
+    }
+
+    database "medical_records.sqlite" #F4CCCC
+    database "modifications_archive.sqlite" #F4CCCC
+    database "medical_records_copies.sqlite" #D9D2E9
+    database "authentication.sqlite" #FFE599
+}
+
+[User Interface] --> [API Gateway]
+
+' API Gateway interactions
+[API Gateway] --> [API Medical Record Service]
+[API Gateway] --> [API Ramq Service]
+[API Gateway] --> [API Authentication Service]
+
+' Medical record domain interactions
+[API Modifications Archive Service] <- [API Medical Record Service]
+[API Medical Record Service] --> "medical_records.sqlite"
+[API Modifications Archive Service] --> "modifications_archive.sqlite"
+
+' RAMQ domain interactions
+[API Ramq Service] --> "medical_records_copies.sqlite"
+
+' Authentication domain interactions
+[API Authentication Service] --> "authentication.sqlite"
+
+' Cross-service interactions
+[API Ramq Service] <.> [API Authentication Service] : interacts
+[API Ramq Service] <.> [API Medical Record Service] : interacts
+[API Ramq Service] <.> [API Modifications Archive Service] : interacts
+
+@enduml

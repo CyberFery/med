@@ -1,0 +1,315 @@
+
+
+@startuml ConsultMedicalRecordSequence
+
+participant User as user
+participant "Medical Record Registry" as Registry
+participant "Medical Record" as Record
+
+
+user -> Registry: viewMedicalRecord(healthInsuranceNumber)
+activate Registry
+Registry -> Registry: getMedicalRecord(healthInsuranceNumber)
+activate Record
+Registry -> Record: consultMedicalRecord()
+Record --> Registry
+deactivate Record
+Registry --> user: Display Medical Record
+deactivate Registry
+
+@enduml
+
+@startuml
+
+participant Doctor
+participant "MedicalRecordRegistry" as Registry
+participant "MedicalRecord" as Record
+
+Doctor -> Registry : getMedicalRecord(healthInsuranceNumber)
+activate Registry
+Registry --> Doctor : medicalRecordObject
+deactivate Registry
+
+Doctor -> Record : updateMedicalRecord()
+activate Record
+Record --> Doctor : confirmation
+deactivate Record
+
+@enduml
+
+@startuml
+
+participant Doctor
+participant "MedicalRecordRegistry" as Registry
+participant "MedicalRecord" as Record
+
+Doctor -> Registry : getMedicalRecord(healthInsuranceNumber)
+activate Registry
+Registry --> Doctor : medicalRecordObject
+deactivate Registry
+
+Doctor -> Record : cancelModification()
+activate Record
+Record --> Doctor : confirmation
+deactivate Record
+
+@enduml
+
+
+@startuml
+participant RAMQ
+participant MedicalRecordRegistry as Registry
+
+RAMQ -> Registry : createMedicalRecord()
+activate Registry
+
+Registry --> RAMQ
+deactivate Registry
+
+@enduml
+
+
+@startuml
+participant "RAMQ" as RAMQ
+participant "MedicalRecordRegistry" as Registry
+
+RAMQ -> Registry : getMedicalRecord(healthInsuranceNumber)
+activate Registry
+Registry --> RAMQ : return MedicalRecord
+deactivate Registry
+
+RAMQ -> RAMQ : recreateMedicalRecord(MedicalRecord, date)
+activate RAMQ
+deactivate RAMQ
+
+@enduml
+
+
+
+@startuml
+participant "RAMQ" as RAMQ
+participant "MedicalRecordRegistry" as Registry
+
+RAMQ -> Registry : getMedicalRecord(healthInsuranceNumber)
+activate Registry
+Registry --> RAMQ : return MedicalRecord
+deactivate Registry
+
+RAMQ -> RAMQ : recreateMedicalRecord(MedicalRecord, Modification)
+activate RAMQ
+deactivate RAMQ
+
+@enduml
+
+@startuml
+participant "Patient" as Patient
+participant "ContactInformation" as ContactInfo
+
+opt Update Address
+    Patient -> ContactInfo : setAddress(newAddress)
+    activate ContactInfo
+    ContactInfo --> Patient
+    deactivate ContactInfo
+end
+
+opt Update Phone Number
+    Patient -> ContactInfo : setPhoneNumber(newPhoneNumber)
+    activate ContactInfo
+    ContactInfo --> Patient
+    deactivate ContactInfo
+end
+
+opt Update Email
+    Patient -> ContactInfo : setEmail(newEmail)
+    activate ContactInfo
+    ContactInfo --> Patient
+    deactivate ContactInfo
+end
+
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Ramq Service" as RamqService
+control "API Medical Record Service" as RecordService
+database "medical_records.sqlite" as RecordDB
+
+UI -> Gateway: RequestRecordCreation()
+Gateway -> RamqService: CreateRecord()
+RamqService -> RecordService: Save(Record)
+RecordService -> RecordDB: Add(Record)
+RecordDB --> RecordService : return AdditionConfirmation
+RecordService --> RamqService: return SaveConfirmation
+RamqService --> Gateway: return CreationConfirmation
+Gateway -> UI: Display(CreationConfirmation)
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Ramq Service" as RamqService
+control "API Medical Record Service" as RecordService
+control "API Modifications Archive Service" as ArchiveService
+database "medical_records.sqlite" as MedicalDB
+database "medical_records_copies.sqlite" as RamqDB
+
+
+UI -> Gateway: requestRecreationFromModification(healthInsuranceNumber, modificationID)
+Gateway -> RamqService: recreateFromModification(healthInsuranceNumber, modificationID)
+RamqService -> RecordService: retrieveModification(healthInsuranceNumber, modificationID)
+
+
+RecordService -> ArchiveService: getModification(modificationID)
+ArchiveService --> RecordService: return modification
+
+
+
+RecordService -> MedicalDB: rebuildFromModification(healthInsuranceNumber, modification)
+MedicalDB --> RecordService:
+
+
+RecordService --> RamqService: return RebuiltRecord
+
+
+RamqService -> RamqDB: add(RebuiltRecord)
+RamqDB --> RamqService: return additionConfirmation
+
+
+RamqService --> Gateway: return recreationConfirmation
+
+
+Gateway -> UI: display(recreationConfirmation)
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Ramq Service" as RamqService
+control "API Medical Record Service" as RecordService
+database "medical_records.sqlite" as MedicalDB
+database "medical_records_copies.sqlite" as RamqDB
+
+
+UI -> Gateway: requestRecreationFromDate(date)
+Gateway -> RamqService: recreateFromDate(date)
+RamqService -> RecordService: retrieveRecordFromDate(date)
+
+
+RecordService -> MedicalDB: rebuildFromDate(date)
+MedicalDB --> RecordService
+
+
+RecordService --> RamqService: return rebuiltRecord
+
+
+RamqService -> RamqDB: saveRecordCopy(rebuiltRecord)
+RamqDB --> RamqService: return saveConfirmation
+
+
+RamqService --> Gateway: return recreationConfirmation
+
+
+Gateway -> UI: display(recreationConfirmation)
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Medical Record Service" as RecordService
+control "API Modifications Archive Service" as ArchiveService
+database "medical_records.sqlite" as MedicalDB
+database "modifications_archive.sqlite" as ModDB
+
+
+UI -> Gateway: requestModification(healthInsuranceNumber, modification)
+
+
+Gateway -> RecordService: applyModification(healthInsuranceNumber, modification)
+
+
+RecordService -> MedicalDB: updateRecord(healthInsuranceNumber, modification)
+MedicalDB --> RecordService: return updateConfirmation
+
+
+RecordService -> ArchiveService: logModification(modification)
+
+
+ArchiveService -> ModDB: add(modification)
+ModDB --> ArchiveService: return additionConfirmation
+
+
+ArchiveService --> RecordService: return logConfirmation
+
+RecordService --> Gateway: return modificationConfirmation
+
+Gateway -> UI: display(modificationConfirmation)
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Medical Record Service" as RecordService
+control "API Modifications Archive Service" as ArchiveService
+database "medical_records.sqlite" as MedicalDB
+database "modifications_archive.sqlite" as ModDB
+
+
+UI -> Gateway: requestCancelModification(healthInsuranceNumber, modification)
+
+
+Gateway -> RecordService: cancelModification(healthInsuranceNumber, modification)
+RecordService -> MedicalDB: cancelModification(healthInsuranceNumber, modification)
+MedicalDB --> RecordService: cancelConfirmation
+
+RecordService -> ArchiveService: remove(modification)
+ArchiveService -> ModDB: delete(modification)
+ModDB --> ArchiveService: return deletionConfirmation
+ArchiveService --> RecordService: return removalConfirmation
+RecordService --> Gateway: return cancelConfirmation
+
+Gateway -> UI: display(cancelConfirmation)
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Authentication Service" as AuthService
+database "authentication.sqlite" as UserDB
+
+
+UI -> Gateway: requestAuthentication(username, password)
+
+
+Gateway -> AuthService: authenticateUser(username, password)
+
+AuthService -> UserDB: verifyCredentials(username, password)
+UserDB --> AuthService: return verificationResult
+
+alt credentials valid
+    AuthService -> AuthService: generateAccessToken(username)
+    AuthService --> Gateway: return accessToken
+    Gateway -> UI: authenticationSuccess(accessToken)
+else credentials invalid
+    AuthService --> Gateway: return failedMessage
+    Gateway -> UI: display(failedMessage)
+end
+@enduml
+
+@startuml
+participant "User Interface" as UI
+boundary "API Gateway" as Gateway
+control "API Medical Record Service" as MedRecordService
+database "medical_records.sqlite" as MedDB
+
+UI -> Gateway: requestViewMedicalRecord(healthInsuranceNumber)
+
+
+Gateway -> MedRecordService: getMedicalRecord(healthInsuranceNumber)
+
+MedRecordService -> MedDB: fetchMedicalRecord(healthInsuranceNumber)
+MedDB --> MedRecordService:return medicalRecord
+
+MedRecordService --> Gateway: return medicalRecord
+Gateway -> UI: display(medicalRecord)
+@enduml
