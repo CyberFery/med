@@ -215,9 +215,9 @@ Gateway -> UI: display(recreationConfirmation)
 
 @startuml
 participant "User Interface" as UI
-participant "API Gateway" as Gateway
-participant "API Medical Record Service" as RecordService
-participant "API Modifications Archive Service" as ArchiveService
+boundary "API Gateway" as Gateway
+control "API Medical Record Service" as RecordService
+control "API Modifications Archive Service" as ArchiveService
 database "medical_records.sqlite" as MedicalDB
 database "modifications_archive.sqlite" as ModDB
 
@@ -300,7 +300,7 @@ end
 participant "User Interface" as UI
 boundary "API Gateway" as Gateway
 control "API Medical Record Service" as MedRecordService
-database "Medical Records DB" as MedDB
+database "medical_records.sqlite" as MedDB
 
 UI -> Gateway: requestViewMedicalRecord(healthInsuranceNumber)
 
