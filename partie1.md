@@ -211,5 +211,6 @@ fonctionnement optimal</u> de l'ensemble de notre système.
 Les diagrammes de composants sont un type de vue statique qui représente la structure du système. Un diagramme de 
 composant décrit le système modélisé sous forme de composants réutilisables et met en évidence leurs relations de 
 dépendances. Un composant est une entité indépendante et exécutable qui fournit des services à d'autres composants ou 
-utilise des services. 
+utilise des services. Cette section représente les diagrammes de composant des différents systèmes qui compose 
+l'application. 
 
