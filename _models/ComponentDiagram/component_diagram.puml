@@ -1,8 +1,7 @@
-@startuml
-!include _common.style
+@startuml MedicalRecordCreation
+!include ../_common.style
 left to right direction
 title "Medical Record Creation System"
-
 
 component "RAMQ" as rq
 
@@ -24,8 +23,8 @@ rec ..> mr : writes
 
 @enduml
 
-@startuml
-!include _common.style
+@startuml AuthenticationSystem
+!include ../_common.style
 left to right direction
 title "Authentication System"
 
@@ -62,8 +61,8 @@ sesp1 -u0)- adp2: "open session"
 
 @enduml
 
-@startuml
-!include _common.style
+@startuml MedicalRecordConsultation
+!include ../_common.style
 left to right direction
 title "Medical Record Consultation System"
 component "User" as u {
@@ -90,8 +89,8 @@ view ..> mr :  reads
 @enduml
 
 
-@startuml
-!include _common.style
+@startuml MedicalRecordModification 
+!include ../_common.style
 skinparam linetype polyline
 left to right direction
 title "Medical Record Modification System"
