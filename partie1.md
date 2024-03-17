@@ -215,7 +215,7 @@ Ces diagrammes peuvent refléter des scénarios où il est nécessaire de restau
 
 ## 7. Mise à jour des informations de contact d'un patient
 
-![](./_models/SequenceDiagrams/Class_updateinfo.png)
+![](./_models/SequenceDiagrams/Class_updateInfo.png)
 
 ### Participants
 - Patient
