@@ -495,3 +495,15 @@ est le même que celui utilisé dans le système de création de dossiers médic
 
 # Diagramme de déploiement
 <a id="deploiement-main"></a>
+Cette section présente le diagramme de déploiement du système de documentation médicale centralisée décrit dans ce 
+rapport. Le diagramme de déploiement identifie les éléments matériels du système.
+
+![](./_models/DeploymentDiagram/Deployment_system.png)
+
+Dans notre système, les médecins utilisent un logiciel Java qui interagit avec le serveur via des requêtes HTTP. 
+Les patients et les utilisateurs accèdent quant à eux au système via le site web ou une application mobile, ces deux 
+interfaces communiquant également avec le serveur par des requêtes HTTP. `API Gateway` se charge de recevoir et de 
+router ces requêtes vers les microservices appropriés. Chaque microservice est déployé sur son propre serveur et 
+communique à la fois entre eux et avec la base de données, elle-même hébergée sur un serveur dédié. 
+L'ensemble des serveurs seront hébergés sur la plateforme Docker pour assurer une gestion flexible et efficace de 
+l'infrastructure.
