@@ -255,7 +255,11 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 
 **Justification :** Ce processus est essentiel pour sécuriser l'accès au système, en s'assurant que seuls les utilisateurs autorisés peuvent effectuer des opérations sensibles ou accéder à des informations confidentielles.
 
-Chaque diagramme illustre un aspect spécifique de la gestion des dossiers médicaux dans un système informatique, mettant en évidence l'importance de la modularité, de la sécurité, et de la traçabilité dans la conception de tels systèmes.
+## 7. Visualisation de dossier médical
+
+**Interactions :** L'utilisateur initie une demande de visualisation d'un dossier médical en fournissant un numéro d'assurance maladie via l'interface utilisateur. Cette demande est transmise à travers un API Gateway vers le service API des dossiers médicaux. Le service interroge ensuite la base de données des dossiers médicaux pour récupérer le dossier correspondant au numéro fourni. Une fois le dossier médical récupéré, il est retourné à l'API Gateway, puis à l'interface utilisateur qui l'affiche.
+
+**Justification :** Ce flux illustre une opération de consultation de données sécurisée et efficace. L'utilisation d'un API Gateway centralise les requêtes et renforce la sécurité en contrôlant l'accès aux services internes. Le service API des dossiers médicaux agit comme un intermédiaire entre la base de données et l'interface utilisateur, permettant une abstraction de la logique d'accès aux données et facilitant d'éventuelles évolutions du système de stockage des données. Cette séparation des responsabilités assure une meilleure maintenance du système et une plus grande sécurité des données sensibles, en limitant l'accès direct à la base de données. La demande de visualisation d'un dossier médical est une fonctionnalité essentielle dans les systèmes de gestion des dossiers médicaux, permettant aux utilisateurs autorisés d'accéder rapidement et de façon sécurisée aux informations médicales nécessaires.
 
 # Diagramme de conception architecturale
 <a id="architecture-main"></a>
