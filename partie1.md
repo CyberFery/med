@@ -146,6 +146,8 @@ Ces diagrammes de séquence illustrent différents aspects de l'interaction entr
 
 ## 1. Consultation d'un dossier médical
 
+![](./_models/SequenceDiagrams/Class_ConsultMedicalRecord.png)
+
 ### Participants
 - Utilisateur (User)
 - Registre des Dossiers Médicaux (Medical Record Registry)
@@ -158,6 +160,8 @@ L'utilisateur demande à consulter un dossier médical par son numéro d'assuran
 Ce processus garantit que les informations médicales sont accessibles rapidement et de manière sécurisée. L'activation et la désactivation des composants illustrent le contrôle de flux et la gestion des ressources, assurant ainsi que le système est efficace et sécurisé.
 
 ## 2. Mise à jour d'un dossier médical par un médecin
+
+![](./_models/SequenceDiagrams/Class_updateRecord.png)
 
 ### Participants
 - Médecin (Doctor)
@@ -172,6 +176,8 @@ Ce diagramme montre l'importance de maintenir les dossiers médicaux à jour pou
 
 ## 3. Annulation d'une modification d'un dossier médical par un médecin
 
+![](./_models/SequenceDiagrams/Class_cancelModification.png)
+
 ### Processus et participants
 Similaires au diagramme de mise à jour.
 
@@ -179,6 +185,8 @@ Similaires au diagramme de mise à jour.
 Ce scénario souligne la flexibilité du système en permettant aux médecins d'annuler des modifications. Cela peut être crucial en cas d'erreur de saisie ou de changement d'avis, contribuant ainsi à l'exactitude des dossiers médicaux.
 
 ## 4. Création d'un dossier médical
+
+![](./_models/SequenceDiagrams/Class_CreateRecord.png)
 
 ### Participants
 - RAMQ
@@ -192,6 +200,9 @@ Ce processus illustre la collaboration entre la RAMQ et le registre pour assurer
 
 ## 5. & 6. Recréation d'un dossier médical
 
+![](./_models/SequenceDiagrams/Class_RecreateFromModification.png)
+![](./_models/SequenceDiagrams/Class_RecreateFromDate.png)
+
 ### Participants
 - RAMQ
 - Registre des Dossiers Médicaux (MedicalRecordRegistry)
@@ -203,6 +214,8 @@ Après avoir récupéré un dossier médical, la RAMQ effectue une opération de
 Ces diagrammes peuvent refléter des scénarios où il est nécessaire de restaurer ou de mettre à jour un dossier médical à la suite d'une perte de données ou d'une correction d'erreurs, assurant ainsi l'intégrité et la continuité des soins.
 
 ## 7. Mise à jour des informations de contact d'un patient
+
+![](./_models/SequenceDiagrams/Class_updateinfo.png)
 
 ### Participants
 - Patient
@@ -221,17 +234,23 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 
 ## 1. Création de dossier médical
 
+![](./_models/SequenceDiagrams/API_CreateRecord.png)
+
 **Interactions :** L'utilisateur initie la demande de création d'un dossier médical via l'interface utilisateur. Cette demande est transmise à travers un API Gateway qui relaye la demande au service API Ramq, lequel crée le dossier et le sauvegarde via le service API des dossiers médicaux. Enfin, le dossier est ajouté à la base de données des dossiers médicaux.
 
 **Justification :** Ce flux garantit une séparation claire des responsabilités entre les différents services et permet une meilleure modularité et sécurité. L'utilisation d'un API Gateway facilite la gestion des requêtes et la sécurisation des accès.
 
 ## 2. Reconstitution de dossier à partir de modifications
 
+![](./_models/SequenceDiagrams/API_RecreateFromModification.png)
+
 **Interactions :** À la demande de l'utilisateur, le système récupère une modification spécifique via l'API Gateway et le service API Ramq, qui demande ensuite au service des dossiers médicaux de récupérer cette modification dans le service d'archivage des modifications. Le dossier médical est reconstruit à partir de cette modification et sauvegardé dans une base de données dédiée.
 
 **Justification :** Ce processus permet de retracer et d'appliquer des modifications spécifiques à un dossier médical existant, assurant ainsi l'intégrité des données et la possibilité de revenir à un état antérieur si nécessaire.
 
 ## 3. Reconstitution de dossier à partir d'une date
+![](./_models/SequenceDiagrams/API_RecreateFromDate.png)
+
 
 **Interactions :** L'utilisateur demande la reconstitution d'un dossier à partir d'une date donnée. Le service API Ramq récupère les données pertinentes pour cette date et les traite pour reconstruire le dossier, qui est ensuite sauvegardé dans une copie de base de données.
 
@@ -239,11 +258,16 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 
 ## 4. Application d'une modification sur un dossier
 
+![](./_models/SequenceDiagrams/API_updateRecord.png)
+
+
 **Interactions :** Une modification est demandée par l'utilisateur et traitée par le service des dossiers médicaux, qui met à jour le dossier dans la base de données et enregistre la modification dans le service d'archive des modifications.
 
 **Justification :** Ce processus assure que toutes les modifications apportées à un dossier sont correctement enregistrées et traçables, ce qui est crucial pour la gestion des données médicales et leur intégrité.
 
 ## 5. Annulation d'une modification de dossier
+
+![](./_models/SequenceDiagrams/API_CancelModification.png)
 
 **Interactions :** Sur demande de l'utilisateur, une modification spécifique d'un dossier est annulée. Le dossier est mis à jour pour refléter l'annulation, et la modification est supprimée de l'archive des modifications.
 
@@ -251,11 +275,15 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 
 ## 6. Authentification d'utilisateur
 
+![](./_models/SequenceDiagrams/API_Auth.png)
+
 **Interactions :** L'utilisateur soumet ses identifiants via l'interface, qui sont vérifiés par le service d'authentification. En cas de succès, un jeton d'accès est généré et retourné à l'utilisateur. En cas d'échec, un message d'erreur est affiché.
 
 **Justification :** Ce processus est essentiel pour sécuriser l'accès au système, en s'assurant que seuls les utilisateurs autorisés peuvent effectuer des opérations sensibles ou accéder à des informations confidentielles.
 
 ## 7. Visualisation de dossier médical
+
+![](./_models/SequenceDiagrams/API_ConsultRecord.png)
 
 **Interactions :** L'utilisateur initie une demande de visualisation d'un dossier médical en fournissant un numéro d'assurance maladie via l'interface utilisateur. Cette demande est transmise à travers un API Gateway vers le service API des dossiers médicaux. Le service interroge ensuite la base de données des dossiers médicaux pour récupérer le dossier correspondant au numéro fourni. Une fois le dossier médical récupéré, il est retourné à l'API Gateway, puis à l'interface utilisateur qui l'affiche.
 
