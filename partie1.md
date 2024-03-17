@@ -293,7 +293,7 @@ Les diagrammes de séquence suivants représentent différentes opérations réa
 <a id="architecture-main"></a>
 Cette section illustre le diagramme de conception architecturale de notre système, optant pour une architecture microservices pour son développement.
 
-> TODO Si vous pouvez juste ajouter l'image du diagramme UML ici svp.
+![](./_models/Archeticture/architecture.png)
 
 ## Frontend - User interface - Application VuesJS et/ou une application Java
 
