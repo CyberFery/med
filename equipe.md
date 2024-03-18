@@ -43,7 +43,14 @@
 
 > À déterminer.
 
-### Méthode de résolution de conflit
+### Méthodes de résolution de conflit
+Voici les méthodes que nous prévoyons utiliser pour résoudre les conflits au sein de l'équipe:
+
+- Écouter activement : lorsque des personnes en conflit discutent de leurs points de vue, les autres membres de l'équipe les écouteront attentivement. Cela nous permettra de comprendre le point de vue de chacun.
+
+- Explorer les solutions possibles: les autres membres de l'équipe collaboreront avec les personnes impliquées dans le conflit afin d'explorer différentes solutions possibles au problème.
+
+- Conclure par un accord: Si l'une des solutions proposée satisfait les personnes en conflits l'accord sera conclu. Dans le cas contraire, l'équipe procèdera à un vote à la majorité.
 
 #### Sanctions prévues
 
