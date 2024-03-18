@@ -4,7 +4,7 @@
 
 ### Chef d'équipe (répresentant avec l'équipe enseignante)
 
-> À déterminer.
+
 
 ### Informations
 
@@ -36,8 +36,7 @@
 ## Charte de l'équipe
 
 ### Répartition des tâches dans l'équipe
-
-> À déterminer.
+Voici com
 
 ### Méthode de travail
 
@@ -47,7 +46,8 @@
 
 #### Sanctions prévues
 
-> À déterminer.
+- En cas de non-participation ou de manque d'implication, la note du coéquipier concerné sera affectée négativement, 
+pouvant même atteindre zéro.
 
 ### Notre définition de _terminé_
 
