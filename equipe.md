@@ -4,7 +4,7 @@
 
 ### Chef d'équipe (répresentant avec l'équipe enseignante)
 
-
+> Montpetit Carl 
 
 ### Informations
 
@@ -36,13 +36,26 @@
 ## Charte de l'équipe
 
 ### Répartition des tâches dans l'équipe
-Voici com
+
+| Nom       | Prénom  | Tâches 
+|-----------|---------|---------------|
+| Montpetit | Carl    |  Frontend & backend | 
+| Blemur    | Lindsay | modifications archive service | 
+| Damas     | Johanie | medical record service  | 
+| Ferrat    | Yacine  | RAMQ service |
+
 
 ### Méthode de travail
+Dans le but de favoriser l'amélioration continue, l'équipe adoptera la méthode SCRUM de l’approche agile avec des sprints d'une semaine.
 
-> À déterminer.
+### Méthodes de résolution de conflit
+Voici les méthodes que nous prévoyons utiliser pour résoudre les conflits au sein de l'équipe:
 
-### Méthode de résolution de conflit
+- Écouter activement : lorsque des personnes en conflit discutent de leurs points de vue, les autres membres de l'équipe les écouteront attentivement. Cela nous permettra de comprendre le point de vue de chacun.
+
+- Explorer les solutions possibles: les autres membres de l'équipe collaboreront avec les personnes impliquées dans le conflit afin d'explorer différentes solutions possibles au problème.
+
+- Conclure par un accord: Si l'une des solutions proposée satisfait les personnes en conflits l'accord sera conclu. Dans le cas contraire, l'équipe procèdera à un vote à la majorité.
 
 #### Sanctions prévues
 
