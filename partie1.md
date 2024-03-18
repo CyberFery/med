@@ -174,7 +174,7 @@ Ces diagrammes de séquence illustrent différents aspects de l'interaction entr
 L'utilisateur demande à consulter un dossier médical par son numéro d'assurance maladie. Le registre cherche et retrouve le dossier correspondant, puis déclenche la consultation du dossier. Enfin, les informations du dossier médical sont affichées à l'utilisateur.
 
 ### Justification
-Ce processus garantit que les informations médicales sont accessibles rapidement et de manière sécurisée. L'activation et la désactivation des composants illustrent le contrôle de flux et la gestion des ressources, assurant ainsi que le système est efficace et sécurisé.
+Ce processus garantit que les informations médicales sont accessibles rapidement et de manière sécurisée.
 
 ## 2. Mise à jour d'un dossier médical par un médecin
 
@@ -213,7 +213,7 @@ Ce scénario souligne la flexibilité du système en permettant aux médecins d'
 La RAMQ envoie une demande de création d'un nouveau dossier médical. Le registre traite cette demande et confirme la création.
 
 ### Justification
-Ce processus illustre la collaboration entre la RAMQ et le registre pour assurer que chaque citoyen dispose d'un dossier médical, facilitant ainsi la gestion de la santé publique.
+Ce processus illustre la collaboration entre la RAMQ et le registre pour assurer que chaque patient dispose d'un dossier médical, facilitant ainsi la gestion de la santé publique.
 
 ## 5. & 6. Recréation d'un dossier médical
 
