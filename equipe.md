@@ -4,7 +4,7 @@
 
 ### Chef d'équipe (répresentant avec l'équipe enseignante)
 
-> À déterminer.
+> Montpetit Carl 
 
 ### Informations
 
@@ -37,11 +37,15 @@
 
 ### Répartition des tâches dans l'équipe
 
-> À déterminer.
+| Nom       | Prénom  | Tâches 
+|-----------|---------|---------------|
+| Montpetit | Carl    |  Frontend & backend | 
+| Blemur    | Lindsay | modifications archive service | 
+| Damas     | Johanie | medical record service  | 
+| Ferrat    | Yacine  | RAMQ service |
 
 ### Méthode de travail
-
-> À déterminer.
+Dans le but de favoriser l'amélioration continue, l'équipe adoptera la méthode SCRUM de l’approche agile avec des sprints d'une semaine.
 
 ### Méthodes de résolution de conflit
 Voici les méthodes que nous prévoyons utiliser pour résoudre les conflits au sein de l'équipe:
