@@ -10,40 +10,101 @@ paths:
   /medical-records/consult-medical-record:
     get:
       description: User consult medical record
-      responses:
-        '201':
-          description: Success, return medical record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConsultMedicalRecordRequest'
-        '400':
-          description: Failed to consult medical record, bad request
-        '500':
-          description: Internal server error.
-  ######################################################################################################################
-  /ramq/medical-record:
-    post:
-      summary: Create a new medical record
-      operationId: createMedicalRecord
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MedicalRecordRequest'
+              $ref: '#/components/schemas/ConsultMedicalRecordRequest'
       responses:
-        '201':
-          description: Medical record created successfully
-        '400':
-          description: Failed to create medical record, bad request
+        '200':
+          description: Success, return medical record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsultMedicalRecordResponse'
+        '404':
+          description: Failed to consult medical record, bad request
         '500':
-          description: Internal server error
+          description: Internal server error.
 
   ######################################################################################################################
-  components:
+  /medical-records/modify-contact-information:
+    put:
+      description: Modify contact information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInformation'
+      responses:
+        '200':
+          description: Success, contact information modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInformation'
+        '404':
+          description: Failed to modify contact information, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+  /medical-records/modify-medical-visit:
+    put:
+      description: Modify medical visit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalVisit'
+      responses:
+        '200':
+          description: Success, medical visit modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalVisit'
+        '404':
+          description: Failed to modify medical visit, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+  /medical-records/modify-medical-history:
+    put:
+      description: Modify medical history
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalHistory'
+      responses:
+        '200':
+          description: Success, medical history modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalHistory'
+        '404':
+          description: Failed to modify medical history, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+components:
     schemas:
       ConsultMedicalRecordRequest:
+        type: object
+        properties:
+          healthInsuranceNumber:
+            type: string
+            required:
+              - healthInsuranceNumber
+      ConsultMedicalRecordResponse:
         type: object
         properties:
           patient:
@@ -60,7 +121,6 @@ paths:
               - patient
               - medicalVisitList
               - medicalHistoryList
-
       Patient:
         type: object
         properties:
@@ -145,7 +205,7 @@ paths:
             type: string
           lastName:
             type: string
-        ContactInformation:
+      ContactInformation:
           type: object
           properties:
             residentialAddress:
@@ -154,14 +214,14 @@ paths:
               $ref: '#/components/schemas/PhoneNumber'
             emailAddress:
               $ref: '#/components/schemas/EmailAddress'
-        Diagnosis:
+      Diagnosis:
           type: object
           properties:
             description:
               type: string
             treatment:
               type: string
-        Illness:
+      Illness:
           type: object
           properties:
             description:
@@ -172,7 +232,7 @@ paths:
             endOfIllnessDate:
               type: string
               format: date-time
-        Physician:
+      Physician:
           type: object
           properties:
             firstName:
@@ -181,20 +241,20 @@ paths:
               type: string
             specialization:
               type: string
-        ResidentialAddress:
+      ResidentialAddress:
           type: object
           properties:
             addresses:
               type: array
               items:
                 type: string
-        PhoneNumber:
+      PhoneNumber:
           type: object
           properties:
             number:
               type: integer
               format: int64
-        EmailAddress:
+      EmailAddress:
           type: object
           properties:
             email:
