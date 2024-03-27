@@ -9,7 +9,7 @@ import java.util.List;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long patientId;
     private String firstName;
     private String lastName;
     private Genre genre;
@@ -22,8 +22,8 @@ public class Patient {
     @ElementCollection
     private List<Person> knownParentList;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ContactInformation> contactInformationList;
+    @Embedded
+    private ContactInformation contactInformation;
 
     private Boolean isHealthcareProfessional;
 
@@ -47,14 +47,6 @@ public class Patient {
 
     public Patient() {
         // default constructor
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -121,18 +113,26 @@ public class Patient {
         this.knownParentList = knownParentList;
     }
 
-    public List<ContactInformation> getContactInformationList() {
-        return contactInformationList;
+    public ContactInformation getContactInformation() {
+        return contactInformation;
     }
 
-    public void setContactInformationList(List<ContactInformation> contactInformationList) {
-        this.contactInformationList = contactInformationList;
+    public void setContactInformation(ContactInformation contactInformation) {
+        this.contactInformation = contactInformation;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     @Override
     public String toString() {
         return "Patient{" +
-                "id=" + id +
+                "patientId=" + patientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", genre=" + genre +
@@ -141,7 +141,9 @@ public class Patient {
                 ", cityOfBirth='" + cityOfBirth + '\'' +
                 ", establishedDiagnosis='" + establishedDiagnosis + '\'' +
                 ", knownParentList=" + knownParentList +
-                ", contactInformations=" + contactInformationList +
+                ", contactInformation=" + contactInformation +
+                ", isHealthcareProfessional=" + isHealthcareProfessional +
+                ", isDoctor=" + isDoctor +
                 '}';
     }
 
@@ -161,7 +163,7 @@ public class Patient {
         }
 
         public Person() {
-
+            // default constructor
         }
 
         public String getFirstName() {
@@ -185,6 +187,125 @@ public class Patient {
             return "Person{" +
                     "firstName='" + firstName + '\'' +
                     ", lastName='" + lastName + '\'' +
+                    '}';
+        }
+    }
+
+    @Embeddable
+    public static class ContactInformation {
+        @ElementCollection
+        private List<ResidentialAddress> residentialAddressList;
+        @ElementCollection
+        private List<PhoneNumber> phoneNumberList;
+        @ElementCollection
+        private List<EmailAddress> emailAddressList;
+
+        public ContactInformation() {
+            // default constructor
+        }
+
+        public void setResidentialAddressList(List<ResidentialAddress> residentialAddressList) {
+            this.residentialAddressList = residentialAddressList;
+        }
+
+        public List<ResidentialAddress> getResidentialAddressList() {
+            return residentialAddressList;
+        }
+
+        public List<PhoneNumber> getPhoneNumberList() {
+            return phoneNumberList;
+        }
+
+        public void setPhoneNumberList(List<PhoneNumber> phoneNumberList) {
+            this.phoneNumberList = phoneNumberList;
+        }
+
+        public List<EmailAddress> getEmailAddressList() {
+            return emailAddressList;
+        }
+
+        public void setEmailAddressList(List<EmailAddress> emailAddressList) {
+            this.emailAddressList = emailAddressList;
+        }
+
+        @Override
+        public String toString() {
+            return "ContactInformation{" +
+                    "residentialAddressList=" + residentialAddressList +
+                    ", phoneNumberList=" + phoneNumberList +
+                    ", emailAddressList=" + emailAddressList +
+                    '}';
+        }
+    }
+
+    @Embeddable
+    public static class ResidentialAddress {
+        private String address;
+
+        public ResidentialAddress() {
+            // default constructor
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        @Override
+        public String toString() {
+            return "ResidentialAddress{" +
+                    "address='" + address + '\'' +
+                    '}';
+        }
+    }
+
+    @Embeddable
+    public static class PhoneNumber {
+        private String number;
+
+        public PhoneNumber() {
+            // default constructor
+        }
+
+        public String getNumber() {
+            return this.number;
+        }
+
+        public void setNumber(String number) {
+            this.number = number;
+        }
+
+        @Override
+        public String toString() {
+            return "PhoneNumber{" +
+                    "number='" + number + '\'' +
+                    '}';
+        }
+    }
+
+    @Embeddable
+    public static class EmailAddress {
+        private String email;
+
+        public EmailAddress() {
+            // default constructor
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        @Override
+        public String toString() {
+            return "EmailAddress{" +
+                    "email='" + email + '\'' +
                     '}';
         }
     }
