@@ -21,21 +21,6 @@ public class RamqController {
         return medicalRecordCopyService.getAllMedicalRecordCopies();
     }
 
-//    @GetMapping("/medical-record-copy/{id}")
-//    public ResponseEntity<?> getMedicalRecordCopyById(@PathVariable("id") Long id) {
-//        MedicalRecordCopy medicalRecordCopy = medicalRecordCopyService.getMedicalRecordCopyById(id);
-//        if (medicalRecordCopy != null) {
-//            return ResponseEntity.ok(medicalRecordCopy);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
-//    @GetMapping("/patient/medical-record-copies/{healthInsuranceNumber}")
-//    public List<MedicalRecordCopy> getMedicalRecordCopiesByPatient(@PathVariable("healthInsuranceNumber") Integer healthInsuranceNumber) {
-//        return medicalRecordCopyService.getMedicalRecordCopiesByPatient(healthInsuranceNumber);
-//    }
-
     @PostMapping("/medical-record-copy")
     public ResponseEntity<?> createMedicalRecordCopy(@RequestBody MedicalRecordCopy medicalRecordCopy) {
         if (medicalRecordCopy == null || medicalRecordCopy.getPatient() == null
