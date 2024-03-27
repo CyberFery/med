@@ -16,7 +16,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiResponse'
         '500':
           description: Internal server error.
   ######################################################################################################################
@@ -88,16 +90,6 @@ components:
           items:
             type: object
             properties:
-              phoneNumber:
-                type: object
-                properties:
-                  number:
-                    type: string
-              emailAddress:
-                type: object
-                properties:
-                  email:
-                    type: string
               residentialAddressList:
                 type: array
                 items:
@@ -105,6 +97,20 @@ components:
                   properties:
                     address:
                       type: string
+              phoneNumberList:
+                type: array
+                items:
+                  type: object
+                properties:
+                  number:
+                    type: string
+              emailAddressList:
+                type: array
+                items:
+                  type: object
+                properties:
+                  email:
+                    type: string
         isHealthcareProfessional:
           type: boolean
         isDoctor:
@@ -191,7 +197,7 @@ components:
     PatientResponse:
       type: object
       properties:
-        id:
+        patientId:
           type: integer
         firstName:
           type: string
@@ -229,35 +235,32 @@ components:
     ContactInformationResponse:
       type: object
       properties:
-        id:
-          type: integer
-        patient:
-          type: object
-          properties:
-            id:
-              type: integer
-        phoneNumber:
-          type: object
-          properties:
-            number:
-              type: string
-        emailAddress:
-          type: object
-          properties:
-            email:
-              type: string
-        residentialAddress:
+        residentialAddressList:
           type: array
           items:
             type: object
             properties:
               address:
                 type: string
+        phoneNumberList:
+          type: array
+          items:
+            type: object
+          properties:
+            number:
+              type: string
+        emailAddressList:
+          type: array
+          items:
+            type: object
+          properties:
+            email:
+              type: string
 
     DoctorResponse:
       type: object
       properties:
-        id:
+        doctorId:
           type: integer
         firstName:
           type: string
@@ -289,7 +292,7 @@ components:
     MedicalVisitResponse:
       type: object
       properties:
-        id:
+        medicalVisitId:
           type: integer
         visitedEstablishment:
           type: string
@@ -310,7 +313,7 @@ components:
     MedicalHistoryResponse:
       type: object
       properties:
-        id:
+        medicalHistoryId:
           type: integer
         diagnosis:
           type: string
@@ -326,7 +329,7 @@ components:
     ApiResponse:
       type: object
       properties:
-        id:
+        medicalRecordCopyId:
           type: integer
         patient:
           $ref: '#/components/schemas/PatientResponse'
