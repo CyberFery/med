@@ -1,25 +1,51 @@
 package uqam.team17.ramqservice.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uqam.team17.ramqservice.model.medical_record.MedicalRecord;
+import uqam.team17.ramqservice.entity.*;
+import uqam.team17.ramqservice.service.MedicalRecordCopyService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ramq")
 public class RamqController {
-    @GetMapping("/medical-record-copy")
-    public String getMedicalRecordCopy() {
-        return "Here's a medical record copy!";
+    private final MedicalRecordCopyService medicalRecordCopyService;
+
+    public RamqController(MedicalRecordCopyService medicalRecordCopyService) {
+        this.medicalRecordCopyService = medicalRecordCopyService;
     }
 
     @GetMapping("/medical-record-copies")
-    public String getAllMedicalRecordCopies() {
-        return "Here's all the medical record copies!";
+    public List<MedicalRecordCopy> getAllMedicalRecordCopies() {
+        return medicalRecordCopyService.getAllMedicalRecordCopies();
     }
 
-    @PostMapping("/medical-record")
-    public ResponseEntity<String> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
-        return ResponseEntity.status(HttpStatus.CREATED).body("Medical record created successfully");
+//    @GetMapping("/medical-record-copy/{id}")
+//    public ResponseEntity<?> getMedicalRecordCopyById(@PathVariable("id") Long id) {
+//        MedicalRecordCopy medicalRecordCopy = medicalRecordCopyService.getMedicalRecordCopyById(id);
+//        if (medicalRecordCopy != null) {
+//            return ResponseEntity.ok(medicalRecordCopy);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+//    @GetMapping("/patient/medical-record-copies/{healthInsuranceNumber}")
+//    public List<MedicalRecordCopy> getMedicalRecordCopiesByPatient(@PathVariable("healthInsuranceNumber") Integer healthInsuranceNumber) {
+//        return medicalRecordCopyService.getMedicalRecordCopiesByPatient(healthInsuranceNumber);
+//    }
+
+    @PostMapping("/medical-record-copy")
+    public ResponseEntity<?> createMedicalRecordCopy(@RequestBody MedicalRecordCopy medicalRecordCopy) {
+        if (medicalRecordCopy == null || medicalRecordCopy.getPatient() == null
+                || medicalRecordCopy.getMedicalVisitList() == null || medicalRecordCopy.getMedicalVisitList().isEmpty()
+                || medicalRecordCopy.getMedicalHistoryList() == null || medicalRecordCopy.getMedicalHistoryList().isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid medical record copy format!");
+        }
+
+        MedicalRecordCopy savedMedicalRecordCopy = medicalRecordCopyService.saveMedicalRecordCopy(medicalRecordCopy);
+
+        return ResponseEntity.ok(savedMedicalRecordCopy);
     }
 }
