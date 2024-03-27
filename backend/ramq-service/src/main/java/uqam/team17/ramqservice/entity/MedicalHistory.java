@@ -9,7 +9,7 @@ import java.util.List;
 public class MedicalHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long medicalHistoryId;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private MedicalRecordCopy medicalRecordCopy;
     private String diagnosis;
@@ -21,14 +21,6 @@ public class MedicalHistory {
 
     public MedicalHistory() {
         // default constructor
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDiagnosis() {
@@ -63,10 +55,27 @@ public class MedicalHistory {
         this.primaryCareDoctor = primaryCareDoctor;
     }
 
+    public Long getMedicalHistoryId() {
+        return medicalHistoryId;
+    }
+
+    public void setMedicalHistoryId(Long medicalHistoryId) {
+        this.medicalHistoryId = medicalHistoryId;
+    }
+
+    public MedicalRecordCopy getMedicalRecordCopy() {
+        return medicalRecordCopy;
+    }
+
+    public void setMedicalRecordCopy(MedicalRecordCopy medicalRecordCopy) {
+        this.medicalRecordCopy = medicalRecordCopy;
+    }
+
     @Override
     public String toString() {
         return "MedicalHistory{" +
-                "id=" + id +
+                "medicalHistoryId=" + medicalHistoryId +
+                ", medicalRecordCopy=" + medicalRecordCopy +
                 ", diagnosis='" + diagnosis + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", illnessList=" + illnessList +
