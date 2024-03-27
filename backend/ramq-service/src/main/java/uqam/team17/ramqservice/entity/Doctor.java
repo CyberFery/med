@@ -6,21 +6,13 @@ import jakarta.persistence.*;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long doctorId;
     private String firstName;
     private String lastName;
     private String specialization;
 
     public Doctor() {
         // default constructor
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -47,10 +39,18 @@ public class Doctor {
         this.specialization = specialization;
     }
 
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +
-                "id=" + id +
+                "doctorId=" + doctorId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", specialization='" + specialization + '\'' +
