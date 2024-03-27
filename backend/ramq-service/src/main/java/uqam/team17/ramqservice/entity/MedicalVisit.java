@@ -9,7 +9,7 @@ import java.util.List;
 public class MedicalVisit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long medicalVisitId;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private MedicalRecordCopy medicalRecordCopy;
     private String visitedEstablishment;
@@ -23,14 +23,6 @@ public class MedicalVisit {
 
     public MedicalVisit() {
         // default constructor
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getVisitedEstablishment() {
@@ -81,10 +73,27 @@ public class MedicalVisit {
         this.notesForOtherDoctors = notesForOtherDoctors;
     }
 
+    public Long getMedicalVisitId() {
+        return medicalVisitId;
+    }
+
+    public void setMedicalVisitId(Long medicalVisitId) {
+        this.medicalVisitId = medicalVisitId;
+    }
+
+    public MedicalRecordCopy getMedicalRecordCopy() {
+        return medicalRecordCopy;
+    }
+
+    public void setMedicalRecordCopy(MedicalRecordCopy medicalRecordCopy) {
+        this.medicalRecordCopy = medicalRecordCopy;
+    }
+
     @Override
     public String toString() {
         return "MedicalVisit{" +
-                "id=" + id +
+                "medicalVisitId=" + medicalVisitId +
+                ", medicalRecordCopy=" + medicalRecordCopy +
                 ", visitedEstablishment='" + visitedEstablishment + '\'' +
                 ", doctorSeen=" + doctorSeen +
                 ", visitDate=" + visitDate +
@@ -105,7 +114,7 @@ public class MedicalVisit {
         }
 
         public Diagnosis() {
-
+            // default constructor
         }
 
         public String getDescription() {
