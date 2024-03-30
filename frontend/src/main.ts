@@ -1,9 +1,3 @@
-/**
- * main.ts
- *
- * Bootstraps Vuetify and other plugins then mounts the App`
- */
-
 // Plugins
 import {registerPlugins} from '@/plugins'
 
@@ -13,7 +7,6 @@ import HomePage from '@/views/HomePage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import NotFoundPage from '@/views/NotFoundPage.vue'
 import AboutPage from '@/views/AboutPage.vue'
-// TODO add more components as needed
 
 // Composables
 import {createApp} from 'vue'
@@ -27,7 +20,7 @@ const router = createRouter({
   routes: [
     { path: '/', component: HomePage },
     { path: '/login', component: LoginPage },
-    { path: '/404', component: NotFoundPage },
+    { path: '/not-found', component: NotFoundPage },
     { path: '/about', component: AboutPage }
     // TODO Add more routes as needed
   ]
@@ -36,9 +29,6 @@ const router = createRouter({
 // Create the app instance and register plugins
 const app = createApp(App)
 registerPlugins(app)
-
-// Mount the app with the router
-app.mount('#app')
 
 // Mount the app with the router
 app.use(router).mount('#app')
