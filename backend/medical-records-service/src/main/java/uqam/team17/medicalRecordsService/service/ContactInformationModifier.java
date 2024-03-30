@@ -1,4 +1,4 @@
-package uqam.team17.medical_records_service.service;
+package uqam.team17.medicalRecordsService.service;
 
 public interface ContactInformationModifier {
     void modifyContactInformation();

@@ -98,7 +98,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!-- Specify the main class for the second application -->
-                    <mainClass>uqam.team17.medical_records_service.app.MedicalRecordsServiceApplication</mainClass>
+                    <mainClass>uqam.team17.medicalRecordsService.app.MedicalRecordsServiceApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
