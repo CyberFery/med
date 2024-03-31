@@ -17,12 +17,12 @@ public class RamqController {
     }
 
     @GetMapping("/medical-record-copies")
-    public List<MedicalRecordCopy> getAllMedicalRecordCopies() {
+    public List<MedicalRecordCopy> getAllMedicalRecordCopies(@RequestHeader("LoggedInUser") String username) {
         return medicalRecordCopyService.getAllMedicalRecordCopies();
     }
 
     @PostMapping("/medical-record-copy")
-    public ResponseEntity<?> createMedicalRecordCopy(@RequestBody MedicalRecordCopy medicalRecordCopy) {
+    public ResponseEntity<?> createMedicalRecordCopy( @RequestBody MedicalRecordCopy medicalRecordCopy) {
         if (medicalRecordCopy == null || medicalRecordCopy.getPatient() == null
                 || medicalRecordCopy.getMedicalVisitList() == null || medicalRecordCopy.getMedicalVisitList().isEmpty()
                 || medicalRecordCopy.getMedicalHistoryList() == null || medicalRecordCopy.getMedicalHistoryList().isEmpty()) {
