@@ -10,8 +10,6 @@ public class MedicalHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalHistoryId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private MedicalRecord medicalRecord;
     private String diagnosis;
     private String treatment;
     @ElementCollection
@@ -63,19 +61,10 @@ public class MedicalHistory {
         this.medicalHistoryId = medicalHistoryId;
     }
 
-    public MedicalRecord getMedicalRecord() {
-        return medicalRecord;
-    }
-
-    public void setMedicalRecord(MedicalRecord medicalRecordd) {
-        this.medicalRecord = medicalRecord;
-    }
-
     @Override
     public String toString() {
         return "MedicalHistory{" +
                 "medicalHistoryId=" + medicalHistoryId +
-                ", medicalRecordCopy=" + medicalRecord +
                 ", diagnosis='" + diagnosis + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", illnessList=" + illnessList +

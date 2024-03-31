@@ -18,6 +18,7 @@ public class MedicalRecord {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MedicalHistory> medicalHistoryList;
 
+    public MedicalRecord(){}
     public MedicalRecord(Patient patient) {
         this.patient = patient;
     }

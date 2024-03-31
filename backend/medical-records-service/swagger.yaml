@@ -29,9 +29,9 @@ paths:
           description: Internal server error.
 
   ######################################################################################################################
-  /medical-records/modify-contact-information:
+  /medical-records/update-contact-information:
     put:
-      description: Modify contact information
+      description: update contact information
       requestBody:
         required: true
         content:
@@ -40,20 +40,20 @@ paths:
               $ref: '#/components/schemas/ContactInformation'
       responses:
         '200':
-          description: Success, contact information modified
+          description: Success, contact information updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContactInformation'
         '404':
-          description: Failed to modify contact information, bad request
+          description: Failed to update contact information, bad request
         '500':
           description: Internal server error.
 
   ######################################################################################################################
-  /medical-records/modify-medical-visit:
+  /medical-records/update-medical-visit:
     put:
-      description: Modify medical visit
+      description: update medical visit
       requestBody:
         required: true
         content:
@@ -62,20 +62,20 @@ paths:
               $ref: '#/components/schemas/MedicalVisit'
       responses:
         '200':
-          description: Success, medical visit modified
+          description: Success, medical visit updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MedicalVisit'
         '404':
-          description: Failed to modify medical visit, bad request
+          description: Failed to update medical visit, bad request
         '500':
           description: Internal server error.
 
   ######################################################################################################################
-  /medical-records/modify-medical-history:
+  /medical-records/update-medical-history:
     put:
-      description: Modify medical history
+      description: update medical history
       requestBody:
         required: true
         content:
@@ -84,7 +84,7 @@ paths:
               $ref: '#/components/schemas/MedicalHistory'
       responses:
         '200':
-          description: Success, medical history modified
+          description: Success, medical history updated
           content:
             application/json:
               schema:

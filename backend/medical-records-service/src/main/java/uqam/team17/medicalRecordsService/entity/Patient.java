@@ -129,18 +129,22 @@ public class Patient {
         this.patientId = patientId;
     }
 
+    public void updateContactInformation(ContactInformation contactInfo) {
+        List<PhoneNumber> phoneNumberList = contactInfo.getPhoneNumberList();
+        List<ResidentialAddress> residentialAddressList = contactInfo.getResidentialAddressList();
+        List<EmailAddress> emailAddressList = contactInfo.getEmailAddressList();
 
-    public void modifyContactInformation() {
-
+        if( phoneNumberList != null || !phoneNumberList.isEmpty()) {
+            this.contactInformation.setPhoneNumberList(phoneNumberList);
+        }
+        if( residentialAddressList != null || !residentialAddressList.isEmpty()) {
+            this.contactInformation.setResidentialAddressList(residentialAddressList);
+        }
+        if( emailAddressList != null || !emailAddressList.isEmpty()) {
+            this.contactInformation.setEmailAddressList(emailAddressList);
+        }
     }
 
-    protected void consultMedicalRecord() {
-
-    }
-
-    protected void authentification() {
-
-    }
     @Override
     public String toString() {
         return "Patient{" +

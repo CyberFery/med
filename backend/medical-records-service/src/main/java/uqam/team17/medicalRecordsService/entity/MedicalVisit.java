@@ -12,8 +12,6 @@ public class MedicalVisit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalVisitId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private MedicalRecord medicalRecord;
     private String visitedEstablishment;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctorSeen;
@@ -83,19 +81,10 @@ public class MedicalVisit {
         this.medicalVisitId = medicalVisitId;
     }
 
-    public MedicalRecord getMedicalRecord() {
-        return medicalRecord;
-    }
-
-    public void setMedicalRecordCopy(MedicalRecord medicalRecord) {
-        this.medicalRecord = medicalRecord;
-    }
-
     @Override
     public String toString() {
         return "MedicalVisit{" +
                 "medicalVisitId=" + medicalVisitId +
-                ", medicalRecordCopy=" + medicalRecord +
                 ", visitedEstablishment='" + visitedEstablishment + '\'' +
                 ", doctorSeen=" + doctorSeen +
                 ", visitDate=" + visitDate +
