@@ -3,14 +3,46 @@ package uqam.team17.modificationsarchiveservice.model;
 import java.time.LocalDateTime;
 
 public class ModificationRequest {
-    ModificationType type;
+    //Doctor creator;
+    //MedicalRecord record;
+    //LocalDateTime timestamp;
     String content;
-    LocalDateTime timestamp;
 
+        //Doctor creator, MedicalRecord record, LocalDateTime timestamp
+    public ModificationRequest (String context){
+        //this.creator = creator;
+        //this.record = record;
+        //this.timestamp = timestamp;
+        this.content = context;
+    }
 
-    public ModificationRequest (ModificationType type, String content, LocalDateTime timestamp){
-        this.type = type;
-        this.content = content;
-        this.timestamp = timestamp;
+    /**
+     *  public Doctor getCreator(){
+     *         return creator;
+     *     }
+     *
+     *     public MedicalRecord getRecord(){
+     *         return record;
+     *     }
+     *
+     *     public LocalDateTime getTimestamp(){
+     *         return timestamp;
+     *     }
+     *
+     */
+
+    public String getContent(){
+        return content;
+    }
+
+    public void setContent(String context){
+        this.content = context;
+    }
+
+    @Override
+    public String toString() {
+        return "ModificationRequest{" +
+                "content='" + content + '\'' +
+                '}';
     }
 }

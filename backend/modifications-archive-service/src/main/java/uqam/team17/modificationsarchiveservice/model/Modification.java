@@ -7,25 +7,64 @@ import java.time.LocalDateTime;
 public class Modification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Enumerated(EnumType.STRING)
-    private ModificationType type;
+    private Long modificationId;
+    String content;
 
-    private String content;
+   // @OneToOne(cascade = CascadeType.ALL)
+    //private Doctor creator;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //private MedicalRecord medicalRecord;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Doctor creator;
-    private LocalDateTime timestamp;
+    //private LocalDateTime timestamp;
+
 
     public Modification(){
 
     }
 
-    public Modification(ModificationType type, String content, Doctor doctor, LocalDateTime timestamp){
-        this.type = type;
-        this.content = content;
-        this.creator = doctor;
-        this.timestamp = timestamp;
+    public Modification( String context){
+        //this.creator = doctor;
+        //this.medicalRecord = record;
+        //this.timestamp = timestamp;
+        this.content = context;
     }
+
+    public void setContent(String context){
+        this.content = context;
+    }
+
+    public Long getModificationId() {
+        return modificationId;
+    }
+
+    public void setModificationId(Long modificationId) {
+        this.modificationId = modificationId;
+    }
+
+    @Override
+    public String toString() {
+        return "Modification{" +
+                "modificationId=" + modificationId +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    //public void setCreator(Doctor doctor){
+        //this.creator = doctor;
+   // }
+
+    //public void setMedicalRecord(MedicalRecord medicalRecord){
+       // this.medicalRecord = medicalRecord;
+   // }
+
+    //public void setTimestamp(LocalDateTime time){
+        //this.timestamp = time;
+    //}
+
+
 
 }
