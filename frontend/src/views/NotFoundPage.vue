@@ -4,8 +4,7 @@
 
 <template>
   <v-container>
-    <h1 class="text-center">Not Found Page</h1>
-    <!-- Add content for the home page -->
+    <h1 class="text-center text-h2">Not Found Page</h1>
   </v-container>
 </template>
 
