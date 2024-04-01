@@ -1,15 +1,13 @@
 <script setup lang="ts">
 const icons = [
-  'mdi-facebook',
-  'mdi-twitter',
+  'mdi-email',
   'mdi-linkedin',
-  'mdi-instagram',
 ];
 </script>
 
 <template>
   <v-footer
-    class="bg-indigo-lighten-1 text-center d-flex flex-column"
+    class="bg-indigo-lighten-1 text-center d-flex flex-column h-auto"
   >
     <div>
       <v-btn
@@ -22,13 +20,19 @@ const icons = [
     </div>
 
     <div class="pt-0">
-      Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+      This application helps doctors efficiently manage medical records of patients, providing easy access to important health information. If you have any questions or feedback, please don't hesitate to contact us.
     </div>
 
-    <v-divider></v-divider>
+    <v-spacer/>
 
     <div>
       {{ new Date().getFullYear() }} — <strong>Doctor - Centralized Medical Records</strong>
+    </div>
+
+    <v-spacer/>
+
+    <div>
+      <v-icon>mdi-copyright</v-icon> Team #17 - INF5153
     </div>
   </v-footer>
 </template>
