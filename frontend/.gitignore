@@ -1,0 +1,48 @@
+# Dependency directories
+/node_modules
+/yarn.lock
+/package-lock.json
+
+# Build directory
+/dist
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-*
+*.vsix
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env.local
+.env.*.local
+
+# Mac OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Linux
+lost+found/
+
+# Yarn integrity file
+.yarn-integrity
+
+# Other
+*.log
+*.tmp
+*.backup
+*.bak
+*.old
+*.cache
+*.sass-cache
