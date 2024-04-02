@@ -1,9 +1,6 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import uqam.team17.modificationsarchiveservice.utilities.Modifiable;
 
 public class ContactInformation implements Modifiable {
@@ -42,32 +39,6 @@ public class ContactInformation implements Modifiable {
     public ModificationType getType(){
         return ModificationType.CONTACTINFORMATION;
     }
-
-    public String serialize(){
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e){
-            return null;
-        }
-    }
-
-
-    public void deserialize(String data){
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            ContactInformation deserializedInfo = mapper.readValue(data, ContactInformation.class);
-            this.residentialAddressList = deserializedInfo.getResidentialAddressList();
-            this.phoneNumberList = deserializedInfo.getPhoneNumberList();
-            this.emailAddressList = deserializedInfo.getEmailAddressList();
-
-        } catch (Exception e){
-            //pass
-
-        }
-    }
-
-
 
 
     public static class ResidentialAddress{

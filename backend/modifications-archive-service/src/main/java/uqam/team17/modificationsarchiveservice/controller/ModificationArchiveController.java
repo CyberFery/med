@@ -1,8 +1,5 @@
 package uqam.team17.modificationsarchiveservice.controller;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -83,7 +80,22 @@ public class ModificationArchiveController{
 
            return ResponseEntity.badRequest().body("Failed to backup medical history, wrong format");
        }else {
-            return ResponseEntity.ok().body("PLACEHOLDER Medical History");
+           MedicalHistory medicalHistory = historyRequest.getMedicalHistory();
+
+           Modification modification = new Modification();
+           modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
+           modification.setTimestamp(LocalDateTime.now());
+           modification.setType(medicalHistory.getType());
+           modification.setModifiable(medicalHistory);
+           modification.setStatus(Modification.Status.UPDATE);
+
+           final Modification response = modificationService.saveModification(modification);
+
+           if(response != null){
+               return ResponseEntity.ok().body(response);
+           }else {
+               return ResponseEntity.badRequest().body("Trouble Medical History inserting in the database");
+           }
        }
 
    }
@@ -105,8 +117,8 @@ public class ModificationArchiveController{
            Modification modification = new Modification();
            modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
            modification.setTimestamp(LocalDateTime.now());
-           modification.setModifiable(contactInformation);
            modification.setType(contactInformation.getType());
+           modification.setModifiable(contactInformation);
            modification.setStatus(Modification.Status.UPDATE);
 
            final Modification response = modificationService.saveModification(modification);
@@ -119,20 +131,5 @@ public class ModificationArchiveController{
        }
 
    }
-
-
-   private String serializeToJson(Object object){
-       try {
-           ObjectMapper mapper = new ObjectMapper();
-           return mapper.writeValueAsString(object);
-       } catch (JsonProcessingException e){
-           return null;
-       }
-   }
-
-
-
-
-
 
 }

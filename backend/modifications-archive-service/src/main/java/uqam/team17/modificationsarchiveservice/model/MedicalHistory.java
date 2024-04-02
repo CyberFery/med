@@ -1,8 +1,10 @@
 package uqam.team17.modificationsarchiveservice.model;
 
+import uqam.team17.modificationsarchiveservice.utilities.Modifiable;
+
 import java.util.Date;
 import java.util.List;
-public class MedicalHistory {
+public class MedicalHistory implements Modifiable {
 
     private Long medicalHistoryId;
 
@@ -65,6 +67,11 @@ public class MedicalHistory {
                 ", illnessList=" + illnessList +
                 ", primaryDoctor=" + primaryDoctor +
                 '}';
+    }
+
+
+    public ModificationType getType(){
+        return ModificationType.MEDICALHISTORY;
     }
 
 
