@@ -10,4 +10,8 @@ public class ModificationIdRequest {
     public void setModificationId(Long modificationId) {
         this.modificationId = modificationId;
     }
+
+    public static interface Modifiable {
+        ModificationType getType();
+    }
 }

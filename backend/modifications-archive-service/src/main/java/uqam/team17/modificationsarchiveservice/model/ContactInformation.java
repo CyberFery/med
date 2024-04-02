@@ -1,9 +1,8 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 import java.util.List;
-import uqam.team17.modificationsarchiveservice.utilities.Modifiable;
 
-public class ContactInformation implements Modifiable {
+public class ContactInformation implements ModificationIdRequest.Modifiable {
 
     private List<ResidentialAddress> residentialAddressList;
 

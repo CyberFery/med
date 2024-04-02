@@ -15,10 +15,8 @@ import java.util.Optional;
 
 
 @RestController
-//@RequestMapping("/modifications")
+@RequestMapping("/modifications")
 public class ModificationArchiveController{
-    //public static final String ROOT_PATH = "/modifications";
-
     private final ModificationService modificationService;
 
     public ModificationArchiveController (ModificationService modification){
@@ -39,23 +37,10 @@ public class ModificationArchiveController{
         }
     }
 
-    /**
-     *    @PostMapping("/modifications")
-     *     public ResponseEntity<?> createModification(@RequestBody Modification modification){
-     *        if (modification == null || modification.get == null) {
-     *            return ResponseEntity.badRequest().body("Invalid Modification Format!");
-     *        }
-     *
-     *        Modification mod = modificationService.saveModification(modification);
-     *
-     *        return ResponseEntity.ok(mod);
-     *
-     *    }
-     *
-     *
-     */
 
-   @PostMapping("-medical-visit")
+
+
+   @PostMapping("/medical-visit")
    public ResponseEntity<?> createMedicalVisitModification(@RequestBody MedicalVisitRequest visitRequest){
        if(visitRequest == null || visitRequest.getMedicalVisit().getVisitedEstablishment() == null ||
                visitRequest.getMedicalVisit().getVisitDate() == null ||
@@ -65,12 +50,27 @@ public class ModificationArchiveController{
 
            return ResponseEntity.badRequest().body("Failed to backup medical visit, wrong format");
        }else {
-           return ResponseEntity.ok().body("PLACEHOLDER VISIT");
+           MedicalVisit medicalVisit = visitRequest.getMedicalVisit();
+
+           Modification modification = new Modification();
+           modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
+           modification.setTimestamp(LocalDateTime.now());
+           modification.setType(medicalVisit.getType());
+           modification.setModifiable(medicalVisit);
+           modification.setStatus(Modification.Status.UPDATE);
+
+           final Modification response = modificationService.saveModification(modification);
+
+           if(response != null){
+               return ResponseEntity.ok().body(response);
+           }else {
+               return ResponseEntity.badRequest().body("Trouble Medical Visit inserting in the database");
+           }
        }
    }
 
 
-   @PostMapping("-medical-history")
+   @PostMapping("/medical-history")
    public ResponseEntity<?> createMedicalHistoryModification(@RequestBody MedicalHistoryRequest historyRequest){
        if(historyRequest == null || historyRequest.getHealthInsuranceNumber() == null ||
                historyRequest.getMedicalHistory().getDiagnosis() == null ||
@@ -100,7 +100,7 @@ public class ModificationArchiveController{
 
    }
 
-   @PostMapping("/modifications/contact-information")
+   @PostMapping("/contact-information")
     public ResponseEntity<?> createContactInfoModification(@RequestBody ContactInformationRequest contactRequest){
        if(contactRequest == null || contactRequest.getHealthInsuranceNumber() == null ||
             contactRequest.getContactInformation().getEmailAddressList().isEmpty() ||

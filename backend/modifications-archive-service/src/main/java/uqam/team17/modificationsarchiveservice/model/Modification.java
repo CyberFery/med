@@ -2,7 +2,6 @@ package uqam.team17.modificationsarchiveservice.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import uqam.team17.modificationsarchiveservice.utilities.*;
 
 @Entity
 public class Modification {
@@ -17,7 +16,7 @@ public class Modification {
     private ModificationType type;
 
     @Transient
-    private Modifiable modifiable;
+    private ModificationIdRequest.Modifiable modifiable;
 
     private Status status;
 
@@ -87,11 +86,11 @@ public class Modification {
                 '}';
     }
 
-    public Modifiable getModifiable() {
+    public ModificationIdRequest.Modifiable getModifiable() {
         return modifiable;
     }
 
-    public void setModifiable(Modifiable modifiable) {
+    public void setModifiable(ModificationIdRequest.Modifiable modifiable) {
         this.modifiable = modifiable;
     }
 

@@ -2,13 +2,11 @@ package uqam.team17.modificationsarchiveservice.model;
 
 
 
-import uqam.team17.modificationsarchiveservice.utilities.Modifiable;
-
 import java.util.Date;
 import java.util.List;
 
 
-public class MedicalVisit implements Modifiable {
+public class MedicalVisit implements ModificationIdRequest.Modifiable {
 
     private Long medicalVisitId;
 

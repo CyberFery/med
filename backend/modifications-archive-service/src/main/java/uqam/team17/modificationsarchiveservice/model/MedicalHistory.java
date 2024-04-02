@@ -1,14 +1,12 @@
 package uqam.team17.modificationsarchiveservice.model;
 
-import uqam.team17.modificationsarchiveservice.utilities.Modifiable;
-
 import java.util.Date;
 import java.util.List;
-public class MedicalHistory implements Modifiable {
+public class MedicalHistory implements ModificationIdRequest.Modifiable {
 
     private Long medicalHistoryId;
 
-    private String Diagnosis;
+    private String diagnosis;
     private String treatment;
 
     private List<Illness> illnessList;
@@ -27,11 +25,11 @@ public class MedicalHistory implements Modifiable {
     }
 
     public String getDiagnosis() {
-        return Diagnosis;
+        return diagnosis;
     }
 
     public void setDiagnosis(String diagnosis) {
-        Diagnosis = diagnosis;
+        this.diagnosis = diagnosis;
     }
 
     public String getTreatment() {
@@ -62,7 +60,7 @@ public class MedicalHistory implements Modifiable {
     public String toString() {
         return "MedicalHistory{" +
                 "medicalHistoryId=" + medicalHistoryId +
-                ", Diagnosis='" + Diagnosis + '\'' +
+                ", Diagnosis='" + diagnosis + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", illnessList=" + illnessList +
                 ", primaryDoctor=" + primaryDoctor +
