@@ -18,7 +18,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/modifications")
+//@RequestMapping("/modifications")
 public class ModificationArchiveController{
     //public static final String ROOT_PATH = "/modifications";
 
@@ -88,7 +88,7 @@ public class ModificationArchiveController{
 
    }
 
-   @PostMapping("-contact-information")
+   @PostMapping("/modifications/contact-information")
     public ResponseEntity<?> createContactInfoModification(@RequestBody ContactInformationRequest contactRequest){
        if(contactRequest == null || contactRequest.getHealthInsuranceNumber() == null ||
             contactRequest.getContactInformation().getEmailAddressList().isEmpty() ||
@@ -100,20 +100,22 @@ public class ModificationArchiveController{
 
            return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
        }else {
-           String serializedContactInfo = serializeToJson(contactRequest.getContactInformation());
-           if(serializedContactInfo == null){
-               return ResponseEntity.badRequest().body("Failed to serialized the contact information");
-           }
+           ContactInformation contactInformation = contactRequest.getContactInformation();
 
            Modification modification = new Modification();
            modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
            modification.setTimestamp(LocalDateTime.now());
-           modification.setType(Modification.ModificationType.CONTACTINFORMATION);
-           modification.setModificationData(serializedContactInfo);
+           modification.setModifiable(contactInformation);
+           modification.setType(contactInformation.getType());
+           modification.setStatus(Modification.Status.UPDATE);
 
            final Modification response = modificationService.saveModification(modification);
 
-           return ResponseEntity.ok().body(response);
+           if(response != null){
+              return ResponseEntity.ok().body(response);
+           }else {
+               return ResponseEntity.badRequest().body("Trouble inserting in the database");
+           }
        }
 
    }

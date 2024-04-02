@@ -1,9 +1,9 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
-import java.util.Optional;
+import uqam.team17.modificationsarchiveservice.utilities.*;
+
 @Entity
 public class Modification {
     @Id
@@ -16,8 +16,10 @@ public class Modification {
 
     private ModificationType type;
 
-    @Column(columnDefinition = "TEXT")
-    private String modificationData;
+    @Transient
+    private Modifiable modifiable;
+
+    private Status status;
 
     //private Long sourceDatabaseId;
 
@@ -38,9 +40,9 @@ public class Modification {
         return type;
     }
 
-    public String getModificationData() {
-        return modificationData;
-    }
+    //public String getModificationData() {
+      //  return modificationData;
+   // }
 
    // public Long getSourceDatabaseId() {
         //return sourceDatabaseId;
@@ -62,9 +64,9 @@ public class Modification {
         this.type = type;
     }
 
-    public void setModificationData(String modificationData) {
-        this.modificationData = modificationData;
-    }
+    //public void setModificationData(String modificationData) {
+      //  this.modificationData = modificationData;
+   // }
 
     ///public void setSourceDatabaseId(Long sourceDatabaseId) {
    //     this.sourceDatabaseId = sourceDatabaseId;
@@ -82,16 +84,31 @@ public class Modification {
                 "modificationId=" + modificationId +
                 ", timestamp=" + timestamp +
                 ", type=" + type +
-                ", modificationData='" + modificationData + '\'' +
                 '}';
     }
 
-
-
-    public enum ModificationType {
-        CONTACTINFORMATION,
-        MEDICALHISTORY,
-        MEDICALVISIT
+    public Modifiable getModifiable() {
+        return modifiable;
     }
+
+    public void setModifiable(Modifiable modifiable) {
+        this.modifiable = modifiable;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
+    public enum Status{
+        UPDATE,
+        CANCEL
+    }
+
+
 
 }
