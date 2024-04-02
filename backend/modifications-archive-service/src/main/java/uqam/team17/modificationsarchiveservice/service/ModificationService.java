@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import uqam.team17.modificationsarchiveservice.repository.ModificationArchiveRepository;
 import uqam.team17.modificationsarchiveservice.model.*;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class ModificationService{
@@ -20,8 +22,9 @@ public class ModificationService{
         return modificationRepository.save(modification);
     }
 
-    public Modification getModification(Long fromId){
-        return modificationRepository.getReferenceById(fromId);
+    public Optional<Modification> getModificationById(Long modificationId){
+
+        return modificationRepository.findById(modificationId);
     }
 
     //public Modification getModificationById()

@@ -1,22 +1,20 @@
 package uqam.team17.modificationsarchiveservice.model;
 
-import jakarta.persistence.*;
+
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
+
 public class MedicalVisit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long medicalVisitId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private MedicalRecord medicalRecord;
+
     private String visitedEstablishment;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
     private Doctor doctorSeen;
     private Date visitDate;
-    @ElementCollection
+
     private List<Diagnosis> diagnosisList;
     private String summaryOfTheVisitByDoctor;
     private String notesForOtherDoctors;
@@ -81,19 +79,13 @@ public class MedicalVisit {
         this.medicalVisitId = medicalVisitId;
     }
 
-    public MedicalRecord getMedicalRecord() {
-        return medicalRecord;
-    }
 
-    public void setMedicalRecord(MedicalRecord medicalRecordCopy) {
-        this.medicalRecord = medicalRecordCopy;
-    }
+
 
     @Override
     public String toString() {
         return "MedicalVisit{" +
                 "medicalVisitId=" + medicalVisitId +
-                ", medicalRecordCopy=" + medicalRecord +
                 ", visitedEstablishment='" + visitedEstablishment + '\'' +
                 ", doctorSeen=" + doctorSeen +
                 ", visitDate=" + visitDate +
@@ -103,7 +95,7 @@ public class MedicalVisit {
                 '}';
     }
 
-    @Embeddable
+
     public static class Diagnosis {
         private String description;
         private String treatment;

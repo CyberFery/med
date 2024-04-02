@@ -3,68 +3,95 @@ package uqam.team17.modificationsarchiveservice.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 @Entity
 public class Modification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long modificationId;
-    String content;
 
-   // @OneToOne(cascade = CascadeType.ALL)
-    //private Doctor creator;
-    //@OneToOne(cascade = CascadeType.ALL)
-    //private MedicalRecord medicalRecord;
+    private String healthInsuranceNumber;
 
-    //private LocalDateTime timestamp;
+    private LocalDateTime timestamp;
+
+    private ModificationType type;
+
+    @Column(columnDefinition = "TEXT")
+    private String modificationData;
+
+    //private Long sourceDatabaseId;
 
 
-    public Modification(){
-
-    }
-
-    public Modification( String context){
-        //this.creator = doctor;
-        //this.medicalRecord = record;
-        //this.timestamp = timestamp;
-        this.content = context;
-    }
-
-    public void setContent(String context){
-        this.content = context;
+    public Modification() {
+        //default constructor
     }
 
     public Long getModificationId() {
         return modificationId;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public ModificationType getType() {
+        return type;
+    }
+
+    public String getModificationData() {
+        return modificationData;
+    }
+
+   // public Long getSourceDatabaseId() {
+        //return sourceDatabaseId;
+    //}
+
+    public String getHealthInsuranceNumber() {
+        return healthInsuranceNumber;
+    }
+
     public void setModificationId(Long modificationId) {
         this.modificationId = modificationId;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setType(ModificationType type) {
+        this.type = type;
+    }
+
+    public void setModificationData(String modificationData) {
+        this.modificationData = modificationData;
+    }
+
+    ///public void setSourceDatabaseId(Long sourceDatabaseId) {
+   //     this.sourceDatabaseId = sourceDatabaseId;
+    //}
+
+
+
+    public void setHealthInsuranceNumber(String healthInsuranceNumber) {
+        this.healthInsuranceNumber = healthInsuranceNumber;
     }
 
     @Override
     public String toString() {
         return "Modification{" +
                 "modificationId=" + modificationId +
-                ", content='" + content + '\'' +
+                ", timestamp=" + timestamp +
+                ", type=" + type +
+                ", modificationData='" + modificationData + '\'' +
                 '}';
     }
 
-    public String getContent() {
-        return content;
+
+
+    public enum ModificationType {
+        CONTACTINFORMATION,
+        MEDICALHISTORY,
+        MEDICALVISIT
     }
-
-    //public void setCreator(Doctor doctor){
-        //this.creator = doctor;
-   // }
-
-    //public void setMedicalRecord(MedicalRecord medicalRecord){
-       // this.medicalRecord = medicalRecord;
-   // }
-
-    //public void setTimestamp(LocalDateTime time){
-        //this.timestamp = time;
-    //}
-
-
 
 }

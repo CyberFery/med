@@ -1,34 +1,35 @@
 package uqam.team17.modificationsarchiveservice.model;
 
-import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
-
-@Entity
 public class MedicalHistory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long medicalHistoryId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private MedicalRecord medicalRecord;
-    private String diagnosis;
+
+    private String Diagnosis;
     private String treatment;
-    @ElementCollection
-    private List<Illness> listOfIllness;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Doctor careDoctor;
+
+    private List<Illness> illnessList;
+
+    private Doctor primaryDoctor;
 
     public MedicalHistory() {
+    }
 
+    public Long getMedicalHistoryId() {
+        return medicalHistoryId;
+    }
+
+    public void setMedicalHistoryId(Long medicalHistoryId) {
+        this.medicalHistoryId = medicalHistoryId;
     }
 
     public String getDiagnosis() {
-        return diagnosis;
+        return Diagnosis;
     }
 
     public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+        Diagnosis = diagnosis;
     }
 
     public String getTreatment() {
@@ -40,50 +41,33 @@ public class MedicalHistory {
     }
 
     public List<Illness> getIllnessList() {
-        return listOfIllness;
+        return illnessList;
     }
 
     public void setIllnessList(List<Illness> illnessList) {
-        this.listOfIllness = illnessList;
+        this.illnessList = illnessList;
     }
 
-    public Doctor getDoctor() {
-        return careDoctor;
+    public Doctor getPrimaryDoctor() {
+        return primaryDoctor;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.careDoctor = doctor;
-    }
-
-    public Long getMedicalHistoryId() {
-        return medicalHistoryId;
-    }
-
-    public void setMedicalHistoryId(Long medicalHistoryId) {
-        this.medicalHistoryId = medicalHistoryId;
-    }
-
-    public MedicalRecord getMedicalRecord() {
-        return medicalRecord;
-    }
-
-    public void setMedicalRecord(MedicalRecord medicalRecord) {
-        this.medicalRecord = medicalRecord;
+    public void setPrimaryDoctor(Doctor primaryDoctor) {
+        this.primaryDoctor = primaryDoctor;
     }
 
     @Override
     public String toString() {
         return "MedicalHistory{" +
                 "medicalHistoryId=" + medicalHistoryId +
-                ", medicalRecordCopy=" + medicalRecord +
-                ", diagnosis='" + diagnosis + '\'' +
+                ", Diagnosis='" + Diagnosis + '\'' +
                 ", treatment='" + treatment + '\'' +
-                ", illnessList=" + listOfIllness +
-                ", responsibleDoctor=" + careDoctor +
+                ", illnessList=" + illnessList +
+                ", primaryDoctor=" + primaryDoctor +
                 '}';
     }
 
-    @Embeddable
+
     public static class Illness {
         private String description;
         private Date onsetOfIllnessDate;
@@ -95,9 +79,6 @@ public class MedicalHistory {
             this.endOfIllnessDate = endOfIllnessDate;
         }
 
-        public Illness() {
-
-        }
 
         public String getDescription() {
             return description;
@@ -132,5 +113,5 @@ public class MedicalHistory {
                     '}';
         }
     }
-}
 
+}
