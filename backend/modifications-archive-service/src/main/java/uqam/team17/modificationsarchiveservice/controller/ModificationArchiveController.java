@@ -79,16 +79,8 @@ public class ModificationArchiveController{
 
            return ResponseEntity.badRequest().body("Failed to backup medical history, wrong format");
        }else {
-           MedicalHistory medicalHistory = historyRequest.getMedicalHistory();
 
-           Modification modification = new Modification();
-           modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
-           modification.setTimestamp(LocalDateTime.now());
-           modification.setType(medicalHistory.getType());
-           modification.setModifiable(medicalHistory);
-           modification.setStatus(Modification.Status.UPDATE);
-
-           final Modification response = modificationService.saveModification(modification);
+           final Modification response = modificationService.saveMedicalHistory(historyRequest);
 
            if(response != null){
                return ResponseEntity.ok().body(response);

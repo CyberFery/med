@@ -34,6 +34,18 @@ public class ModificationService{
         return modificationRepository.save(modification);
     }
 
+    public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest){
+        Modification modification = new Modification();
+        modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
+        modification.setTimestamp(LocalDateTime.now());
+        modification.setType(historyRequest.getMedicalHistory().getType());
+        modification.setModifiable(historyRequest.getMedicalHistory());
+        modification.setStatus(Modification.Status.UPDATE);
+
+        return modificationRepository.save(modification);
+
+    }
+
     public Optional<Modification> getModificationById(Long modificationId){
 
         return modificationRepository.findById(modificationId);
