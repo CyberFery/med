@@ -10,9 +10,9 @@ const {handleSubmit, handleReset} = useForm({
     },
 
     password(value: any) {
-      if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i.test(value)) return true
+      if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/.test(value)) return true
 
-      return 'Password must meet the following criteria: at least one uppercase letter, at least one lowercase letter, at least one digit, at least one special character (@$!%*?&), and a minimum length of 8 characters.'
+      return 'Password must meet the following criteria: at least one uppercase letter, at least one lowercase letter, at least one digit, at least one special character (!@#$%^&*), and a minimum length of 8 characters.'
     },
   },
 })
