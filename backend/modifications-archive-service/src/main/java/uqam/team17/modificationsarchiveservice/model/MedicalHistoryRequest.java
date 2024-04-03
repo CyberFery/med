@@ -1,6 +1,6 @@
 package uqam.team17.modificationsarchiveservice.model;
 
-public class MedicalHistoryRequest {
+public class MedicalHistoryRequest implements ModificationRequest {
     private String healthInsuranceNumber;
 
     private MedicalHistory medicalHistory;
@@ -31,4 +31,17 @@ public class MedicalHistoryRequest {
                 ", medicalHistory=" + medicalHistory +
                 '}';
     }
+
+
+    @Override
+    public Modifiable createModifiable() {
+        return medicalHistory;
+    }
+
+    @Override
+    public Boolean isValid() {
+        return null;
+    }
+
+
 }

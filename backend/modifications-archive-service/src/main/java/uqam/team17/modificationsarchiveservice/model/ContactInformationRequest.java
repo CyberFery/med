@@ -1,8 +1,7 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 
-
-public class ContactInformationRequest {
+public class ContactInformationRequest implements ModificationRequest {
     private String healthInsuranceNumber;
 
     private ContactInformation contactInformation;
@@ -35,4 +34,23 @@ public class ContactInformationRequest {
                 ", contactInformation=" + contactInformation +
                 '}';
     }
+
+    @Override
+    public Modifiable createModifiable(){
+        return contactInformation;
+    }
+
+    @Override
+    public Boolean isValid() {
+        return healthInsuranceNumber != null &&
+                contactInformation != null &&
+                contactInformation.getEmailAddressList() != null &&
+                contactInformation.getPhoneNumberList() != null &&
+                contactInformation.getResidentialAddressList() != null &&
+                !contactInformation.getPhoneNumberList().isEmpty() &&
+                !contactInformation.getEmailAddressList().isEmpty() &&
+                !contactInformation.getResidentialAddressList().isEmpty();
+
+    }
+
 }

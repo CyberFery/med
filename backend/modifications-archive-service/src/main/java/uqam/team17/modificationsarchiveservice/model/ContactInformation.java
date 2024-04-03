@@ -2,7 +2,7 @@ package uqam.team17.modificationsarchiveservice.model;
 
 import java.util.List;
 
-public class ContactInformation implements ModificationIdRequest.Modifiable {
+public class ContactInformation extends Modifiable {
 
     private List<ResidentialAddress> residentialAddressList;
 
@@ -35,7 +35,8 @@ public class ContactInformation implements ModificationIdRequest.Modifiable {
     }
 
 
-    public ModificationType getType(){
+   @Override
+    public ModificationType getType() {
         return ModificationType.CONTACTINFORMATION;
     }
 

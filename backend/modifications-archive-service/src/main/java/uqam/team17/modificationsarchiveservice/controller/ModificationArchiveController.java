@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import uqam.team17.modificationsarchiveservice.model.ContactInformation;
 import uqam.team17.modificationsarchiveservice.model.*;
 import uqam.team17.modificationsarchiveservice.service.ModificationService;
 
@@ -43,6 +44,7 @@ public class ModificationArchiveController{
    @PostMapping("/medical-visit")
    public ResponseEntity<?> createMedicalVisitModification(@RequestBody MedicalVisitRequest visitRequest){
        if(visitRequest == null || visitRequest.getMedicalVisit().getVisitedEstablishment() == null ||
+               visitRequest.getMedicalVisit()  == null ||
                visitRequest.getMedicalVisit().getVisitDate() == null ||
                visitRequest.getMedicalVisit().getDoctorSeen() == null ||
                visitRequest.getMedicalVisit().getDiagnosisList().isEmpty() ||
@@ -73,6 +75,7 @@ public class ModificationArchiveController{
    @PostMapping("/medical-history")
    public ResponseEntity<?> createMedicalHistoryModification(@RequestBody MedicalHistoryRequest historyRequest){
        if(historyRequest == null || historyRequest.getHealthInsuranceNumber() == null ||
+               historyRequest.getMedicalHistory()  == null ||
                historyRequest.getMedicalHistory().getDiagnosis() == null ||
                historyRequest.getMedicalHistory().getTreatment() == null ||
                historyRequest.getMedicalHistory().getIllnessList().isEmpty() ||
@@ -102,16 +105,10 @@ public class ModificationArchiveController{
 
    @PostMapping("/contact-information")
     public ResponseEntity<?> createContactInfoModification(@RequestBody ContactInformationRequest contactRequest){
-       if(contactRequest == null || contactRequest.getHealthInsuranceNumber() == null ||
-            contactRequest.getContactInformation().getEmailAddressList().isEmpty() ||
-            contactRequest.getContactInformation().getEmailAddressList() == null ||
-            contactRequest.getContactInformation().getPhoneNumberList().isEmpty() ||
-               contactRequest.getContactInformation().getPhoneNumberList() == null ||
-            contactRequest.getContactInformation().getResidentialAddressList().isEmpty() ||
-               contactRequest.getContactInformation().getResidentialAddressList() == null){
-
+       if(!contactRequest.isValid()){
            return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
        }else {
+
            ContactInformation contactInformation = contactRequest.getContactInformation();
 
            Modification modification = new Modification();

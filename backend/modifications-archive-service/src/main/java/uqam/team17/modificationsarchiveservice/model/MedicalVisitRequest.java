@@ -1,6 +1,6 @@
 package uqam.team17.modificationsarchiveservice.model;
 
-public class MedicalVisitRequest {
+public class MedicalVisitRequest implements ModificationRequest {
     private String healthInsuranceNumber;
 
     private MedicalVisit medicalVisit;
@@ -30,5 +30,15 @@ public class MedicalVisitRequest {
                 "healthInsuranceNumber='" + healthInsuranceNumber + '\'' +
                 ", medicalVisit=" + medicalVisit +
                 '}';
+    }
+
+    @Override
+    public Modifiable createModifiable() {
+        return medicalVisit;
+    }
+
+    @Override
+    public Boolean isValid() {
+        return null;
     }
 }

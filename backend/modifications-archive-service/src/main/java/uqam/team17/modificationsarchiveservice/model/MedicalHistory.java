@@ -2,7 +2,7 @@ package uqam.team17.modificationsarchiveservice.model;
 
 import java.util.Date;
 import java.util.List;
-public class MedicalHistory implements ModificationIdRequest.Modifiable {
+public class MedicalHistory extends Modifiable {
 
     private Long medicalHistoryId;
 
@@ -68,7 +68,8 @@ public class MedicalHistory implements ModificationIdRequest.Modifiable {
     }
 
 
-    public ModificationType getType(){
+    @Override
+    public ModificationType getType() {
         return ModificationType.MEDICALHISTORY;
     }
 

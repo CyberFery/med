@@ -1,12 +1,10 @@
 package uqam.team17.modificationsarchiveservice.model;
 
-
-
 import java.util.Date;
 import java.util.List;
 
 
-public class MedicalVisit implements ModificationIdRequest.Modifiable {
+public class MedicalVisit extends Modifiable {
 
     private Long medicalVisitId;
 
@@ -95,10 +93,10 @@ public class MedicalVisit implements ModificationIdRequest.Modifiable {
                 '}';
     }
 
-    public ModificationType getType(){
+    @Override
+    public ModificationType getType() {
         return ModificationType.MEDICALVISIT;
     }
-
 
 
     public static class Diagnosis {

@@ -16,7 +16,7 @@ public class Modification {
     private ModificationType type;
 
     @Transient
-    private ModificationIdRequest.Modifiable modifiable;
+    private Modifiable modifiable;
 
     private Status status;
 
@@ -39,14 +39,6 @@ public class Modification {
         return type;
     }
 
-    //public String getModificationData() {
-      //  return modificationData;
-   // }
-
-   // public Long getSourceDatabaseId() {
-        //return sourceDatabaseId;
-    //}
-
     public String getHealthInsuranceNumber() {
         return healthInsuranceNumber;
     }
@@ -63,15 +55,6 @@ public class Modification {
         this.type = type;
     }
 
-    //public void setModificationData(String modificationData) {
-      //  this.modificationData = modificationData;
-   // }
-
-    ///public void setSourceDatabaseId(Long sourceDatabaseId) {
-   //     this.sourceDatabaseId = sourceDatabaseId;
-    //}
-
-
 
     public void setHealthInsuranceNumber(String healthInsuranceNumber) {
         this.healthInsuranceNumber = healthInsuranceNumber;
@@ -86,11 +69,11 @@ public class Modification {
                 '}';
     }
 
-    public ModificationIdRequest.Modifiable getModifiable() {
+    public Modifiable getModifiable() {
         return modifiable;
     }
 
-    public void setModifiable(ModificationIdRequest.Modifiable modifiable) {
+    public void setModifiable(Modifiable modifiable) {
         this.modifiable = modifiable;
     }
 
