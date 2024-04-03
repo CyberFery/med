@@ -33,7 +33,6 @@ public class MedicalHistoryRequest implements ModificationRequest {
     }
 
 
-
     @Override
     public Boolean isValid() {
         return healthInsuranceNumber != null &&

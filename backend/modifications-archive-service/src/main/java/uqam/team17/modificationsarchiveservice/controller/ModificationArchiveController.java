@@ -4,14 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import uqam.team17.modificationsarchiveservice.model.ContactInformation;
 import uqam.team17.modificationsarchiveservice.model.*;
 import uqam.team17.modificationsarchiveservice.service.ModificationService;
 
-
-
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -38,59 +33,53 @@ public class ModificationArchiveController{
         }
     }
 
-
-
-
    @PostMapping("/medical-visit")
    public ResponseEntity<?> createMedicalVisitModification(@RequestBody MedicalVisitRequest visitRequest){
-       if(visitRequest == null || !visitRequest.isValid()){
-           
-           return ResponseEntity.badRequest().body("Failed to backup medical visit, wrong format");
-       }else {
+     try {
+         if (visitRequest == null || !visitRequest.isValid()) {
 
-           final Modification response = modificationService.saveMedicalVisit(visitRequest);
+             return ResponseEntity.badRequest().body("Failed to backup medical visit, wrong format");
+         } else {
 
-           if(response != null){
-               return ResponseEntity.ok().body(response);
-           }else {
-               return ResponseEntity.badRequest().body("Trouble Medical Visit inserting in the database");
-           }
-       }
+             final Modification response = modificationService.saveMedicalVisit(visitRequest);
+             return ResponseEntity.ok().body(response);
+         }
+     }catch(Exception e){
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
+     }
    }
-
 
    @PostMapping("/medical-history")
    public ResponseEntity<?> createMedicalHistoryModification(@RequestBody MedicalHistoryRequest historyRequest){
-       if(historyRequest == null || !historyRequest.isValid()){
 
-           return ResponseEntity.badRequest().body("Failed to backup medical history, wrong format");
-       }else {
+    try {
+        if (historyRequest == null || !historyRequest.isValid()) {
 
-           final Modification response = modificationService.saveMedicalHistory(historyRequest);
+            return ResponseEntity.badRequest().body("Failed to backup medical history, wrong format");
+        } else {
 
-           if(response != null){
-               return ResponseEntity.ok().body(response);
-           }else {
-               return ResponseEntity.badRequest().body("Trouble Medical History inserting in the database");
-           }
-       }
-
+            final Modification response = modificationService.saveMedicalHistory(historyRequest);
+            return ResponseEntity.ok().body(response);
+        }
+    }catch (Exception e){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
+    }
    }
 
    @PostMapping("/contact-information")
     public ResponseEntity<?> createContactInfoModification(@RequestBody ContactInformationRequest contactRequest){
-       if(contactRequest == null || !contactRequest.isValid()){
-           return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
-       }else {
+     try {
+         if (contactRequest == null || !contactRequest.isValid()) {
+             return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
+         } else {
 
-           final Modification response = modificationService.saveContactInformation(contactRequest);
+             final Modification response = modificationService.saveContactInformation(contactRequest);
+             return ResponseEntity.ok().body(response);
 
-           if(response != null){
-              return ResponseEntity.ok().body(response);
-           }else {
-               return ResponseEntity.badRequest().body("Trouble inserting in the database");
-           }
-       }
+         }
+     }catch (Exception e){
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
+     }
 
    }
 

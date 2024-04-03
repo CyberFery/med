@@ -19,10 +19,6 @@ public class ModificationService{
         this.modificationRepository = repository;
     }
 
-    public Modification saveModification(Modification modification){
-        return modificationRepository.save(modification);
-    }
-
     public Modification saveContactInformation(ContactInformationRequest contactRequest){
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
@@ -62,7 +58,6 @@ public class ModificationService{
         return modificationRepository.findById(modificationId);
     }
 
-    //public Modification getModificationById()
 
 
 }
