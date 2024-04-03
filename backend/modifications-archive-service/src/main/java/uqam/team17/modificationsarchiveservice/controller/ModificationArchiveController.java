@@ -105,7 +105,7 @@ public class ModificationArchiveController{
 
    @PostMapping("/contact-information")
     public ResponseEntity<?> createContactInfoModification(@RequestBody ContactInformationRequest contactRequest){
-       if(!contactRequest.isValid()){
+       if(contactRequest == null || !contactRequest.isValid()){
            return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
        }else {
 
