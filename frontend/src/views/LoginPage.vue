@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useField, useForm} from 'vee-validate'
+import axios from 'axios';
 
 const {handleSubmit, handleReset} = useForm({
   validationSchema: {
@@ -20,9 +21,17 @@ const {handleSubmit, handleReset} = useForm({
 const userName = useField('userName')
 const password = useField('password')
 
-const submit = handleSubmit(values => {
-  alert(JSON.stringify(values, null, 2))
-})
+const submit = handleSubmit(async (values) => {
+  try {
+    const response = await axios.post('http://localhost:8080/authentication', {
+      userName: values.userName,
+      password: values.password,
+    });
+    console.log(response.data); // Handle the response as needed
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  }
+});
 </script>
 
 <template>
