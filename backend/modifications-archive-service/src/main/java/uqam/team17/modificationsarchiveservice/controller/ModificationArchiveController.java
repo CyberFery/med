@@ -43,26 +43,12 @@ public class ModificationArchiveController{
 
    @PostMapping("/medical-visit")
    public ResponseEntity<?> createMedicalVisitModification(@RequestBody MedicalVisitRequest visitRequest){
-       if(visitRequest == null || visitRequest.getMedicalVisit().getVisitedEstablishment() == null ||
-               visitRequest.getMedicalVisit()  == null ||
-               visitRequest.getMedicalVisit().getVisitDate() == null ||
-               visitRequest.getMedicalVisit().getDoctorSeen() == null ||
-               visitRequest.getMedicalVisit().getDiagnosisList().isEmpty() ||
-               visitRequest.getMedicalVisit().getDiagnosisList() == null){
-
+       if(visitRequest == null || !visitRequest.isValid()){
+           
            return ResponseEntity.badRequest().body("Failed to backup medical visit, wrong format");
        }else {
-           MedicalVisit medicalVisit = visitRequest.getMedicalVisit();
 
-
-           Modification modification = new Modification();
-           modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
-           modification.setTimestamp(LocalDateTime.now());
-           modification.setType(medicalVisit.getType());
-           modification.setModifiable(medicalVisit);
-           modification.setStatus(Modification.Status.UPDATE);
-
-           final Modification response = modificationService.saveModification(modification);
+           final Modification response = modificationService.saveMedicalVisit(visitRequest);
 
            if(response != null){
                return ResponseEntity.ok().body(response);

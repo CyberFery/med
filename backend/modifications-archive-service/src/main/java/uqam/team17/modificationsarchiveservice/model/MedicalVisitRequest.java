@@ -36,6 +36,15 @@ public class MedicalVisitRequest implements ModificationRequest {
 
     @Override
     public Boolean isValid() {
-        return null;
+
+        return healthInsuranceNumber != null &&
+                medicalVisit != null &&
+                medicalVisit.getVisitedEstablishment() != null &&
+                medicalVisit.getVisitDate() != null &&
+                medicalVisit.getDoctorSeen() != null &&
+                medicalVisit.getSummaryOfTheVisitByDoctor() != null &&
+                medicalVisit.getNotesForOtherDoctors() != null &&
+                medicalVisit.getDiagnosisList() != null &&
+               !medicalVisit.getDiagnosisList().isEmpty();
     }
 }

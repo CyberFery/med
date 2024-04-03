@@ -46,6 +46,17 @@ public class ModificationService{
 
     }
 
+    public Modification saveMedicalVisit(MedicalVisitRequest visitRequest){
+        Modification modification = new Modification();
+        modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
+        modification.setTimestamp(LocalDateTime.now());
+        modification.setType(visitRequest.getMedicalVisit().getType());
+        modification.setModifiable(visitRequest.getMedicalVisit());
+        modification.setStatus(Modification.Status.UPDATE);
+
+        return modificationRepository.save(modification);
+    }
+
     public Optional<Modification> getModificationById(Long modificationId){
 
         return modificationRepository.findById(modificationId);
