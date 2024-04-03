@@ -35,10 +35,7 @@ public class ContactInformationRequest implements ModificationRequest {
                 '}';
     }
 
-    @Override
-    public Modifiable createModifiable(){
-        return contactInformation;
-    }
+
 
     @Override
     public Boolean isValid() {

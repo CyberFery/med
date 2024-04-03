@@ -54,6 +54,7 @@ public class ModificationArchiveController{
        }else {
            MedicalVisit medicalVisit = visitRequest.getMedicalVisit();
 
+
            Modification modification = new Modification();
            modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
            modification.setTimestamp(LocalDateTime.now());
@@ -74,12 +75,7 @@ public class ModificationArchiveController{
 
    @PostMapping("/medical-history")
    public ResponseEntity<?> createMedicalHistoryModification(@RequestBody MedicalHistoryRequest historyRequest){
-       if(historyRequest == null || historyRequest.getHealthInsuranceNumber() == null ||
-               historyRequest.getMedicalHistory()  == null ||
-               historyRequest.getMedicalHistory().getDiagnosis() == null ||
-               historyRequest.getMedicalHistory().getTreatment() == null ||
-               historyRequest.getMedicalHistory().getIllnessList().isEmpty() ||
-               historyRequest.getMedicalHistory().getIllnessList() == null){
+       if(historyRequest == null || !historyRequest.isValid()){
 
            return ResponseEntity.badRequest().body("Failed to backup medical history, wrong format");
        }else {
@@ -109,16 +105,7 @@ public class ModificationArchiveController{
            return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
        }else {
 
-           ContactInformation contactInformation = contactRequest.getContactInformation();
-
-           Modification modification = new Modification();
-           modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
-           modification.setTimestamp(LocalDateTime.now());
-           modification.setType(contactInformation.getType());
-           modification.setModifiable(contactInformation);
-           modification.setStatus(Modification.Status.UPDATE);
-
-           final Modification response = modificationService.saveModification(modification);
+           final Modification response = modificationService.saveContactInformation(contactRequest);
 
            if(response != null){
               return ResponseEntity.ok().body(response);
@@ -128,5 +115,6 @@ public class ModificationArchiveController{
        }
 
    }
+
 
 }

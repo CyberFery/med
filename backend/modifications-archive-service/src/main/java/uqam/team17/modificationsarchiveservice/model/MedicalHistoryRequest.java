@@ -33,14 +33,16 @@ public class MedicalHistoryRequest implements ModificationRequest {
     }
 
 
-    @Override
-    public Modifiable createModifiable() {
-        return medicalHistory;
-    }
 
     @Override
     public Boolean isValid() {
-        return null;
+        return healthInsuranceNumber != null &&
+                medicalHistory != null &&
+                medicalHistory.getDiagnosis() != null &&
+                medicalHistory.getTreatment() != null &&
+                medicalHistory.getIllnessList() != null &&
+                medicalHistory.getPrimaryDoctor() != null &&
+                !medicalHistory.getIllnessList().isEmpty();
     }
 
 

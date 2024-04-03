@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import uqam.team17.modificationsarchiveservice.repository.ModificationArchiveRepository;
 import uqam.team17.modificationsarchiveservice.model.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,17 @@ public class ModificationService{
     }
 
     public Modification saveModification(Modification modification){
+        return modificationRepository.save(modification);
+    }
+
+    public Modification saveContactInformation(ContactInformationRequest contactRequest){
+        Modification modification = new Modification();
+        modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
+        modification.setTimestamp(LocalDateTime.now());
+        modification.setType(contactRequest.getContactInformation().getType());
+        modification.setModifiable(contactRequest.getContactInformation());
+        modification.setStatus(Modification.Status.UPDATE);
+
         return modificationRepository.save(modification);
     }
 

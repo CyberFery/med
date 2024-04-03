@@ -32,10 +32,7 @@ public class MedicalVisitRequest implements ModificationRequest {
                 '}';
     }
 
-    @Override
-    public Modifiable createModifiable() {
-        return medicalVisit;
-    }
+
 
     @Override
     public Boolean isValid() {
