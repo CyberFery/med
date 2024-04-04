@@ -3,9 +3,6 @@ package uqam.team17.modificationsarchiveservice.model;
 import java.util.Date;
 import java.util.List;
 public class MedicalHistory extends Modifiable {
-
-    private Long medicalHistoryId;
-
     private String diagnosis;
     private String treatment;
 
@@ -14,14 +11,6 @@ public class MedicalHistory extends Modifiable {
     private Doctor primaryDoctor;
 
     public MedicalHistory() {
-    }
-
-    public Long getMedicalHistoryId() {
-        return medicalHistoryId;
-    }
-
-    public void setMedicalHistoryId(Long medicalHistoryId) {
-        this.medicalHistoryId = medicalHistoryId;
     }
 
     public String getDiagnosis() {
@@ -59,7 +48,6 @@ public class MedicalHistory extends Modifiable {
     @Override
     public String toString() {
         return "MedicalHistory{" +
-                "medicalHistoryId=" + medicalHistoryId +
                 ", Diagnosis='" + diagnosis + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", illnessList=" + illnessList +
