@@ -1,4 +1,4 @@
-package uqam.team17.medicalRecordsService.controller;
+package uqam.team17.medicalRecordsService.utility;
 
 public class HealthInsuranceNumber {
     private String healthInsuranceNumber;

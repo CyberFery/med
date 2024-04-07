@@ -1,4 +1,4 @@
-package uqam.team17.medicalRecordsService.controller;
+package uqam.team17.medicalRecordsService.utility;
 
 import jakarta.persistence.ElementCollection;
 import uqam.team17.medicalRecordsService.entity.Patient;

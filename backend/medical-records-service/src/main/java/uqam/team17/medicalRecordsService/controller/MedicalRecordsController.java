@@ -1,12 +1,15 @@
 package uqam.team17.medicalRecordsService.controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uqam.team17.medicalRecordsService.ExceptionHandler.MedicalRecordsException;
 import uqam.team17.medicalRecordsService.entity.MedicalRecord;
-import uqam.team17.medicalRecordsService.entity.Patient;
 import uqam.team17.medicalRecordsService.service.MedicalRecordsService;
+import uqam.team17.medicalRecordsService.utility.ContactInformationRequest;
+import uqam.team17.medicalRecordsService.utility.HealthInsuranceNumber;
 import uqam.team17.medicalRecordsService.utility.Validation;
 @RestController
-@RequestMapping("/medicalRecords")
+@RequestMapping("/medical-records")
 public class MedicalRecordsController {
     private final MedicalRecordsService medicalRecordsService;
 
@@ -15,12 +18,15 @@ public class MedicalRecordsController {
     }
 
     @GetMapping("/medical-record")
-    public ResponseEntity<?> getMedicalRecord(@RequestBody HealthInsuranceNumber request) throws Exception {
+    public ResponseEntity<?> getMedicalRecord(@RequestBody HealthInsuranceNumber request) {
         if ( !Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())) {
            return ResponseEntity.badRequest().body("Invalid health insurance number format!");
        }
         MedicalRecord medicalRecord = medicalRecordsService.getMedicalRecord(request.getHealthInsuranceNumber());
-       return ResponseEntity.ok(medicalRecord);
+        if (medicalRecord == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medical Record not found for patient with health insurance number : " + request.getHealthInsuranceNumber());
+        }
+        return ResponseEntity.ok(medicalRecord);
     }
 
     @PutMapping("/update-contact-information")
