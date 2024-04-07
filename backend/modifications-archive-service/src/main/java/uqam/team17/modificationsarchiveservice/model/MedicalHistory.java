@@ -7,8 +7,9 @@ import java.util.List;
 
 @Entity
 @Table(name ="medical_history")
-public class MedicalHistory extends Modifiable {
-
+public class MedicalHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalHistoryId;
     private String diagnosis;
     private String treatment;
@@ -53,7 +54,7 @@ public class MedicalHistory extends Modifiable {
     }
 
 
-    @Override
+
     public ModificationType getType() {
         return ModificationType.MEDICALHISTORY;
     }
@@ -83,12 +84,15 @@ public class MedicalHistory extends Modifiable {
         private Date onsetOfIllnessDate;
         private Date endOfIllnessDate;
 
+        public Illness() {
+        }
+
+
         public Illness(String description, Date onsetOfIllnessDate, Date endOfIllnessDate) {
             this.description = description;
             this.onsetOfIllnessDate = onsetOfIllnessDate;
             this.endOfIllnessDate = endOfIllnessDate;
         }
-
 
         public String getDescription() {
             return description;

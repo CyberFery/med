@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "modification")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "modification_type", discriminatorType = DiscriminatorType.STRING)
 public class Modification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +17,19 @@ public class Modification {
     private LocalDateTime timestamp;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "modification_type", insertable = false, updatable = false)
+    @Column(name = "modification_type")
     private ModificationType type;
 
-    @OneToOne(mappedBy = "modification", cascade = CascadeType.ALL)
-    private Modifiable modifiable;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medical_history_id", unique = true)
+    private MedicalHistory medicalHistory;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medical_visit_id", unique = true)
+    private MedicalVisit medicalVisit;
+    @OneToOne( cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_information_id", unique = true)
+    private ContactInformation contactInformation;
     private Status status;
 
     //private Long sourceDatabaseId;
@@ -67,30 +72,50 @@ public class Modification {
         this.healthInsuranceNumber = healthInsuranceNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Modification{" +
-                "modificationId=" + modificationId +
-                ", timestamp=" + timestamp +
-                ", type=" + type +
-                '}';
-    }
-
-    public Modifiable getModifiable() {
-        return modifiable;
-    }
-
-    public void setModifiable(Modifiable modifiable) {
-
-        this.modifiable = modifiable;
-    }
-
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public MedicalHistory getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(MedicalHistory medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
+    public MedicalVisit getMedicalVisit() {
+        return medicalVisit;
+    }
+
+    public void setMedicalVisit(MedicalVisit medicalVisit) {
+        this.medicalVisit = medicalVisit;
+    }
+
+    public ContactInformation getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(ContactInformation contactInformation) {
+        this.contactInformation = contactInformation;
+    }
+
+    @Override
+    public String toString() {
+        return "Modification{" +
+                "modificationId=" + modificationId +
+                ", healthInsuranceNumber='" + healthInsuranceNumber + '\'' +
+                ", timestamp=" + timestamp +
+                ", type=" + type +
+                ", medicalHistory=" + medicalHistory +
+                ", medicalVisit=" + medicalVisit +
+                ", contactInformation=" + contactInformation +
+                ", status=" + status +
+                '}';
     }
 
 

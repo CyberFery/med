@@ -18,36 +18,38 @@ public class ModificationService{
     public ModificationService(ModificationArchiveRepository repository){
         this.modificationRepository = repository;
     }
-
+    @Transactional
     public Modification saveContactInformation(ContactInformationRequest contactRequest){
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
         modification.setType(contactRequest.getContactInformation().getType());
-        modification.setModifiable(contactRequest.getContactInformation());
+        modification.setContactInformation(contactRequest.getContactInformation());
         modification.setStatus(Modification.Status.UPDATE);
 
         return modificationRepository.save(modification);
     }
-
+    @Transactional
     public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest){
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
         modification.setType(historyRequest.getMedicalHistory().getType());
-        //modification.setModifiable(historyRequest.getMedicalHistory());
+        modification.setMedicalHistory(historyRequest.getMedicalHistory());
         modification.setStatus(Modification.Status.UPDATE);
+        //modification.setTest(test);
 
         return modificationRepository.save(modification);
 
     }
+
 
     public Modification saveMedicalVisit(MedicalVisitRequest visitRequest){
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
         modification.setType(visitRequest.getMedicalVisit().getType());
-        modification.setModifiable(visitRequest.getMedicalVisit());
+        modification.setMedicalVisit(visitRequest.getMedicalVisit());
         modification.setStatus(Modification.Status.UPDATE);
 
         return modificationRepository.save(modification);
@@ -57,7 +59,6 @@ public class ModificationService{
 
         return modificationRepository.findById(modificationId);
     }
-
 
 
 }

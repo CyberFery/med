@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0b43b5ff-18b8-4d9d-9ece-6b2ceb6b6b39",
+		"_postman_id": "c278a89a-482f-498b-b973-b0f75768fa22",
 		"name": "Modification Service API-2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16626175"
@@ -27,7 +27,7 @@
 							"    pm.expect(responseData.healthInsuranceNumber).to.exist;\r",
 							"    pm.expect(responseData.timestamp).to.exist;\r",
 							"    pm.expect(responseData.type).to.exist;\r",
-							"    pm.expect(responseData.modifiable).to.exist.and.to.be.an('object');\r",
+							"    pm.expect(responseData.contactInformation).to.exist.and.to.be.an('object');\r",
 							"    pm.expect(responseData.status).to.exist;\r",
 							"});\r",
 							"\r",
@@ -35,25 +35,25 @@
 							"pm.test(\"Residential address list is present and is an array\", function () {\r",
 							"  const responseData = pm.response.json();\r",
 							"  \r",
-							"  pm.expect(responseData).to.have.property(\"modifiable\");\r",
-							"  pm.expect(responseData.modifiable.residentialAddressList).to.be.an('array');\r",
+							"  pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+							"  pm.expect(responseData.contactInformation.residentialAddressList).to.be.an('array');\r",
 							"});\r",
 							"\r",
 							"\r",
 							"pm.test(\"Phone number list is present and is an array\", function () {\r",
 							"  const responseData = pm.response.json();\r",
 							"\r",
-							"  pm.expect(responseData).to.have.property(\"modifiable\");\r",
-							"  pm.expect(responseData.modifiable.phoneNumberList).to.exist.and.to.be.an('array');\r",
+							"  pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+							"  pm.expect(responseData.contactInformation.phoneNumberList).to.exist.and.to.be.an('array');\r",
 							"});\r",
 							"\r",
 							"\r",
 							"pm.test(\"Email address list is present and is an array\", function () {\r",
 							"    const responseData = pm.response.json();\r",
 							"\r",
-							"    pm.expect(responseData).to.have.property(\"modifiable\");\r",
+							"    pm.expect(responseData).to.have.property(\"contactInformation\");\r",
 							"    pm.expect(responseData).to.be.an('object');\r",
-							"    pm.expect(responseData.modifiable.emailAddressList).to.be.an('array');\r",
+							"    pm.expect(responseData.contactInformation.emailAddressList).to.be.an('array');\r",
 							"});\r",
 							"\r",
 							""
@@ -68,7 +68,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"healthInsuranceNumber\": \"ABCD123456789\",\r\n    \"contactInformation\": {\r\n            \"residentialAddressList\": [\r\n                {\r\n                    \"address\": \"9445 Rue poirier\"\r\n                }\r\n            ],\r\n            \"phoneNumberList\": [\r\n                {\r\n                    \"number\": \"5149947878\"\r\n                }\r\n            ],\r\n            \"emailAddressList\": [\r\n                {\r\n                    \"email\": \"johnn@gmail.com\"\r\n                }\r\n            ]\r\n        }\r\n\r\n}",
+					"raw": "{\r\n\t\"healthInsuranceNumber\": \"ABCD123456789\",\r\n    \"contactInformation\": {\r\n            \"residentialAddressList\": [\r\n                {\r\n                    \"address\": \"9445 Rue poirier\"\r\n                },\r\n                {\r\n                    \"address\": \"4567 Rue Atateken\"\r\n                }\r\n            ],\r\n            \"phoneNumberList\": [\r\n                {\r\n                    \"number\": \"5149947878\"\r\n                }\r\n            ],\r\n            \"emailAddressList\": [\r\n                {\r\n                    \"email\": \"johnn@gmail.com\"\r\n                }\r\n            ]\r\n        }\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,7 +111,7 @@
 							"    pm.expect(responseData.healthInsuranceNumber).to.exist;",
 							"    pm.expect(responseData.timestamp).to.exist;",
 							"    pm.expect(responseData.type).to.exist;",
-							"    pm.expect(responseData.modifiable).to.exist;",
+							"    pm.expect(responseData.medicalHistory).to.exist;",
 							"    pm.expect(responseData.status).to.exist;",
 							"});",
 							"",
@@ -120,18 +120,18 @@
 							"    const responseData = pm.response.json();",
 							"    ",
 							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.modifiable.illnessList).to.exist.and.to.be.an('array');",
-							"    pm.expect(responseData.modifiable.illnessList).to.have.lengthOf.at.least(1);",
+							"    pm.expect(responseData.medicalHistory.illnessList).to.exist.and.to.be.an('array');",
+							"    pm.expect(responseData.medicalHistory.illnessList).to.have.lengthOf.at.least(1);",
 							"});",
 							"",
 							"",
 							"pm.test(\"Primary doctor object should have firstName, lastName, and specialization\", function () {",
 							"  const responseData = pm.response.json();",
 							"  ",
-							"  pm.expect(responseData.modifiable.primaryDoctor).to.exist;",
-							"  pm.expect(responseData.modifiable.primaryDoctor.firstName).to.be.a('string');",
-							"  pm.expect(responseData.modifiable.primaryDoctor.lastName).to.be.a('string');",
-							"  pm.expect(responseData.modifiable.primaryDoctor.specialization).to.be.a('string');",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor).to.exist;",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor.firstName).to.be.a('string');",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor.lastName).to.be.a('string');",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor.specialization).to.be.a('string');",
 							"});",
 							"",
 							""
@@ -146,7 +146,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"healthInsuranceNumber\": \"ABCD123456745\",\r\n    \"medicalHistory\": {\r\n        \"diagnosis\": \"Sample diagnosis\",\r\n        \"treatment\": \"Sample treatment\",\r\n        \"illnessList\": [\r\n            {\r\n                \"description\": \"Illness 1 description\",\r\n                \"onsetOfIllnessDate\": \"2023-01-01\",\r\n                \"endOfIllnessDate\": \"2023-01-15\"\r\n            },\r\n            {\r\n                \"description\": \"Illness 2 description\",\r\n                \"onsetOfIllnessDate\": \"2023-02-01\",\r\n                \"endOfIllnessDate\": \"2023-02-10\"\r\n            }\r\n        ],\r\n        \"primaryDoctor\": {\r\n            \"firstName\": \"John\",\r\n            \"lastName\": \"Doe\",\r\n            \"specialization\": \"General Physician\"\r\n        }\r\n    }\r\n}",
+					"raw": "{\r\n    \"healthInsuranceNumber\": \"ABCD123456745\",\r\n    \"medicalHistory\": {\r\n        \"diagnosis\": \"Sample diagnosis\",\r\n        \"treatment\": \"Sample treatment\",\r\n        \"illnessList\": [\r\n            {\r\n                \"description\": \"Illness 1 description\",\r\n                \"onsetOfIllnessDate\": \"2024-04-07T14:54:43.960256\",\r\n                \"endOfIllnessDate\": \"2024-04-07T14:54:43.960256\"\r\n            },\r\n            {\r\n                \"description\": \"Illness 2 description\",\r\n                \"onsetOfIllnessDate\": \"2024-04-07T14:54:43.960256\",\r\n                \"endOfIllnessDate\": \"2024-04-07T14:54:43.960256\"\r\n            }\r\n        ],\r\n        \"primaryDoctor\": {\r\n            \"firstName\": \"John\",\r\n            \"lastName\": \"Doe\",\r\n            \"specialization\": \"General Physician\"\r\n        }\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

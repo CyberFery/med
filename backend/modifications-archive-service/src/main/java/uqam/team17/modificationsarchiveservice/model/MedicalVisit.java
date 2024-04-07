@@ -7,8 +7,10 @@ import java.util.List;
 
 @Entity
 @Table(name= "medical_visit")
-public class MedicalVisit extends Modifiable {
+public class MedicalVisit {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalVisitId;
 
     private String visitedEstablishment;
@@ -81,7 +83,9 @@ public class MedicalVisit extends Modifiable {
     }
 
 
-
+    public ModificationType getType() {
+        return ModificationType.MEDICALVISIT;
+    }
 
     @Override
     public String toString() {
@@ -96,23 +100,18 @@ public class MedicalVisit extends Modifiable {
                 '}';
     }
 
-    @Override
-    public ModificationType getType() {
-        return ModificationType.MEDICALVISIT;
-    }
-
     @Embeddable
     public static class Diagnosis {
         private String description;
         private String treatment;
 
+        public Diagnosis() {
+            // default constructor
+        }
+
         public Diagnosis(String description, String treatment) {
             this.description = description;
             this.treatment = treatment;
-        }
-
-        public Diagnosis() {
-            // default constructor
         }
 
         public String getDescription() {

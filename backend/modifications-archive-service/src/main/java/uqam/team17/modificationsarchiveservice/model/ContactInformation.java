@@ -6,7 +6,11 @@ import java.util.List;
 
 @Entity
 @Table(name="contact_information")
-public class ContactInformation extends Modifiable {
+public class ContactInformation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long contactInformationId;
 
     @ElementCollection
     private List<ResidentialAddress> residentialAddressList;
@@ -15,6 +19,7 @@ public class ContactInformation extends Modifiable {
 
     @ElementCollection
     private List<EmailAddress> emailAddressList;
+
 
     public List<ResidentialAddress> getResidentialAddressList() {
         return residentialAddressList;
@@ -41,14 +46,23 @@ public class ContactInformation extends Modifiable {
     }
 
 
-   @Override
+
     public ModificationType getType() {
         return ModificationType.CONTACTINFORMATION;
+    }
+
+    public Long getContactInformationId() {
+        return contactInformationId;
+    }
+
+    public void setContactInformationId(Long contactInformationId) {
+        this.contactInformationId = contactInformationId;
     }
 
     @Override
     public String toString() {
         return "ContactInformation{" +
+                "contactInformationId=" + contactInformationId +
                 ", residentialAddressList=" + residentialAddressList +
                 ", phoneNumberList=" + phoneNumberList +
                 ", emailAddressList=" + emailAddressList +

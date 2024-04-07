@@ -59,13 +59,7 @@ public class ModificationArchiveController{
         } else {
 
             final Modification response = modificationService.saveMedicalHistory(historyRequest);
-
-            if(response != null){
-                return ResponseEntity.ok().body(response);
-            }else {
-                return ResponseEntity.badRequest().body("The saving failed the response is null");
-            }
-
+            return ResponseEntity.ok(response);
 
         }
 
@@ -73,7 +67,8 @@ public class ModificationArchiveController{
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a null pointer");
 
     }catch (Exception e){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened - f");
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
     }
    }
 
