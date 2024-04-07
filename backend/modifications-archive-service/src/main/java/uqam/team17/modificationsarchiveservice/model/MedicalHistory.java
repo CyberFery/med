@@ -1,13 +1,20 @@
 package uqam.team17.modificationsarchiveservice.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.List;
+
+@Entity
+@Table(name ="medical_history")
 public class MedicalHistory extends Modifiable {
+
+    private Long medicalHistoryId;
     private String diagnosis;
     private String treatment;
-
+    @ElementCollection
     private List<Illness> illnessList;
-
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor primaryDoctor;
 
     public MedicalHistory() {
@@ -45,23 +52,32 @@ public class MedicalHistory extends Modifiable {
         this.primaryDoctor = primaryDoctor;
     }
 
-    @Override
-    public String toString() {
-        return "MedicalHistory{" +
-                ", Diagnosis='" + diagnosis + '\'' +
-                ", treatment='" + treatment + '\'' +
-                ", illnessList=" + illnessList +
-                ", primaryDoctor=" + primaryDoctor +
-                '}';
-    }
-
 
     @Override
     public ModificationType getType() {
         return ModificationType.MEDICALHISTORY;
     }
 
+    public Long getMedicalHistoryId() {
+        return medicalHistoryId;
+    }
 
+    public void setMedicalHistoryId(Long medicalHistoryId) {
+        this.medicalHistoryId = medicalHistoryId;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalHistory{" +
+                "medicalHistoryId=" + medicalHistoryId +
+                ", diagnosis='" + diagnosis + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", illnessList=" + illnessList +
+                ", primaryDoctor=" + primaryDoctor +
+                '}';
+    }
+
+    @Embeddable
     public static class Illness {
         private String description;
         private Date onsetOfIllnessDate;

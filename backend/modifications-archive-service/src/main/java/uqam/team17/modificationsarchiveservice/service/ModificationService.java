@@ -35,7 +35,7 @@ public class ModificationService{
         modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
         modification.setType(historyRequest.getMedicalHistory().getType());
-        modification.setModifiable(historyRequest.getMedicalHistory());
+        //modification.setModifiable(historyRequest.getMedicalHistory());
         modification.setStatus(Modification.Status.UPDATE);
 
         return modificationRepository.save(modification);

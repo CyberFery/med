@@ -41,6 +41,9 @@ public class MedicalHistoryRequest implements ModificationRequest {
                 medicalHistory.getTreatment() != null &&
                 medicalHistory.getIllnessList() != null &&
                 medicalHistory.getPrimaryDoctor() != null &&
+                medicalHistory.getPrimaryDoctor().getFirstName() != null &&
+                medicalHistory.getPrimaryDoctor().getLastName() != null &&
+                medicalHistory.getPrimaryDoctor().getSpecialization() != null &&
                 !medicalHistory.getIllnessList().isEmpty();
     }
 

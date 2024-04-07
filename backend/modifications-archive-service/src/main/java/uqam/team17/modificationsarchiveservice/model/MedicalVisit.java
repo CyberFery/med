@@ -1,18 +1,21 @@
 package uqam.team17.modificationsarchiveservice.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
-
+@Entity
+@Table(name= "medical_visit")
 public class MedicalVisit extends Modifiable {
 
     private Long medicalVisitId;
 
     private String visitedEstablishment;
-
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctorSeen;
     private Date visitDate;
-
+    @ElementCollection
     private List<Diagnosis> diagnosisList;
     private String summaryOfTheVisitByDoctor;
     private String notesForOtherDoctors;
@@ -98,7 +101,7 @@ public class MedicalVisit extends Modifiable {
         return ModificationType.MEDICALVISIT;
     }
 
-
+    @Embeddable
     public static class Diagnosis {
         private String description;
         private String treatment;

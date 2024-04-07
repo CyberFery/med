@@ -1,13 +1,19 @@
 package uqam.team17.modificationsarchiveservice.model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
+@Table(name="contact_information")
 public class ContactInformation extends Modifiable {
 
+    @ElementCollection
     private List<ResidentialAddress> residentialAddressList;
-
+    @ElementCollection
     private List<PhoneNumber> phoneNumberList;
 
+    @ElementCollection
     private List<EmailAddress> emailAddressList;
 
     public List<ResidentialAddress> getResidentialAddressList() {
@@ -40,7 +46,16 @@ public class ContactInformation extends Modifiable {
         return ModificationType.CONTACTINFORMATION;
     }
 
+    @Override
+    public String toString() {
+        return "ContactInformation{" +
+                ", residentialAddressList=" + residentialAddressList +
+                ", phoneNumberList=" + phoneNumberList +
+                ", emailAddressList=" + emailAddressList +
+                '}';
+    }
 
+    @Embeddable
     public static class ResidentialAddress{
         private String address;
 
@@ -65,7 +80,7 @@ public class ContactInformation extends Modifiable {
         }
     }
 
-
+    @Embeddable
     public static class PhoneNumber{
         private String number;
 
@@ -87,7 +102,7 @@ public class ContactInformation extends Modifiable {
                     '}';
         }
     }
-
+    @Embeddable
     public static class EmailAddress{
         private String email;
 

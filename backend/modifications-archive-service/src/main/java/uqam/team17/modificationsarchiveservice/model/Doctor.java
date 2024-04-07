@@ -1,7 +1,13 @@
 package uqam.team17.modificationsarchiveservice.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Doctor {
+
+    @Id
+    private Long doctorId;
     private String firstName;
     private String lastName;
     private String specialization;
@@ -34,13 +40,21 @@ public class Doctor {
         this.specialization = specialization;
     }
 
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +
+                "doctorId=" + doctorId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", specialization='" + specialization + '\'' +
                 '}';
     }
-
 }

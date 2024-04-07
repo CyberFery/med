@@ -1,9 +1,14 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.Mapping;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "modification")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "modification_type", discriminatorType = DiscriminatorType.STRING)
 public class Modification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,9 +18,11 @@ public class Modification {
 
     private LocalDateTime timestamp;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "modification_type", insertable = false, updatable = false)
     private ModificationType type;
 
-    @Transient
+    @OneToOne(mappedBy = "modification", cascade = CascadeType.ALL)
     private Modifiable modifiable;
 
     private Status status;
@@ -74,6 +81,7 @@ public class Modification {
     }
 
     public void setModifiable(Modifiable modifiable) {
+
         this.modifiable = modifiable;
     }
 
