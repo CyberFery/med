@@ -3,8 +3,8 @@ package uqam.team17.medicalrecordsservice.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uqam.team17.medicalrecordsservice.exception.MedicalRecordsException;
-import uqam.team17.medicalrecordsservice.entity.MedicalRecord;
+import uqam.team17.medicalrecordsservice.ExceptionHandler.*;
+import uqam.team17.medicalrecordsservice.entity.*;
 import uqam.team17.medicalrecordsservice.service.MedicalRecordsService;
 import uqam.team17.medicalrecordsservice.utility.*;
 
@@ -15,6 +15,18 @@ public class MedicalRecordsController {
 
     public MedicalRecordsController(MedicalRecordsService medicalRecordsService) {
         this.medicalRecordsService = medicalRecordsService;
+    }
+
+    @PostMapping("/medical-record")
+    public ResponseEntity<?> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+        if (medicalRecord == null || medicalRecord.getPatient() == null
+                || medicalRecord.getMedicalVisitList() == null || medicalRecord.getMedicalVisitList().isEmpty()
+                || medicalRecord.getMedicalHistoryList() == null || medicalRecord.getMedicalHistoryList().isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid medical record format!");
+        }
+        MedicalRecord savedMedicalRecord = medicalRecordsService.saveMedicalRecord(medicalRecord);
+
+        return ResponseEntity.ok(savedMedicalRecord);
     }
 
     @GetMapping("/medical-record")
@@ -30,7 +42,7 @@ public class MedicalRecordsController {
     }
 
     @PutMapping("/update-contact-information")
-    public ResponseEntity<?> updateContactInformation(@RequestBody ContactInformationRequest request) throws Exception {
+    public ResponseEntity<?> updateContactInformation(@RequestBody ContactInformationRequest request) throws MedicalRecordsException {
         if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
                 || request.getContactInformation() == null)
             return ResponseEntity.badRequest().body("Failed to update contact information, invalid format");

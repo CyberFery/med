@@ -11,8 +11,10 @@ public class MedicalVisit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalVisitId;
     private String visitedEstablishment;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "doctorId")
     private Doctor doctorSeen;
+    //private Long doctorId = doctorSeen.getDoctorId();
     private Date visitDate;
     @ElementCollection
     private List<Diagnosis> diagnosisList;
@@ -31,12 +33,12 @@ public class MedicalVisit {
         this.visitedEstablishment = visitedEstablishment;
     }
 
-    public Doctor getDoctorSeen() {
-        return doctorSeen;
+   public Doctor getDoctorSeen() {
+       return doctorSeen;
     }
 
     public void setDoctorSeen(Doctor doctorSeen) {
-        this.doctorSeen = doctorSeen;
+       this.doctorSeen = doctorSeen;
     }
 
     public Date getVisitDate() {
@@ -85,6 +87,7 @@ public class MedicalVisit {
                 "medicalVisitId=" + medicalVisitId +
                 ", visitedEstablishment='" + visitedEstablishment + '\'' +
                 ", doctorSeen=" + doctorSeen +
+                //", doctorId= " + doctorId +
                 ", visitDate=" + visitDate +
                 ", diagnosisList=" + diagnosisList +
                 ", summaryOfTheVisitByDoctor='" + summaryOfTheVisitByDoctor + '\'' +
