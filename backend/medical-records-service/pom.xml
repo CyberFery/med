@@ -14,7 +14,7 @@
     <name>medical-records-service</name>
     <description>medical-records-service</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <!-- Spring Boot Starter Dependencies -->
