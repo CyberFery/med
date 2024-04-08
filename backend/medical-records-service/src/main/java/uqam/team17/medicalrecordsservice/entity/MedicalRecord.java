@@ -17,15 +17,12 @@ public class MedicalRecord {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MedicalHistory> medicalHistoryList;
 
-    public MedicalRecord(){}
+    public MedicalRecord() {
+        // default constructor
+    }
+
     public MedicalRecord(Patient patient) {
         this.patient = patient;
-    }
-
-    void save() {
-    }
-
-    void archiveModification() {
     }
 
     public Patient getPatient() {

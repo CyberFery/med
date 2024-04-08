@@ -8,6 +8,7 @@ public class Validation {
         String regex = "^[a-zA-Z]{4}\\d{8,10}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(healthInsuranceNumber.trim().toUpperCase());
+
         return matcher.matches();
     }
 }

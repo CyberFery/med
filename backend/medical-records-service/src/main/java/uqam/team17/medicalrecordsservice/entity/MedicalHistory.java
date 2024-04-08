@@ -85,7 +85,7 @@ public class MedicalHistory {
         }
 
         public Illness() {
-
+            // default constructor
         }
 
         public String getDescription() {

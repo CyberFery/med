@@ -92,43 +92,43 @@ public class MedicalVisit {
                 '}';
     }
 
-@Embeddable
-public static class Diagnosis {
-    private String description;
-    private String treatment;
+    @Embeddable
+    public static class Diagnosis {
+        private String description;
+        private String treatment;
 
-    public Diagnosis(String description, String treatment) {
-        this.description = description;
-        this.treatment = treatment;
-    }
+        public Diagnosis(String description, String treatment) {
+            this.description = description;
+            this.treatment = treatment;
+        }
 
-    public Diagnosis() {
-        // default constructor
-    }
+        public Diagnosis() {
+            // default constructor
+        }
 
-    public String getDescription() {
-        return description;
-    }
+        public String getDescription() {
+            return description;
+        }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+        public void setDescription(String description) {
+            this.description = description;
+        }
 
-    public String getTreatment() {
-        return treatment;
-    }
+        public String getTreatment() {
+            return treatment;
+        }
 
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
-    }
+        public void setTreatment(String treatment) {
+            this.treatment = treatment;
+        }
 
-    @Override
-    public String toString() {
-        return "Diagnosis{" +
-                "description='" + description + '\'' +
-                ", treatment='" + treatment + '\'' +
-                '}';
+        @Override
+        public String toString() {
+            return "Diagnosis{" +
+                    "description='" + description + '\'' +
+                    ", treatment='" + treatment + '\'' +
+                    '}';
+        }
     }
-}
 }
 

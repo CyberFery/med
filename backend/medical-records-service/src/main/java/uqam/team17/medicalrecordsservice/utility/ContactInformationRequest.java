@@ -9,6 +9,7 @@ public class ContactInformationRequest {
     public String getHealthInsuranceNumber() {
         return healthInsuranceNumber;
     }
+
     public Patient.ContactInformation getContactInformation() {
         return contactInformation;
     }
