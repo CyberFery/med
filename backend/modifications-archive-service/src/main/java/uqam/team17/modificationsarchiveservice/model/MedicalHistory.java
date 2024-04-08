@@ -56,7 +56,7 @@ public class MedicalHistory {
 
 
     public ModificationType getType() {
-        return ModificationType.MEDICALHISTORY;
+        return ModificationType.MEDICAL_HISTORY;
     }
 
     public Long getMedicalHistoryId() {

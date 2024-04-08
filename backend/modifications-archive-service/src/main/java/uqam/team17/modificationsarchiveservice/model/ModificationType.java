@@ -1,7 +1,7 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 public enum ModificationType {
-    CONTACTINFORMATION,
-    MEDICALHISTORY,
-    MEDICALVISIT
+    CONTACT_INFORMATION,
+    MEDICAL_HISTORY,
+    MEDICAL_VISIT
 }

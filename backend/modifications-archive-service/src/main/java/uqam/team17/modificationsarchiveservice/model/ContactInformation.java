@@ -48,7 +48,7 @@ public class ContactInformation {
 
 
     public ModificationType getType() {
-        return ModificationType.CONTACTINFORMATION;
+        return ModificationType.CONTACT_INFORMATION;
     }
 
     public Long getContactInformationId() {

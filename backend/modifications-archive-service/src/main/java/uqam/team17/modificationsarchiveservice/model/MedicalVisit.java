@@ -84,7 +84,7 @@ public class MedicalVisit {
 
 
     public ModificationType getType() {
-        return ModificationType.MEDICALVISIT;
+        return ModificationType.MEDICAL_VISIT;
     }
 
     @Override
