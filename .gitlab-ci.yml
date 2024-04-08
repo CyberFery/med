@@ -55,6 +55,7 @@ cache:
 .verify:
   stage: test
   script:
+    - 'cd backend'  # Navigate to the backend repository directory
     - 'mvn $MAVEN_CLI_OPTS verify'
   except:
     variables:
@@ -72,6 +73,7 @@ verify:jdk11:
 deploy:jdk11:
   stage: deploy
   script:
+    - 'cd backend'  # Navigate to the backend repository directory
     - if [ ! -f ci_settings.xml ]; then
         echo "CI settings missing\! If deploying to GitLab Maven Repository, please see https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#create-maven-packages-with-gitlab-cicd for instructions.";
       fi
