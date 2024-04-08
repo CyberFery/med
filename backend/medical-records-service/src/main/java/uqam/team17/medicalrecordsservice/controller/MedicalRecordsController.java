@@ -2,7 +2,7 @@ package uqam.team17.medicalrecordsservice.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uqam.team17.medicalrecordsservice.ExceptionHandler.MedicalRecordsException;
+import uqam.team17.medicalrecordsservice.exception.MedicalRecordsException;
 import uqam.team17.medicalrecordsservice.entity.MedicalRecord;
 import uqam.team17.medicalrecordsservice.service.MedicalRecordsService;
 import uqam.team17.medicalrecordsservice.utility.*;
