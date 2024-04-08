@@ -6,6 +6,7 @@ public class MedicalHistoryRequest implements ModificationRequest {
     private MedicalHistory medicalHistory;
 
     public MedicalHistoryRequest() {
+        // default constructor
     }
 
     public String getHealthInsuranceNumber() {
@@ -32,7 +33,6 @@ public class MedicalHistoryRequest implements ModificationRequest {
                 '}';
     }
 
-
     @Override
     public Boolean isValid() {
         return healthInsuranceNumber != null &&
@@ -46,6 +46,4 @@ public class MedicalHistoryRequest implements ModificationRequest {
                 medicalHistory.getPrimaryDoctor().getSpecialization() != null &&
                 !medicalHistory.getIllnessList().isEmpty();
     }
-
-
 }

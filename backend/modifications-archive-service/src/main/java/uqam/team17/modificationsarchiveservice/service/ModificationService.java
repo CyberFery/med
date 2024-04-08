@@ -11,15 +11,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ModificationService{
-
+public class ModificationService {
     private final ModificationArchiveRepository modificationRepository;
 
-    public ModificationService(ModificationArchiveRepository repository){
+    public ModificationService(ModificationArchiveRepository repository) {
         this.modificationRepository = repository;
     }
 
-    public Modification saveContactInformation(ContactInformationRequest contactRequest){
+    public Modification saveContactInformation(ContactInformationRequest contactRequest) {
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
@@ -30,21 +29,20 @@ public class ModificationService{
         return modificationRepository.save(modification);
     }
 
-    public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest){
+    public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest) {
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
         modification.setType(historyRequest.getMedicalHistory().getType());
         modification.setMedicalHistory(historyRequest.getMedicalHistory());
         modification.setStatus(Modification.Status.UPDATE);
-        //modification.setTest(test);
 
         return modificationRepository.save(modification);
 
     }
 
 
-    public Modification saveMedicalVisit(MedicalVisitRequest visitRequest){
+    public Modification saveMedicalVisit(MedicalVisitRequest visitRequest) {
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
         modification.setTimestamp(LocalDateTime.now());
@@ -55,12 +53,12 @@ public class ModificationService{
         return modificationRepository.save(modification);
     }
 
-    public Optional<Modification> getModificationById(Long modificationId){
+    public Optional<Modification> getModificationById(Long modificationId) {
 
         return modificationRepository.findById(modificationId);
     }
 
-    public Optional<Modification> cancelLastModification(CancelModificationRequest cancelRequest){
+    public Optional<Modification> cancelLastModification(CancelModificationRequest cancelRequest) {
 
         String healthNumber = cancelRequest.getHealthInsuranceNumber();
         ModificationType modType = cancelRequest.getType();
@@ -69,7 +67,7 @@ public class ModificationService{
                 findTopByHealthInsuranceNumberAndTypeAndStatusNotOrderByTimestampDesc(healthNumber, modType,
                         Modification.Status.CANCEL);
 
-        if(optionalModif.isPresent()){
+        if (optionalModif.isPresent()) {
             Modification modification = optionalModif.get();
 
             modification.setStatus(Modification.Status.CANCEL);
@@ -79,5 +77,4 @@ public class ModificationService{
 
         return Optional.empty();
     }
-
 }

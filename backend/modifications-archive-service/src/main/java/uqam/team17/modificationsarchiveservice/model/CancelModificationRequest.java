@@ -2,10 +2,10 @@ package uqam.team17.modificationsarchiveservice.model;
 
 public class CancelModificationRequest {
     private String healthInsuranceNumber;
-
     private ModificationType type;
 
     public CancelModificationRequest() {
+        // default constructor
     }
 
     public String getHealthInsuranceNumber() {

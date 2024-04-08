@@ -3,7 +3,6 @@ package uqam.team17.modificationsarchiveservice.model;
 
 public class ContactInformationRequest implements ModificationRequest {
     private String healthInsuranceNumber;
-
     private ContactInformation contactInformation;
 
     public ContactInformationRequest() {
@@ -17,7 +16,6 @@ public class ContactInformationRequest implements ModificationRequest {
     public void setHealthInsuranceNumber(String healthInsuranceNumber) {
         this.healthInsuranceNumber = healthInsuranceNumber;
     }
-
 
     public ContactInformation getContactInformation() {
         return contactInformation;
@@ -35,8 +33,6 @@ public class ContactInformationRequest implements ModificationRequest {
                 '}';
     }
 
-
-
     @Override
     public Boolean isValid() {
         return healthInsuranceNumber != null &&
@@ -49,5 +45,4 @@ public class ContactInformationRequest implements ModificationRequest {
                 !contactInformation.getResidentialAddressList().isEmpty();
 
     }
-
 }

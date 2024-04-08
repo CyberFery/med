@@ -1,7 +1,6 @@
 package uqam.team17.modificationsarchiveservice.model;
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.time.LocalDateTime;
 
@@ -27,13 +26,10 @@ public class Modification {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medical_visit_id", unique = true)
     private MedicalVisit medicalVisit;
-    @OneToOne( cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_information_id", unique = true)
     private ContactInformation contactInformation;
     private Status status;
-
-    //private Long sourceDatabaseId;
-
 
     public Modification() {
         //default constructor
@@ -118,12 +114,8 @@ public class Modification {
                 '}';
     }
 
-
-    public enum Status{
+    public enum Status {
         UPDATE,
         CANCEL
     }
-
-
-
 }

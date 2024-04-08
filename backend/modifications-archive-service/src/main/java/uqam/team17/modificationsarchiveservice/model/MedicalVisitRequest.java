@@ -2,10 +2,10 @@ package uqam.team17.modificationsarchiveservice.model;
 
 public class MedicalVisitRequest implements ModificationRequest {
     private String healthInsuranceNumber;
-
     private MedicalVisit medicalVisit;
 
     public MedicalVisitRequest() {
+        // default constructor
     }
 
     public String getHealthInsuranceNumber() {
@@ -32,8 +32,6 @@ public class MedicalVisitRequest implements ModificationRequest {
                 '}';
     }
 
-
-
     @Override
     public Boolean isValid() {
 
@@ -45,6 +43,6 @@ public class MedicalVisitRequest implements ModificationRequest {
                 medicalVisit.getSummaryOfTheVisitByDoctor() != null &&
                 medicalVisit.getNotesForOtherDoctors() != null &&
                 medicalVisit.getDiagnosisList() != null &&
-               !medicalVisit.getDiagnosisList().isEmpty();
+                !medicalVisit.getDiagnosisList().isEmpty();
     }
 }

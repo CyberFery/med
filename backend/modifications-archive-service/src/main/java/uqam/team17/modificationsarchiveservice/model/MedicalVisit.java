@@ -6,13 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name= "medical_visit")
+@Table(name = "medical_visit")
 public class MedicalVisit {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalVisitId;
-
     private String visitedEstablishment;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctorSeen;

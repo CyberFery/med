@@ -5,21 +5,17 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="contact_information")
+@Table(name = "contact_information")
 public class ContactInformation {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contactInformationId;
-
     @ElementCollection
     private List<ResidentialAddress> residentialAddressList;
     @ElementCollection
     private List<PhoneNumber> phoneNumberList;
-
     @ElementCollection
     private List<EmailAddress> emailAddressList;
-
 
     public List<ResidentialAddress> getResidentialAddressList() {
         return residentialAddressList;
@@ -45,8 +41,6 @@ public class ContactInformation {
         this.emailAddressList = emailAddressList;
     }
 
-
-
     public ModificationType getType() {
         return ModificationType.CONTACT_INFORMATION;
     }
@@ -70,9 +64,8 @@ public class ContactInformation {
     }
 
     @Embeddable
-    public static class ResidentialAddress{
+    public static class ResidentialAddress {
         private String address;
-
 
         public ResidentialAddress() {
             //empty constructor
@@ -95,10 +88,11 @@ public class ContactInformation {
     }
 
     @Embeddable
-    public static class PhoneNumber{
+    public static class PhoneNumber {
         private String number;
 
         public PhoneNumber() {
+            // default constructor
         }
 
         public String getNumber() {
@@ -116,11 +110,13 @@ public class ContactInformation {
                     '}';
         }
     }
+
     @Embeddable
-    public static class EmailAddress{
+    public static class EmailAddress {
         private String email;
 
         public EmailAddress() {
+            // default constructor
         }
 
         public String getEmail() {

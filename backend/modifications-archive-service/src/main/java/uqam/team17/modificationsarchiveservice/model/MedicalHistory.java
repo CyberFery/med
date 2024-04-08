@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name ="medical_history")
+@Table(name = "medical_history")
 public class MedicalHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,7 @@ public class MedicalHistory {
     private Doctor primaryDoctor;
 
     public MedicalHistory() {
+        // default constructor
     }
 
     public String getDiagnosis() {
@@ -52,8 +53,6 @@ public class MedicalHistory {
     public void setPrimaryDoctor(Doctor primaryDoctor) {
         this.primaryDoctor = primaryDoctor;
     }
-
-
 
     public ModificationType getType() {
         return ModificationType.MEDICAL_HISTORY;
@@ -127,5 +126,4 @@ public class MedicalHistory {
                     '}';
         }
     }
-
 }
