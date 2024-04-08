@@ -1,4 +1,4 @@
-package uqam.team17.medicalRecordsService.entity;
+package uqam.team17.medicalrecordsservice.entity;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package uqam.team17.medicalRecordsService;
+package uqam.team17.medicalrecordsservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

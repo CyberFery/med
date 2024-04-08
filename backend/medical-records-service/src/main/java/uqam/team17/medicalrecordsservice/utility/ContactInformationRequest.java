@@ -1,8 +1,6 @@
-package uqam.team17.medicalRecordsService.utility;
+package uqam.team17.medicalrecordsservice.utility;
 
-import uqam.team17.medicalRecordsService.entity.Patient;
-
-import java.util.List;
+import uqam.team17.medicalrecordsservice.entity.Patient;
 
 public class ContactInformationRequest {
     private String healthInsuranceNumber;

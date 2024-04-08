@@ -1,12 +1,12 @@
-package uqam.team17.medicalRecordsService.service;
+package uqam.team17.medicalrecordsservice.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uqam.team17.medicalRecordsService.ExceptionHandler.MedicalRecordsException;
-import uqam.team17.medicalRecordsService.entity.MedicalHistory;
-import uqam.team17.medicalRecordsService.entity.MedicalRecord;
-import uqam.team17.medicalRecordsService.entity.MedicalVisit;
-import uqam.team17.medicalRecordsService.entity.Patient;
-import uqam.team17.medicalRecordsService.repository.MedicalRecordsRepository;
+import uqam.team17.medicalrecordsservice.ExceptionHandler.MedicalRecordsException;
+import uqam.team17.medicalrecordsservice.entity.MedicalHistory;
+import uqam.team17.medicalrecordsservice.entity.MedicalRecord;
+import uqam.team17.medicalrecordsservice.entity.MedicalVisit;
+import uqam.team17.medicalrecordsservice.entity.Patient;
+import uqam.team17.medicalrecordsservice.repository.MedicalRecordsRepository;
 
 import java.util.List;
 

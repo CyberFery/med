@@ -1,8 +1,6 @@
-package uqam.team17.medicalRecordsService.entity;
+package uqam.team17.medicalrecordsservice.entity;
 
 import jakarta.persistence.*;
-import uqam.team17.medicalRecordsService.entity.MedicalRecord;
-import uqam.team17.medicalRecordsService.entity.Doctor;
 
 import java.util.Date;
 import java.util.List;

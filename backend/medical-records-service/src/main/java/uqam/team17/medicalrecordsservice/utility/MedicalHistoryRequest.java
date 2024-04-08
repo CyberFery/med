@@ -1,6 +1,6 @@
-package uqam.team17.medicalRecordsService.utility;
+package uqam.team17.medicalrecordsservice.utility;
 
-import uqam.team17.medicalRecordsService.entity.MedicalHistory;
+import uqam.team17.medicalrecordsservice.entity.MedicalHistory;
 
 public class MedicalHistoryRequest {
     private String healthInsuranceNumber;

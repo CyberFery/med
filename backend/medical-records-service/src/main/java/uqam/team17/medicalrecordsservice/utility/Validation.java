@@ -1,4 +1,4 @@
-package uqam.team17.medicalRecordsService.utility;
+package uqam.team17.medicalrecordsservice.utility;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
