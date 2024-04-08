@@ -18,7 +18,7 @@ public class ModificationService{
     public ModificationService(ModificationArchiveRepository repository){
         this.modificationRepository = repository;
     }
-    @Transactional
+
     public Modification saveContactInformation(ContactInformationRequest contactRequest){
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
@@ -29,7 +29,7 @@ public class ModificationService{
 
         return modificationRepository.save(modification);
     }
-    @Transactional
+
     public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest){
         Modification modification = new Modification();
         modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
@@ -60,5 +60,24 @@ public class ModificationService{
         return modificationRepository.findById(modificationId);
     }
 
+    public Optional<Modification> cancelLastModification(CancelModificationRequest cancelRequest){
+
+        String healthNumber = cancelRequest.getHealthInsuranceNumber();
+        ModificationType modType = cancelRequest.getType();
+
+        Optional<Modification> optionalModif = modificationRepository.
+                findTopByHealthInsuranceNumberAndTypeAndStatusNotOrderByTimestampDesc(healthNumber, modType,
+                        Modification.Status.CANCEL);
+
+        if(optionalModif.isPresent()){
+            Modification modification = optionalModif.get();
+
+            modification.setStatus(Modification.Status.CANCEL);
+            modificationRepository.save(modification);
+            return Optional.of(modification);
+        }
+
+        return Optional.empty();
+    }
 
 }

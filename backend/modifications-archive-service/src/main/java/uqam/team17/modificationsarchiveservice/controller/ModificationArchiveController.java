@@ -19,18 +19,21 @@ public class ModificationArchiveController{
         this.modificationService = modification;
     }
 
+    @GetMapping("/get-modif")
+    public ResponseEntity<?> getModification(@RequestBody CancelModificationRequest cancelRequest){
+        try {
+            Optional<Modification> response = modificationService.cancelLastModification(cancelRequest);
 
-    @GetMapping("/modifications")
-    public ResponseEntity<?> getModification(@RequestParam Long modificationId){
-        Optional<Modification> optionalMod = modificationService.getModificationById(modificationId);
-
-        if(optionalMod.isPresent()){
-            Modification modification = optionalMod.get();
-            return ResponseEntity.ok().body(modification);
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Modification with the ID" + modificationId +
-                    " is not found");
+            if(response.isPresent()){
+                Modification modification = response.get();
+                return ResponseEntity.ok().body("The modification with the ID " + modification.getModificationId() + " is cancelled");
+            }else{
+              return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find the thing");
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
         }
+
     }
 
    @PostMapping("/medical-visit")
@@ -63,9 +66,6 @@ public class ModificationArchiveController{
 
         }
 
-    }catch (NullPointerException np){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a null pointer");
-
     }catch (Exception e){
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
@@ -87,6 +87,22 @@ public class ModificationArchiveController{
          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
      }
 
+   }
+
+   @PostMapping("/cancel-modification")
+    public ResponseEntity<?> cancelModification(@RequestBody CancelModificationRequest cancelRequest){
+        try {
+            Optional<Modification> response = modificationService.cancelLastModification(cancelRequest);
+
+            if(response.isPresent()){
+                Modification modification = response.get();
+                return ResponseEntity.ok().body("The modification with the ID " + modification.getModificationId() + " is cancelled");
+            }else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find the thing");
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
+        }
    }
 
 
