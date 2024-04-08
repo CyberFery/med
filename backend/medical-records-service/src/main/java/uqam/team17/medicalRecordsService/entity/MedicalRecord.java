@@ -1,7 +1,6 @@
 package uqam.team17.medicalRecordsService.entity;
 
 import jakarta.persistence.*;
-import uqam.team17.medicalRecordsService.entity.Patient;
 
 import java.util.List;
 

@@ -5,9 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import uqam.team17.medicalRecordsService.ExceptionHandler.MedicalRecordsException;
 import uqam.team17.medicalRecordsService.entity.MedicalRecord;
 import uqam.team17.medicalRecordsService.service.MedicalRecordsService;
-import uqam.team17.medicalRecordsService.utility.ContactInformationRequest;
-import uqam.team17.medicalRecordsService.utility.HealthInsuranceNumber;
-import uqam.team17.medicalRecordsService.utility.Validation;
+import uqam.team17.medicalRecordsService.utility.*;
+
 @RestController
 @RequestMapping("/medical-records")
 public class MedicalRecordsController {
@@ -16,7 +15,6 @@ public class MedicalRecordsController {
     public MedicalRecordsController(MedicalRecordsService medicalRecordsService){
         this.medicalRecordsService = medicalRecordsService;
     }
-
     @GetMapping("/medical-record")
     public ResponseEntity<?> getMedicalRecord(@RequestBody HealthInsuranceNumber request) {
         if ( !Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())) {
@@ -31,18 +29,34 @@ public class MedicalRecordsController {
 
     @PutMapping("/update-contact-information")
     public ResponseEntity<?> updateContactInformation(@RequestBody ContactInformationRequest request) throws Exception {
-        System.out.println("number: " + request.getHealthInsuranceNumber());
         if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
-                || request.getContactInformation() == null
-                || ((request.getContactInformation().getEmailAddressList() == null
-                || request.getContactInformation().getEmailAddressList().isEmpty())
-                && (request.getContactInformation().getResidentialAddressList() == null
-                || request.getContactInformation().getResidentialAddressList().isEmpty())
-                && (request.getContactInformation().getPhoneNumberList() == null
-                || request.getContactInformation().getPhoneNumberList().isEmpty())))
+                || request.getContactInformation() == null)
             return ResponseEntity.badRequest().body("Failed to update contact information, invalid format");
 
         medicalRecordsService.updateContactInformation(request.getHealthInsuranceNumber(), request.getContactInformation());
         return ResponseEntity.ok(request.getContactInformation());
     }
+
+    @PutMapping("/update-medical-visit")
+    public ResponseEntity<?> updateMedicalVisit(@RequestBody MedicalVisitRequest request) throws MedicalRecordsException {
+
+        if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
+                || request.getMedicalVisit() == null) {
+            return ResponseEntity.badRequest().body("Failed to update medical visit, invalid format");
+        }
+        medicalRecordsService.updateMedicalVisit(request.getHealthInsuranceNumber(), request.getMedicalVisit());
+        return ResponseEntity.ok(request.getMedicalVisit());
+    }
+
+    @PutMapping("/update-medical-history")
+    public ResponseEntity<?> updateMedicalHistory(@RequestBody MedicalHistoryRequest request) throws MedicalRecordsException {
+
+        if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
+                || request.getMedicalHistory() == null) {
+            return ResponseEntity.badRequest().body("Failed to update medical history, invalid format");
+        }
+        medicalRecordsService.updateMedicalHistory(request.getHealthInsuranceNumber(), request.getMedicalHistory());
+        return ResponseEntity.ok(request.getMedicalHistory());
+    }
+
 }

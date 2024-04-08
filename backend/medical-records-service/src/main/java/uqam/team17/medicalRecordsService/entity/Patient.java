@@ -134,13 +134,13 @@ public class Patient {
         List<ResidentialAddress> residentialAddressList = contactInfo.getResidentialAddressList();
         List<EmailAddress> emailAddressList = contactInfo.getEmailAddressList();
 
-        if( phoneNumberList != null || !phoneNumberList.isEmpty()) {
+        if( phoneNumberList != null && !phoneNumberList.isEmpty()) {
             this.contactInformation.setPhoneNumberList(phoneNumberList);
         }
-        if( residentialAddressList != null || !residentialAddressList.isEmpty()) {
+        if( residentialAddressList != null && !residentialAddressList.isEmpty()) {
             this.contactInformation.setResidentialAddressList(residentialAddressList);
         }
-        if( emailAddressList != null || !emailAddressList.isEmpty()) {
+        if( emailAddressList != null && !emailAddressList.isEmpty()) {
             this.contactInformation.setEmailAddressList(emailAddressList);
         }
     }

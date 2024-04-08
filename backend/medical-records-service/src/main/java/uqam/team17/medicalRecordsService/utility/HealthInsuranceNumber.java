@@ -5,8 +5,4 @@ public class HealthInsuranceNumber {
     public String getHealthInsuranceNumber() {
         return healthInsuranceNumber;
     }
-
-    public void setHealthInsuranceNumber(String healthInsuranceNumber) {
-        this.healthInsuranceNumber = healthInsuranceNumber;
-    }
 }
