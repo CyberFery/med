@@ -35,6 +35,17 @@ public class Modification {
         //default constructor
     }
 
+    public Modification(Long modificationId, String healthInsuranceNumber,
+                        LocalDateTime timestamp, ModificationType type, ContactInformation contact, Status status) {
+        this.modificationId = modificationId;
+        this.healthInsuranceNumber = healthInsuranceNumber;
+        this.timestamp = timestamp;
+        this.type = type;
+        this.contactInformation = contact;
+        this.status = status;
+    }
+
+
     public Long getModificationId() {
         return modificationId;
     }
@@ -99,6 +110,8 @@ public class Modification {
     public void setContactInformation(ContactInformation contactInformation) {
         this.contactInformation = contactInformation;
     }
+
+
 
     @Override
     public String toString() {
