@@ -2,7 +2,7 @@ package uqam.team17.medicalrecordsservice.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,7 +13,7 @@ public class MedicalVisit {
     private String visitedEstablishment;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctorSeen;
-    private Date visitDate;
+    private LocalDate visitDate;
     @ElementCollection
     private List<Diagnosis> diagnosisList;
     private String summaryOfTheVisitByDoctor;
@@ -23,7 +23,7 @@ public class MedicalVisit {
         // default constructor
     }
 
-    public MedicalVisit(Long medicalVisitId, String visitedEstablishment,  Doctor doctorSeen, Date visitDate, List<Diagnosis> diagnosisList, String summaryOfTheVisitByDoctor, String notesForOtherDoctors) {
+    public MedicalVisit(Long medicalVisitId, String visitedEstablishment,  Doctor doctorSeen, LocalDate visitDate, List<Diagnosis> diagnosisList, String summaryOfTheVisitByDoctor, String notesForOtherDoctors) {
         this.medicalVisitId = medicalVisitId;
         this.visitedEstablishment = visitedEstablishment;
         this.doctorSeen = doctorSeen;
@@ -49,11 +49,11 @@ public class MedicalVisit {
        this.doctorSeen = doctorSeen;
     }
 
-    public Date getVisitDate() {
+    public LocalDate getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(Date visitDate) {
+    public void setVisitDate(LocalDate visitDate) {
         this.visitDate = visitDate;
     }
 
