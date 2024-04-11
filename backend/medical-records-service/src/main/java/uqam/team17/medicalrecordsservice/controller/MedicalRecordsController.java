@@ -3,7 +3,7 @@ package uqam.team17.medicalrecordsservice.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uqam.team17.medicalrecordsservice.ExceptionHandler.*;
+import uqam.team17.medicalrecordsservice.exception.*;
 import uqam.team17.medicalrecordsservice.entity.*;
 import uqam.team17.medicalrecordsservice.service.MedicalRecordsService;
 import uqam.team17.medicalrecordsservice.utility.*;
@@ -17,59 +17,64 @@ public class MedicalRecordsController {
         this.medicalRecordsService = medicalRecordsService;
     }
 
-    @PostMapping("/medical-record")
+    @PostMapping("/patient")
     public ResponseEntity<?> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         if (medicalRecord == null || medicalRecord.getPatient() == null
                 || medicalRecord.getMedicalVisitList() == null || medicalRecord.getMedicalVisitList().isEmpty()
-                || medicalRecord.getMedicalHistoryList() == null || medicalRecord.getMedicalHistoryList().isEmpty()) {
+                || medicalRecord.getMedicalHistoryList() == null || medicalRecord.getMedicalHistoryList().isEmpty())
             return ResponseEntity.badRequest().body("Invalid medical record format!");
-        }
+
         MedicalRecord savedMedicalRecord = medicalRecordsService.saveMedicalRecord(medicalRecord);
 
         return ResponseEntity.ok(savedMedicalRecord);
     }
 
-    @GetMapping("/medical-record")
+    @GetMapping("/patient")
     public ResponseEntity<?> getMedicalRecord(@RequestBody HealthInsuranceNumber request) {
-        if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())) {
+        if (Validation.validHealthInsuranceNumber(request.healthInsuranceNumber())) {
             return ResponseEntity.badRequest().body("Invalid health insurance number format!");
         }
-        MedicalRecord medicalRecord = medicalRecordsService.getMedicalRecord(request.getHealthInsuranceNumber());
+
+        MedicalRecord medicalRecord = medicalRecordsService.getMedicalRecord(request.healthInsuranceNumber());
+
         if (medicalRecord == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medical Record not found for patient with health insurance number : " + request.getHealthInsuranceNumber());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medical Record not found for patient with health insurance number : " + request.healthInsuranceNumber());
         }
+
         return ResponseEntity.ok(medicalRecord);
     }
 
     @PutMapping("/update-contact-information")
     public ResponseEntity<?> updateContactInformation(@RequestBody ContactInformationRequest request) throws MedicalRecordsException {
-        if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
+        if (Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
                 || request.getContactInformation() == null)
             return ResponseEntity.badRequest().body("Failed to update contact information, invalid format");
 
         Patient.ContactInformation contactInformation = medicalRecordsService.updateContactInformation(request.getHealthInsuranceNumber(), request.getContactInformation());
+
         return ResponseEntity.ok(contactInformation);
     }
 
     @PutMapping("/update-medical-visit")
     public ResponseEntity<?> updateMedicalVisit(@RequestBody MedicalVisitRequest request) throws MedicalRecordsException {
-
-        if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
-                || request.getMedicalVisit() == null) {
+        if (Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
+                || request.getMedicalVisit() == null)
             return ResponseEntity.badRequest().body("Failed to update medical visit, invalid format");
-        }
+
         MedicalVisit medicalVisit = medicalRecordsService.updateMedicalVisit(request.getHealthInsuranceNumber(), request.getMedicalVisit());
+
         return ResponseEntity.ok(medicalVisit);
     }
 
     @PutMapping("/update-medical-history")
     public ResponseEntity<?> updateMedicalHistory(@RequestBody MedicalHistoryRequest request) throws MedicalRecordsException {
-
-        if (!Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
+        if (Validation.validHealthInsuranceNumber(request.getHealthInsuranceNumber())
                 || request.getMedicalHistory() == null) {
             return ResponseEntity.badRequest().body("Failed to update medical history, invalid format");
         }
+
         MedicalHistory medicalHistory = medicalRecordsService.updateMedicalHistory(request.getHealthInsuranceNumber(), request.getMedicalHistory());
+
         return ResponseEntity.ok(medicalHistory);
     }
 
