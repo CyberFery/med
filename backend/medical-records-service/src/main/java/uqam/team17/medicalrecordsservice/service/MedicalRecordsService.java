@@ -21,35 +21,37 @@ public class MedicalRecordsService {
     public MedicalRecord getMedicalRecord(String healthInsuranceNumber) {
        return medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber);
     }
-    public void updateContactInformation(String healthInsuranceNumber, Patient.ContactInformation contactInformation) throws MedicalRecordsException {
+    public Patient.ContactInformation updateContactInformation(String healthInsuranceNumber, Patient.ContactInformation contactInformation) throws MedicalRecordsException {
         MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
 
         if (medicalRecord != null) {
             medicalRecord.getPatient().updateContactInformation(contactInformation);
             medicalRecordsRepository.save(medicalRecord);
+            return medicalRecord.getPatient().getContactInformation();
         } else {
             throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
         }
     }
-    public void updateMedicalVisit(String healthInsuranceNumber, MedicalVisit medicalVisit) throws MedicalRecordsException {
+    public MedicalVisit updateMedicalVisit(String healthInsuranceNumber, MedicalVisit medicalVisit) throws MedicalRecordsException {
         MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
         if (medicalRecord != null) {
             List<MedicalVisit> medicalVisitList = medicalRecord.getMedicalVisitList();
             medicalVisitList.add(medicalVisit);
             medicalRecord.setMedicalVisitList(medicalVisitList);
             medicalRecordsRepository.save(medicalRecord);
+            return medicalVisitList.get(medicalVisitList.size()-1);
         } else {
             throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
         }
-
     }
-    public void updateMedicalHistory(String healthInsuranceNumber, MedicalHistory medicalHistory) throws MedicalRecordsException {
+    public MedicalHistory updateMedicalHistory(String healthInsuranceNumber, MedicalHistory medicalHistory) throws MedicalRecordsException {
         MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
         if (medicalRecord != null) {
             List<MedicalHistory> medicalHistoryList = medicalRecord.getMedicalHistoryList();
             medicalHistoryList.add(medicalHistory);
             medicalRecord.setMedicalHistoryList(medicalHistoryList);
             medicalRecordsRepository.save(medicalRecord);
+            return medicalHistoryList.get(medicalHistoryList.size()-1);
         } else {
             throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
         }

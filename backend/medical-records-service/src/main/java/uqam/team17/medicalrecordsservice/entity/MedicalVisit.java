@@ -11,10 +11,8 @@ public class MedicalVisit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicalVisitId;
     private String visitedEstablishment;
-    @ManyToOne
-    @JoinColumn(name = "doctorId")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctorSeen;
-    //private Long doctorId = doctorSeen.getDoctorId();
     private Date visitDate;
     @ElementCollection
     private List<Diagnosis> diagnosisList;
@@ -87,7 +85,6 @@ public class MedicalVisit {
                 "medicalVisitId=" + medicalVisitId +
                 ", visitedEstablishment='" + visitedEstablishment + '\'' +
                 ", doctorSeen=" + doctorSeen +
-                //", doctorId= " + doctorId +
                 ", visitDate=" + visitDate +
                 ", diagnosisList=" + diagnosisList +
                 ", summaryOfTheVisitByDoctor='" + summaryOfTheVisitByDoctor + '\'' +

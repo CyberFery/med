@@ -47,8 +47,8 @@ public class MedicalRecordsController {
                 || request.getContactInformation() == null)
             return ResponseEntity.badRequest().body("Failed to update contact information, invalid format");
 
-        medicalRecordsService.updateContactInformation(request.getHealthInsuranceNumber(), request.getContactInformation());
-        return ResponseEntity.ok(request.getContactInformation());
+        Patient.ContactInformation contactInformation = medicalRecordsService.updateContactInformation(request.getHealthInsuranceNumber(), request.getContactInformation());
+        return ResponseEntity.ok(contactInformation);
     }
 
     @PutMapping("/update-medical-visit")
@@ -58,8 +58,8 @@ public class MedicalRecordsController {
                 || request.getMedicalVisit() == null) {
             return ResponseEntity.badRequest().body("Failed to update medical visit, invalid format");
         }
-        medicalRecordsService.updateMedicalVisit(request.getHealthInsuranceNumber(), request.getMedicalVisit());
-        return ResponseEntity.ok(request.getMedicalVisit());
+        MedicalVisit medicalVisit = medicalRecordsService.updateMedicalVisit(request.getHealthInsuranceNumber(), request.getMedicalVisit());
+        return ResponseEntity.ok(medicalVisit);
     }
 
     @PutMapping("/update-medical-history")
@@ -69,8 +69,8 @@ public class MedicalRecordsController {
                 || request.getMedicalHistory() == null) {
             return ResponseEntity.badRequest().body("Failed to update medical history, invalid format");
         }
-        medicalRecordsService.updateMedicalHistory(request.getHealthInsuranceNumber(), request.getMedicalHistory());
-        return ResponseEntity.ok(request.getMedicalHistory());
+        MedicalHistory medicalHistory = medicalRecordsService.updateMedicalHistory(request.getHealthInsuranceNumber(), request.getMedicalHistory());
+        return ResponseEntity.ok(medicalHistory);
     }
 
 }

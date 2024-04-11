@@ -14,11 +14,8 @@ public class MedicalHistory {
     private String treatment;
     @ElementCollection
     private List<Illness> illnessList;
-    @ManyToOne
-    @JoinColumn(name = "doctorId")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor primaryCareDoctor;
-
-   // private Long doctorId = primaryCareDoctor.getDoctorId();
 
     public MedicalHistory() {
         // default constructor
@@ -72,7 +69,6 @@ public class MedicalHistory {
                 ", treatment='" + treatment + '\'' +
                 ", illnessList=" + illnessList +
                 ", primaryCareDoctor=" + primaryCareDoctor +
-               // ", doctorId= " + doctorId +
                 '}';
     }
 

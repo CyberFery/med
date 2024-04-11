@@ -10,14 +10,14 @@ public class Patient {
     //@Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     //private Long patientId;
+    @Id
+    private String healthInsuranceNumber;
     private String firstName;
     private String lastName;
     private Genre genre;
-    @Id
-    private String healthInsuranceNumber;
+
     private Date dateOfBirth;
     private String cityOfBirth;
-
     private String establishedDiagnosis;
 
     @ElementCollection
@@ -149,7 +149,7 @@ public class Patient {
     @Override
     public String toString() {
         return "Patient{" +
-               // "patientId=" + patientId +
+             //   "patientId=" + patientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", genre=" + genre +
