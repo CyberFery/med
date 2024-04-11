@@ -2,7 +2,7 @@ package uqam.team17.medicalrecordsservice.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,7 +13,7 @@ public class Patient {
     private String lastName;
     private Genre genre;
 
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String cityOfBirth;
     private String establishedDiagnosis;
 
@@ -30,16 +30,6 @@ public class Patient {
         // default constructor
     }
 
-    public Patient(String healthInsuranceNumber, String firstName, String lastName, Genre genre, Date dateOfBirth, String establishedDiagnosis, Boolean isHealthcareProfessional, Boolean isDoctor) {
-        this.healthInsuranceNumber = healthInsuranceNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.genre = genre;
-        this.dateOfBirth = dateOfBirth;
-        this.establishedDiagnosis = establishedDiagnosis;
-        this.isHealthcareProfessional = isHealthcareProfessional;
-        this.isDoctor = isDoctor;
-    }
     public Boolean getIsHealthcareProfessional() {
         return isHealthcareProfessional;
     }
@@ -88,11 +78,11 @@ public class Patient {
         this.healthInsuranceNumber = healthInsuranceNumber;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
