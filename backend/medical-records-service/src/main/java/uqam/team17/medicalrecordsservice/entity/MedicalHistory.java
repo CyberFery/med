@@ -2,7 +2,7 @@ package uqam.team17.medicalrecordsservice.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -83,14 +83,14 @@ public class MedicalHistory {
     @Embeddable
     public static class Illness {
         private String description;
-        private Date onsetOfIllnessDate;
-        private Date endOfIllnessDate;
+        private LocalDate onsetOfIllnessDate;
+        private LocalDate endOfIllnessDate;
 
         public Illness() {
             // default constructor
         }
 
-        public Illness(String description, Date onsetOfIllnessDate, Date endOfIllnessDate) {
+        public Illness(String description, LocalDate onsetOfIllnessDate, LocalDate endOfIllnessDate) {
             this.description = description;
             this.onsetOfIllnessDate = onsetOfIllnessDate;
             this.endOfIllnessDate = endOfIllnessDate;
@@ -104,19 +104,19 @@ public class MedicalHistory {
             this.description = description;
         }
 
-        public Date getOnsetOfIllnessDate() {
+        public LocalDate getOnsetOfIllnessDate() {
             return onsetOfIllnessDate;
         }
 
-        public void setOnsetOfIllnessDate(Date onsetOfIllnessDate) {
+        public void setOnsetOfIllnessDate(LocalDate onsetOfIllnessDate) {
             this.onsetOfIllnessDate = onsetOfIllnessDate;
         }
 
-        public Date getEndOfIllnessDate() {
+        public LocalDate getEndOfIllnessDate() {
             return endOfIllnessDate;
         }
 
-        public void setEndOfIllnessDate(Date endOfIllnessDate) {
+        public void setEndOfIllnessDate(LocalDate endOfIllnessDate) {
             this.endOfIllnessDate = endOfIllnessDate;
         }
 
