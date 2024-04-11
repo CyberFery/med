@@ -5,7 +5,7 @@ spring:
         - id: medical_records_service
           uri: lb://MEDICAL_RECORDS_SERVICE
           predicates:
-            - Path=/record/**
+            - Path=/medical-records/**
           filters:
             - AuthenticationFilter
 
@@ -20,7 +20,7 @@ spring:
         - id: modifications-archive-service
           uri: lb://MODIFICATIONS-ARCHIVE-SERVICE
           predicates:
-            - Path=/mod/**
+            - Path=/modifications/**
           filters:
             - AuthenticationFilter
 
