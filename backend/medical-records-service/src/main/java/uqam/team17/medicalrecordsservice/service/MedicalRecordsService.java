@@ -1,7 +1,7 @@
 package uqam.team17.medicalrecordsservice.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uqam.team17.medicalrecordsservice.ExceptionHandler.*;
+import uqam.team17.medicalrecordsservice.exception.*;
 import uqam.team17.medicalrecordsservice.entity.*;
 import uqam.team17.medicalrecordsservice.entity.MedicalRecord;
 import uqam.team17.medicalrecordsservice.entity.MedicalVisit;
@@ -21,6 +21,7 @@ public class MedicalRecordsService {
     public MedicalRecord getMedicalRecord(String healthInsuranceNumber) {
        return medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber);
     }
+
     public Patient.ContactInformation updateContactInformation(String healthInsuranceNumber, Patient.ContactInformation contactInformation) throws MedicalRecordsException {
         MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
 
