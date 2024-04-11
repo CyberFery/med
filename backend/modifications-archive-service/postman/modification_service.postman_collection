@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "c278a89a-482f-498b-b973-b0f75768fa22",
+		"name": "Modification Service API-2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16626175"
+	},
+	"item": [
+		{
+			"name": "Create Contact Information Modification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.modificationId).to.exist;\r",
+							"    pm.expect(responseData.healthInsuranceNumber).to.exist;\r",
+							"    pm.expect(responseData.timestamp).to.exist;\r",
+							"    pm.expect(responseData.type).to.exist;\r",
+							"    pm.expect(responseData.contactInformation).to.exist.and.to.be.an('object');\r",
+							"    pm.expect(responseData.status).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Residential address list is present and is an array\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+							"  pm.expect(responseData.contactInformation.residentialAddressList).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Phone number list is present and is an array\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"\r",
+							"  pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+							"  pm.expect(responseData.contactInformation.phoneNumberList).to.exist.and.to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email address list is present and is an array\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.contactInformation.emailAddressList).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"healthInsuranceNumber\": \"ABCD123456789\",\r\n    \"contactInformation\": {\r\n            \"residentialAddressList\": [\r\n                {\r\n                    \"address\": \"9445 Rue poirier\"\r\n                },\r\n                {\r\n                    \"address\": \"4567 Rue Atateken\"\r\n                }\r\n            ],\r\n            \"phoneNumberList\": [\r\n                {\r\n                    \"number\": \"5149947878\"\r\n                }\r\n            ],\r\n            \"emailAddressList\": [\r\n                {\r\n                    \"email\": \"johnn@gmail.com\"\r\n                }\r\n            ]\r\n        }\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/modifications/contact-information",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"modifications",
+						"contact-information"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Medical History Modification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.modificationId).to.exist;",
+							"    pm.expect(responseData.healthInsuranceNumber).to.exist;",
+							"    pm.expect(responseData.timestamp).to.exist;",
+							"    pm.expect(responseData.type).to.exist;",
+							"    pm.expect(responseData.medicalHistory).to.exist;",
+							"    pm.expect(responseData.status).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"IllnessList array is present and contains expected number of elements\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.medicalHistory.illnessList).to.exist.and.to.be.an('array');",
+							"    pm.expect(responseData.medicalHistory.illnessList).to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Primary doctor object should have firstName, lastName, and specialization\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor).to.exist;",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor.firstName).to.be.a('string');",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor.lastName).to.be.a('string');",
+							"  pm.expect(responseData.medicalHistory.primaryDoctor.specialization).to.be.a('string');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"healthInsuranceNumber\": \"ABCD123456745\",\r\n    \"medicalHistory\": {\r\n        \"diagnosis\": \"Sample diagnosis\",\r\n        \"treatment\": \"Sample treatment\",\r\n        \"illnessList\": [\r\n            {\r\n                \"description\": \"Illness 1 description\",\r\n                \"onsetOfIllnessDate\": \"2024-04-07T14:54:43.960256\",\r\n                \"endOfIllnessDate\": \"2024-04-07T14:54:43.960256\"\r\n            },\r\n            {\r\n                \"description\": \"Illness 2 description\",\r\n                \"onsetOfIllnessDate\": \"2024-04-07T14:54:43.960256\",\r\n                \"endOfIllnessDate\": \"2024-04-07T14:54:43.960256\"\r\n            }\r\n        ],\r\n        \"primaryDoctor\": {\r\n            \"firstName\": \"John\",\r\n            \"lastName\": \"Doe\",\r\n            \"specialization\": \"General Physician\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/modifications/medical-history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"modifications",
+						"medical-history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Medical Visit Modification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"healthInsuranceNumber must exist\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"     pm.expect(responseData.healthInsuranceNumber).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Modification ID is present and non-negative\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.modificationId).to.exist;\r",
+							"  pm.expect(responseData.modificationId).to.be.a('number');\r",
+							"  pm.expect(responseData.modificationId).to.be.at.least(0, \"Modification ID should be non-negative\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Timestamp is in a valid date format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.timestamp).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d+$/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"healthInsuranceNumber\": \"ABCD123456789\",\r\n    \"medicalVisit\": {\r\n        \"visitedEstablishment\": \"General Hospital\",\r\n        \"doctorSeen\": {\r\n            \"firstName\": \"Mario\",\r\n            \"lastName\": \"Trembley\",\r\n            \"specialization\": \"Cardiologist\"\r\n        },\r\n        \"visitDate\": \"2024-03-31T10:00:00\",\r\n        \"diagnosisList\": [\r\n            {\r\n                \"description\": \"Heart Murmur\",\r\n                \"treatment\": \"Medication\"\r\n            },\r\n            {\r\n                \"description\": \"lack of sleep\",\r\n                \"treatment\": \"sleep mediine\"\r\n            }\r\n        ],\r\n        \"summaryOfTheVisitByDoctor\": \"This is a summary patient was scared\",\r\n        \"notesForOtherDoctors\": \"Note, talk to patient well\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/modifications/medical-visit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"modifications",
+						"medical-visit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contact Information with wrong data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"healthInsuranceNumber\": \"ABCD123456789\",\r\n    \"medicalVisit\": {\r\n        \"visitedEstablishment\": \"General Hospital\",\r\n        \"doctorSeen\": {\r\n            \"firstName\": \"Mario\",\r\n            \"lastName\": \"Trembley\",\r\n            \"specialization\": \"Cardiologist\"\r\n        },\r\n        \"visitDate\": \"2024-03-31T10:00:00\",\r\n        \"diagnosisList\": [\r\n            {\r\n                \"description\": \"Heart Murmur\",\r\n                \"treatment\": \"Medication\"\r\n            },\r\n            {\r\n                \"description\": \"lack of sleep\",\r\n                \"treatment\": \"sleep mediine\"\r\n            }\r\n        ],\r\n        \"summaryOfTheVisitByDoctor\": \"This is a summary patient was scared\",\r\n        \"notesForOtherDoctors\": \"Note, talk to patient well\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/modifications/contact-information",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"modifications",
+						"contact-information"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Medical History with wrong data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"healthInsuranceNumber\": null,\r\n    \"medicalHistory\": {\r\n        \"diagnosis\": \"Sample diagnosis\",\r\n        \"treatment\": \"Sample treatment\",\r\n        \"illnessList\": [\r\n            {\r\n                \"description\": \"Illness 1 description\",\r\n                \"onsetOfIllnessDate\": \"2023-01-01\",\r\n                \"endOfIllnessDate\": \"2023-01-15\"\r\n            },\r\n            {\r\n                \"description\": \"Illness 2 description\",\r\n                \"onsetOfIllnessDate\": \"2023-02-01\",\r\n                \"endOfIllnessDate\": \"2023-02-10\"\r\n            }\r\n        ],\r\n        \"primaryDoctor\": {\r\n            \"firstName\": \"John\",\r\n            \"lastName\": \"Doe\",\r\n            \"specialization\": \"General Physician\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/modifications/medical-history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"modifications",
+						"medical-history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Medical Visit with empty diagnosis list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"healthInsuranceNumber\": \"ABCD123456789\",\r\n    \"medicalVisit\": {\r\n        \"visitedEstablishment\": \"General Hospital\",\r\n        \"doctorSeen\": {\r\n            \"firstName\": \"Mario\",\r\n            \"lastName\": \"Trembley\",\r\n            \"specialization\": \"Cardiologist\"\r\n        },\r\n        \"visitDate\": \"2024-03-31T10:00:00\",\r\n        \"diagnosisList\": [\r\n        ],\r\n        \"summaryOfTheVisitByDoctor\": \"This is a summary patient was scared\",\r\n        \"notesForOtherDoctors\": \"Note, talk to patient well\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/modifications/medical-visit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"modifications",
+						"medical-visit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
