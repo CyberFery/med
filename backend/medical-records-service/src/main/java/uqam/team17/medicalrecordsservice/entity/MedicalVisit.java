@@ -23,6 +23,16 @@ public class MedicalVisit {
         // default constructor
     }
 
+    public MedicalVisit(Long medicalVisitId, String visitedEstablishment,  Doctor doctorSeen, Date visitDate, List<Diagnosis> diagnosisList, String summaryOfTheVisitByDoctor, String notesForOtherDoctors) {
+        this.medicalVisitId = medicalVisitId;
+        this.visitedEstablishment = visitedEstablishment;
+        this.doctorSeen = doctorSeen;
+        this.visitDate = visitDate;
+        this.diagnosisList = diagnosisList;
+        this.summaryOfTheVisitByDoctor = summaryOfTheVisitByDoctor;
+        this.notesForOtherDoctors = notesForOtherDoctors;
+    }
+
     public String getVisitedEstablishment() {
         return visitedEstablishment;
     }

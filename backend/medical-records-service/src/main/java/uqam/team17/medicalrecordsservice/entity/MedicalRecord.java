@@ -21,6 +21,13 @@ public class MedicalRecord {
         // default constructor
     }
 
+    public MedicalRecord(Long medicalRecordId, Patient patient, List<MedicalVisit> medicalVisitList, List<MedicalHistory> medicalHistoryList) {
+        this.medicalRecordId = medicalRecordId;
+        this.patient = patient;
+        this.medicalVisitList = medicalVisitList;
+        this.medicalHistoryList = medicalHistoryList;
+    }
+
     public MedicalRecord(Patient patient) {
         this.patient = patient;
     }

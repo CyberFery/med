@@ -15,6 +15,13 @@ public class Doctor {
         // default constructor
     }
 
+    public Doctor(Long doctorId, String firstName, String lastName, String specialization) {
+       this.doctorId = doctorId;
+       this.firstName = firstName;
+       this.lastName = lastName;
+       this.specialization = specialization;
+    }
+
     public String getFirstName() {
         return firstName;
     }

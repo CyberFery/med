@@ -21,6 +21,14 @@ public class MedicalHistory {
         // default constructor
     }
 
+    public MedicalHistory(Long medicalHistoryId, String diagnosis, String treatment, List<Illness> illnessList, Doctor primaryCareDoctor) {
+        this.medicalHistoryId = medicalHistoryId;
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.illnessList = illnessList;
+        this.primaryCareDoctor = primaryCareDoctor;
+    }
+
     public String getDiagnosis() {
         return diagnosis;
     }
@@ -78,14 +86,14 @@ public class MedicalHistory {
         private Date onsetOfIllnessDate;
         private Date endOfIllnessDate;
 
+        public Illness() {
+            // default constructor
+        }
+
         public Illness(String description, Date onsetOfIllnessDate, Date endOfIllnessDate) {
             this.description = description;
             this.onsetOfIllnessDate = onsetOfIllnessDate;
             this.endOfIllnessDate = endOfIllnessDate;
-        }
-
-        public Illness() {
-            // default constructor
         }
 
         public String getDescription() {
