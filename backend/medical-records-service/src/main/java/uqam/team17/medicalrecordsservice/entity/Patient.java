@@ -7,9 +7,6 @@ import java.util.List;
 
 @Entity
 public class Patient {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long patientId;
     @Id
     private String healthInsuranceNumber;
     private String firstName;
@@ -122,14 +119,6 @@ public class Patient {
         this.contactInformation = contactInformation;
     }
 
-    //public Long getPatientId() {
-     //   return patientId;
-   // }
-
-   // public void setPatientId(Long patientId) {
-     //   this.patientId = patientId;
-    //}
-
     public void updateContactInformation(ContactInformation contactInfo) {
         List<PhoneNumber> phoneNumberList = contactInfo.getPhoneNumberList();
         List<ResidentialAddress> residentialAddressList = contactInfo.getResidentialAddressList();
@@ -149,7 +138,6 @@ public class Patient {
     @Override
     public String toString() {
         return "Patient{" +
-             //   "patientId=" + patientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", genre=" + genre +
