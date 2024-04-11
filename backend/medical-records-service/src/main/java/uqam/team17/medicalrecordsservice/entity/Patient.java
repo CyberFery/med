@@ -19,7 +19,6 @@ public class Patient {
 
     @ElementCollection
     private List<Person> knownParentList;
-
     @Embedded
     private ContactInformation contactInformation;
 
@@ -27,6 +26,20 @@ public class Patient {
 
     private Boolean isDoctor;
 
+    public Patient() {
+        // default constructor
+    }
+
+    public Patient(String healthInsuranceNumber, String firstName, String lastName, Genre genre, Date dateOfBirth, String establishedDiagnosis, Boolean isHealthcareProfessional, Boolean isDoctor) {
+        this.healthInsuranceNumber = healthInsuranceNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.genre = genre;
+        this.dateOfBirth = dateOfBirth;
+        this.establishedDiagnosis = establishedDiagnosis;
+        this.isHealthcareProfessional = isHealthcareProfessional;
+        this.isDoctor = isDoctor;
+    }
     public Boolean getIsHealthcareProfessional() {
         return isHealthcareProfessional;
     }
@@ -41,10 +54,6 @@ public class Patient {
 
     public void setIsDoctor(Boolean physician) {
         isDoctor = physician;
-    }
-
-    public Patient() {
-        // default constructor
     }
 
     public String getFirstName() {
@@ -162,13 +171,13 @@ public class Patient {
         private String firstName;
         private String lastName;
 
+        public Person() {
+            // default constructor
+        }
+
         public Person(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
-        }
-
-        public Person() {
-            // default constructor
         }
 
         public String getFirstName() {
@@ -207,6 +216,12 @@ public class Patient {
 
         public ContactInformation() {
             // default constructor
+        }
+
+        public ContactInformation(List<ResidentialAddress> residentialAddressList, List<PhoneNumber> phoneNumberList, List<EmailAddress> emailAddressList) {
+            this.residentialAddressList = residentialAddressList;
+            this.phoneNumberList = phoneNumberList;
+            this.emailAddressList = emailAddressList;
         }
 
         public void setResidentialAddressList(List<ResidentialAddress> residentialAddressList) {
@@ -251,6 +266,10 @@ public class Patient {
             // default constructor
         }
 
+        public ResidentialAddress(String address) {
+           this.address = address;
+        }
+
         public String getAddress() {
             return address;
         }
@@ -275,6 +294,10 @@ public class Patient {
             // default constructor
         }
 
+        public PhoneNumber(String number) {
+            this.number = number;
+        }
+
         public String getNumber() {
             return this.number;
         }
@@ -297,6 +320,10 @@ public class Patient {
 
         public EmailAddress() {
             // default constructor
+        }
+
+        public EmailAddress(String email) {
+            this.email = email;
         }
 
         public String getEmail() {
