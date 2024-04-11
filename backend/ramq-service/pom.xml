@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.44.1.0</version> <!-- Use the latest version -->
+            <version>3.44.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.orm</groupId>
@@ -53,7 +53,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>4.1.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
