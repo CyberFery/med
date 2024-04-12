@@ -3,12 +3,12 @@ package uqam.team17.medicalrecordsservice;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import uqam.team17.medicalrecordsservice.entity.*;
-import uqam.team17.medicalrecordsservice.ExceptionHandler.*;
+import uqam.team17.medicalrecordsservice.exception.*;
 import uqam.team17.medicalrecordsservice.repository.MedicalRecordsRepository;
 import uqam.team17.medicalrecordsservice.service.MedicalRecordsService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,13 +43,13 @@ public class MedicalRecordsServiceTest {
         diagnosis.add(new MedicalVisit.Diagnosis("fever, headache", "Advil"));
 
         List<MedicalVisit> medicalVisit = new ArrayList<>();
-        medicalVisit.add(new MedicalVisit(1L, "Hopital thérèse",doctor, new Date(2024, 9, 9), diagnosis, "summary", "notes" ));
+        medicalVisit.add(new MedicalVisit(1L, "Hopital thérèse",doctor, LocalDate.parse("2023-01-08"), diagnosis, "summary", "notes" ));
 
         List<MedicalHistory.Illness> illness = new ArrayList<>();
-        illness.add(new MedicalHistory.Illness("cancer", new Date(2023, 1, 1), new Date(2024, 3, 9)));
+        illness.add(new MedicalHistory.Illness("cancer", LocalDate.parse("2023-01-08"), LocalDate.parse("2024-01-08")));
 
         List<MedicalHistory> medicalHistory = new ArrayList<>();
-        medicalHistory.add(new MedicalHistory(1L, "cancer", "treatement cancer", illness, doctor));
+        medicalHistory.add(new MedicalHistory(1L, "cancer", "treatment cancer", illness, doctor));
 
         return new MedicalRecord(1L, patient, medicalVisit, medicalHistory);
     }
@@ -62,7 +62,7 @@ public class MedicalRecordsServiceTest {
         Patient.ContactInformation contactInformation = getContactInformation();
 
         Patient patient = new Patient(healthInsuranceNumber, "David", "Johnson",
-                Patient.Genre.MALE, new Date(1970, 9, 9), "cancer",
+                Patient.Genre.MALE, LocalDate.parse("1980-01-08"), "cancer",
                 false, false);
 
         patient.setKnownParentList(knownParentList);
@@ -147,7 +147,6 @@ public class MedicalRecordsServiceTest {
 
     @Test
     public void testSaveMedicalRecord() {
-        String healthInsuranceNumber = "ABCD123456789";
         MedicalRecord medicalRecord = new MedicalRecord();
         when(medicalRecordsRepository.save(medicalRecord)).thenReturn(medicalRecord);
 
