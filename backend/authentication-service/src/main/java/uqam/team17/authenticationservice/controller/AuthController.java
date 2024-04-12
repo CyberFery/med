@@ -1,10 +1,12 @@
 package uqam.team17.authenticationservice.controller;
 
-import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import uqam.team17.authenticationservice.dto.AuthRequest;
 import uqam.team17.authenticationservice.entity.AuthCredentials;
@@ -14,30 +16,47 @@ import uqam.team17.authenticationservice.service.AuthService;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    private AuthenticationManager AuthManager;
+    private AuthenticationManager authManager;
     @Autowired
-    private AuthService AuthService;
-
+    private AuthService authService;
 
     @PostMapping("/register")
-    public String addNewUser(@RequestBody AuthCredentials credentials){
-        return AuthService.saveUser(credentials);
-    }
-    @PostMapping("/token")
+    public ResponseEntity<?> addNewUser(@RequestBody AuthCredentials credentials) {
+        String response = authService.saveUser(credentials);
+        if ("There is already an account associated with this username.".equals(response) ||
+                "There is already an account associated with this email.".equals(response) ||
+                "There is already an account associated with this username and email.".equals(response)) {
 
-    public String getToken(@RequestBody AuthRequest AuthRequest){
-        Authentication authenticate = AuthManager.authenticate(new UsernamePasswordAuthenticationToken(AuthRequest.getUsername(), AuthRequest.getPassword()));
-        if (authenticate.isAuthenticated()){
-        return AuthService.GenerateToken(AuthRequest.getUsername());
-        } else throw new RuntimeException("Invalid Credentials");
+            return ResponseEntity.badRequest().body(response);
+        } else {
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @PostMapping("/token")
+    public ResponseEntity<?> getToken(@RequestBody AuthRequest authRequest) {
+        try {
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+            );
+            if (authentication.isAuthenticated()) {
+                String token = authService.GenerateToken(authRequest.getUsername());
+                return ResponseEntity.ok(token);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            }
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: " + e.getMessage());
+        }
     }
 
     @GetMapping("/validate")
-
-    public String validateToken(@RequestParam("token") String token){
-        AuthService.ValidateToken(token);
-        return "Token is Valid";
+    public ResponseEntity<?> validateToken(@RequestParam("token") String token) {
+        try {
+            authService.ValidateToken(token);
+            return ResponseEntity.ok("Token is valid");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token validation failed: " + e.getMessage());
+        }
     }
-
-
 }

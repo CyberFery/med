@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface AuthCredentialsRepository extends JpaRepository<AuthCredentials, Integer> {
 
     Optional<AuthCredentials> findByUsername(String username);
+    Optional<AuthCredentials> findByEmail(String email);
 }
