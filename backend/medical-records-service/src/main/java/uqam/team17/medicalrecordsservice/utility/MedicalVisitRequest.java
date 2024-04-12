@@ -11,7 +11,15 @@ public class MedicalVisitRequest {
         return healthInsuranceNumber;
     }
 
+    public void setHealthInsuranceNumber(String healthInsuranceNumber) {
+        this.healthInsuranceNumber = healthInsuranceNumber;
+    }
+
     public MedicalVisit getMedicalVisit() {
         return medicalVisit;
+    }
+
+    public void setMedicalVisit(MedicalVisit medicalVisit) {
+        this.medicalVisit = medicalVisit;
     }
 }

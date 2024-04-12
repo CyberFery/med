@@ -30,6 +30,18 @@ public class Patient {
         // default constructor
     }
 
+    public Patient(String healthInsuranceNumber, String firstName, String lastName, Genre genre, LocalDate dateOfBirth, String establishedDiagnosis, Boolean isHealthcareProfessional, Boolean isDoctor) {
+        this.healthInsuranceNumber = healthInsuranceNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.genre = genre;
+        this.dateOfBirth = dateOfBirth;
+        this.establishedDiagnosis = establishedDiagnosis;
+        this.isHealthcareProfessional = isHealthcareProfessional;
+        this.isDoctor = isDoctor;
+    }
+
+
     public Boolean getIsHealthcareProfessional() {
         return isHealthcareProfessional;
     }
