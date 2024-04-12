@@ -14,12 +14,25 @@ import java.util.List;
 @Transactional
 public class MedicalRecordsService {
     private final MedicalRecordsRepository medicalRecordsRepository;
+    private MedicalRecordDownloader downloader = new MedicalRecordDownloader();
 
     public MedicalRecordsService(MedicalRecordsRepository medicalRecordsRepository) {
         this.medicalRecordsRepository = medicalRecordsRepository;
     }
     public MedicalRecord getMedicalRecord(String healthInsuranceNumber) {
        return medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber);
+    }
+
+    public void downloadMedicalRecordJsonStrategy(MedicalRecord medicalRecord) {
+        DownloadStrategy jsonStrategy = new JsonDownloadStrategy();
+        downloader.setDownloadStrategy(jsonStrategy);
+        downloader.downloadMedicalRecord(medicalRecord);
+    }
+
+    public void downloadMedicalRecordTxtStrategy(MedicalRecord medicalRecord){
+        DownloadStrategy txtStrategy = new TxtDownloadStrategy();
+        downloader.setDownloadStrategy(txtStrategy);
+        downloader.downloadMedicalRecord(medicalRecord);
     }
 
     public Patient.ContactInformation updateContactInformation(String healthInsuranceNumber, Patient.ContactInformation contactInformation) throws MedicalRecordsException {

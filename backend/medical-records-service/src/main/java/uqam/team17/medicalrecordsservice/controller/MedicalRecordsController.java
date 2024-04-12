@@ -41,6 +41,8 @@ public class MedicalRecordsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medical Record not found for patient with health insurance number : " + request.healthInsuranceNumber());
         }
 
+        medicalRecordsService.downloadMedicalRecordJsonStrategy(medicalRecord);
+        medicalRecordsService.downloadMedicalRecordTxtStrategy(medicalRecord);
         return ResponseEntity.ok(medicalRecord);
     }
 
