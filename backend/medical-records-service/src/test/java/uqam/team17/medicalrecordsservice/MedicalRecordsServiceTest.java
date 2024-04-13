@@ -17,16 +17,14 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.times;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MedicalRecordsServiceTest {
     @Mock
     private MedicalRecordsRepository medicalRecordsRepository;
-
     @InjectMocks
     private MedicalRecordsService medicalRecordsService;
 
@@ -154,4 +152,81 @@ public class MedicalRecordsServiceTest {
 
         assertEquals(medicalRecord, savedMedicalRecord);
     }
+
+    @Test
+    public void testDeleteMedicalVisit_Success() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        Long medicalVisitId = 1L;
+        MedicalRecord medicalRecord = setupMedicalRecord(healthInsuranceNumber);
+        when(medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber)).thenReturn(medicalRecord);
+        MedicalVisit deletedMedicalVisit = medicalRecordsService.deleteMedicalVisit(healthInsuranceNumber, medicalVisitId);
+        assertFalse(medicalRecord.getMedicalVisitList().contains(deletedMedicalVisit));
+        verify(medicalRecordsRepository, times(1)).save(medicalRecord);
+    }
+
+    @Test
+    public void testDeleteMedicalVisit_MedicalRecordNotFound() {
+        String healthInsuranceNumber = "ABCD123456789";
+        Long medicalVisitId = 1L;
+        when(medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber)).thenReturn(null);
+
+        // Call the delete method and expect MedicalRecordsException
+        assertThrows(MedicalRecordsException.class, () -> {
+            medicalRecordsService.deleteMedicalVisit(healthInsuranceNumber, medicalVisitId);
+        });
+        verify(medicalRecordsRepository, never()).save(any());
+    }
+
+    @Test
+    public void testDeleteMedicalVisit_MedicalVisitNotFound() {
+        String healthInsuranceNumber = "ABCD123456789";
+        Long medicalVisitId = 20L;
+        MedicalRecord medicalRecord = setupMedicalRecord(healthInsuranceNumber);
+        when(medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber)).thenReturn(medicalRecord);
+
+        // Call the delete method and expect MedicalRecordsException
+        assertThrows(MedicalRecordsException.class, () -> {
+            medicalRecordsService.deleteMedicalVisit(healthInsuranceNumber, medicalVisitId);
+        });
+        verify(medicalRecordsRepository, never()).save(any());
+    }
+
+    @Test
+    public void testDeleteMedicalHistory_Success() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        Long medicalHistoryId = 1L;
+        MedicalRecord medicalRecord = setupMedicalRecord(healthInsuranceNumber);
+        when(medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber)).thenReturn(medicalRecord);
+        MedicalHistory deletedMedicalHistory = medicalRecordsService.deleteMedicalHistory(healthInsuranceNumber, medicalHistoryId);
+        assertFalse(medicalRecord.getMedicalHistoryList().contains(deletedMedicalHistory));
+        verify(medicalRecordsRepository, times(1)).save(medicalRecord);
+    }
+
+    @Test
+    public void testDeleteMedicalHistory_MedicalRecordNotFound() {
+        String healthInsuranceNumber = "ABCD123456789";
+        Long medicalHistoryId = 1L;
+        when(medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber)).thenReturn(null);
+
+        // Call the delete method and expect MedicalRecordsException
+        assertThrows(MedicalRecordsException.class, () -> {
+            medicalRecordsService.deleteMedicalHistory(healthInsuranceNumber, medicalHistoryId);
+        });
+        verify(medicalRecordsRepository, never()).save(any());
+    }
+
+    @Test
+    public void testDeleteMedicalHistory_MedicalHistoryNotFound() {
+        String healthInsuranceNumber = "ABCD123456789";
+        Long medicalHistoryId = 20L;
+        MedicalRecord medicalRecord = setupMedicalRecord(healthInsuranceNumber);
+        when(medicalRecordsRepository.findByPatientHealthInsuranceNumber(healthInsuranceNumber)).thenReturn(medicalRecord);
+
+        // Call the delete method and expect MedicalRecordsException
+        assertThrows(MedicalRecordsException.class, () -> {
+            medicalRecordsService.deleteMedicalHistory(healthInsuranceNumber, medicalHistoryId);
+        });
+        verify(medicalRecordsRepository, never()).save(any());
+    }
+
 }
