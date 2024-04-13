@@ -2,8 +2,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: medical_records_service
-          uri: lb://MEDICAL_RECORDS_SERVICE
+        - id: medical-records-service
+          uri: lb://MEDICAL-RECORDS-SERVICE
           predicates:
             - Path=/medical-records/**
           filters:
