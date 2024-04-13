@@ -80,4 +80,24 @@ public class MedicalRecordsController {
         return ResponseEntity.ok(medicalHistory);
     }
 
+    @DeleteMapping("/delete-medical-visit")
+    public ResponseEntity<?> deleteMedicalVisit(@RequestBody HealthInsuranceNumber request, @RequestParam Long medicalVisitId) throws MedicalRecordsException {
+        if (Validation.validHealthInsuranceNumber(request.healthInsuranceNumber())) {
+            return ResponseEntity.badRequest().body("Invalid health insurance number format!");
+        }
+        MedicalVisit medicalVisit = medicalRecordsService.deleteMedicalVisit(request.healthInsuranceNumber(), medicalVisitId);
+
+        return ResponseEntity.ok(medicalVisit);
+    }
+
+    @DeleteMapping("/delete-medical-history")
+    public ResponseEntity<?> deleteMedicalHistory(@RequestBody HealthInsuranceNumber request, @RequestParam Long medicalHistoryId) throws MedicalRecordsException {
+        if (Validation.validHealthInsuranceNumber(request.healthInsuranceNumber())) {
+            return ResponseEntity.badRequest().body("Invalid health insurance number format!");
+        }
+        MedicalHistory medicalHistory = medicalRecordsService.deleteMedicalHistory(request.healthInsuranceNumber(), medicalHistoryId);
+
+        return ResponseEntity.ok(medicalHistory);
+    }
+
 }
