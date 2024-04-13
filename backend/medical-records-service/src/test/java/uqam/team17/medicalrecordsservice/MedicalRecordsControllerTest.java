@@ -8,16 +8,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uqam.team17.medicalrecordsservice.controller.MedicalRecordsController;
-import uqam.team17.medicalrecordsservice.entity.*;
-import uqam.team17.medicalrecordsservice.exception.MedicalRecordsException;
-import uqam.team17.medicalrecordsservice.service.MedicalRecordsService;
-import uqam.team17.medicalrecordsservice.utility.*;
-
+import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -26,14 +20,16 @@ import uqam.team17.medicalrecordsservice.entity.MedicalHistory;
 import uqam.team17.medicalrecordsservice.entity.MedicalRecord;
 import uqam.team17.medicalrecordsservice.entity.MedicalVisit;
 import uqam.team17.medicalrecordsservice.entity.Patient;
-
-import static org.mockito.Mockito.when;
+import uqam.team17.medicalrecordsservice.service.MedicalRecordsService;
+import uqam.team17.medicalrecordsservice.controller.MedicalRecordsController;
+import uqam.team17.medicalrecordsservice.entity.*;
+import uqam.team17.medicalrecordsservice.exception.MedicalRecordsException;
+import uqam.team17.medicalrecordsservice.utility.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MedicalRecordsControllerTest {
     @Mock
     private MedicalRecordsService medicalRecordsService;
-
     @InjectMocks
     private MedicalRecordsController medicalRecordsController;
 
@@ -200,7 +196,6 @@ public class MedicalRecordsControllerTest {
         when(medicalRecordsService.updateMedicalHistory(eq(request.getHealthInsuranceNumber()), any(MedicalHistory.class)))
                 .thenReturn(new MedicalHistory());
         ResponseEntity<?> response = medicalRecordsController.updateMedicalHistory(request);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
     }
@@ -213,4 +208,24 @@ public class MedicalRecordsControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
+    @Test
+    public void testDeleteMedicalVisit() throws Exception {
+        HealthInsuranceNumber request = new HealthInsuranceNumber("ABCD123456789");
+        Long medicalVisitId = 1L;
+        MedicalRecord medicalRecord = setupMedicalRecord(request.healthInsuranceNumber());
+        MedicalVisit medicalVisit = medicalRecord.getMedicalVisitList().get(0);
+        when(medicalRecordsService.deleteMedicalVisit(request.healthInsuranceNumber(), medicalVisitId)).thenReturn(medicalVisit);
+        ResponseEntity<?> response = medicalRecordsController.deleteMedicalVisit(request,medicalVisitId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteMedicalHistory() throws Exception {
+        HealthInsuranceNumber request = new HealthInsuranceNumber("ABCD123456789");
+        Long medicalHistoryId = 1L;
+        MedicalHistory medicalHistory = new MedicalHistory();
+        when(medicalRecordsService.deleteMedicalHistory(request.healthInsuranceNumber(), medicalHistoryId)).thenReturn(medicalHistory);
+        ResponseEntity<?> response = medicalRecordsController.deleteMedicalHistory(request,medicalHistoryId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 }

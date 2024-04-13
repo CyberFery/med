@@ -46,6 +46,7 @@ public class MedicalRecordsService {
             throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
         }
     }
+
     public MedicalVisit updateMedicalVisit(String healthInsuranceNumber, MedicalVisit medicalVisit) throws MedicalRecordsException {
         MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
         if (medicalRecord != null) {
@@ -58,6 +59,7 @@ public class MedicalRecordsService {
             throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
         }
     }
+
     public MedicalHistory updateMedicalHistory(String healthInsuranceNumber, MedicalHistory medicalHistory) throws MedicalRecordsException {
         MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
         if (medicalRecord != null) {
@@ -73,5 +75,63 @@ public class MedicalRecordsService {
 
     public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
         return medicalRecordsRepository.save(medicalRecord);
+    }
+
+    public MedicalVisit deleteMedicalVisit(String healthInsuranceNumber, Long medicalVisitId) throws MedicalRecordsException {
+        MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
+
+        if (medicalRecord != null) {
+            List<MedicalVisit> medicalVisitList = medicalRecord.getMedicalVisitList();
+            int id = findMedicalVisitById(medicalVisitList, medicalVisitId);
+            if(id >= 0) {
+                MedicalVisit medicalVisit = medicalVisitList.remove(id);
+                medicalRecord.setMedicalVisitList(medicalVisitList);
+                medicalRecordsRepository.save(medicalRecord);
+                return medicalVisit;
+            } else {
+                throw new MedicalRecordsException("Medical visit not found for patient with medical visit id " + medicalVisitId);
+            }
+        } else {
+            throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
+        }
+    }
+
+    public MedicalHistory deleteMedicalHistory(String healthInsuranceNumber, Long medicalHistoryId) throws MedicalRecordsException {
+        MedicalRecord medicalRecord = getMedicalRecord(healthInsuranceNumber);
+
+        if (medicalRecord != null) {
+            List<MedicalHistory> medicalHistoryList = medicalRecord.getMedicalHistoryList();
+            int id = findMedicalHistoryById(medicalHistoryList, medicalHistoryId);
+            if(id >= 0) {
+                MedicalHistory medicalHistory = medicalHistoryList.remove(id);
+                medicalRecord.setMedicalHistoryList(medicalHistoryList);
+                medicalRecordsRepository.save(medicalRecord);
+                return medicalHistory;
+            } else {
+                throw new MedicalRecordsException("Medical History not found for patient with medical history id " + medicalHistoryId);
+            }
+        } else {
+            throw new MedicalRecordsException("Medical Record not found for patient with health insurance number " + healthInsuranceNumber);
+        }
+    }
+
+    private int findMedicalVisitById(List<MedicalVisit> medicalVisitList, Long medicalVisitId) {
+        for (int i = 0; i < medicalVisitList.size(); i++) {
+            MedicalVisit medicalVisit = medicalVisitList.get(i);
+            if (medicalVisit.getMedicalVisitId().equals(medicalVisitId)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int findMedicalHistoryById(List<MedicalHistory> medicalHistoryList, Long medicalHistoryId) {
+        for (int i = 0; i < medicalHistoryList.size(); i++) {
+            MedicalHistory medicalHistory = medicalHistoryList.get(i);
+            if (medicalHistory.getMedicalHistoryId().equals(medicalHistoryId)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
