@@ -1,5 +1,6 @@
 package uqam.team17.authenticationservice.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> addNewUser(@RequestBody AuthCredentials credentials) {
+    public ResponseEntity<?> addNewUser(@Valid @RequestBody AuthCredentials credentials) {
         String response = authService.saveUser(credentials);
         if ("There is already an account associated with this username.".equals(response) ||
                 "There is already an account associated with this email.".equals(response) ||
