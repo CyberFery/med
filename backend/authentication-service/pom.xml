@@ -91,7 +91,6 @@
         </dependency>
 
         <!-- Lombok for boilerplate code reduction (e.g., getters, setters) -->
-        <!-- Ensure you replace 'YourLombokVersion' with the actual Lombok version -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
