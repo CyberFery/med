@@ -17,6 +17,9 @@ public class ContactInformation {
     @ElementCollection
     private List<EmailAddress> emailAddressList;
 
+    public ContactInformation() {
+    }
+
     public ContactInformation(Long contactInformationId, List<ResidentialAddress> residentialAddressList,
                               List<PhoneNumber> phoneNumberList, List<EmailAddress> emailAddressList) {
         this.contactInformationId = contactInformationId;
@@ -24,6 +27,8 @@ public class ContactInformation {
         this.phoneNumberList = phoneNumberList;
         this.emailAddressList = emailAddressList;
     }
+
+
 
     public List<ResidentialAddress> getResidentialAddressList() {
         return residentialAddressList;

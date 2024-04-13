@@ -22,6 +22,15 @@ public class MedicalHistory {
         // default constructor
     }
 
+    public MedicalHistory(Long medicalHistoryId, String diagnosis, String treatment, List<Illness> illnessList,
+                          Doctor primaryDoctor) {
+        this.medicalHistoryId = medicalHistoryId;
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.illnessList = illnessList;
+        this.primaryDoctor = primaryDoctor;
+    }
+
     public String getDiagnosis() {
         return diagnosis;
     }

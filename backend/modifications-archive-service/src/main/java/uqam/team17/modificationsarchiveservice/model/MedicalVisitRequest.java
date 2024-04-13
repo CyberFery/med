@@ -8,6 +8,11 @@ public class MedicalVisitRequest implements ModificationRequest {
         // default constructor
     }
 
+    public MedicalVisitRequest(String healthInsuranceNumber, MedicalVisit medicalVisit) {
+        this.healthInsuranceNumber = healthInsuranceNumber;
+        this.medicalVisit = medicalVisit;
+    }
+
     public String getHealthInsuranceNumber() {
         return healthInsuranceNumber;
     }
