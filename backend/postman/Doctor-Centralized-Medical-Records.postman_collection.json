@@ -1,0 +1,1890 @@
+{
+	"info": {
+		"_postman_id": "11c46f9c-7ddd-4d44-a6d6-9353bf928669",
+		"name": "Doctor - Centralized Medical Records",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Tests\" tab**\n\nTests help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/b5f280a7-4b09-48ec-857f-0a7ed99d7ef8/U2NyZWVuc2hvdCAyMDIzLTAzLTI3IGF0IDkuNDcuMjggUE0ucG5n\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) in \"Tests\" to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25667684"
+	},
+	"item": [
+		{
+			"name": "authentication-service",
+			"item": [
+				{
+					"name": "Register user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"GrumpyCoder\",\n    \"email\": \"GrumpyCoder@icloud.com\",\n    \"password\": \"FindMe123$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate user bearer token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"// Parse the response body to extract the token",
+									"const token = pm.response.text();",
+									"",
+									"// Check if token is found and save it to collection variable",
+									"if (token && token.length > 0) {",
+									"    pm.collectionVariables.set(\"bearer_token\", token);",
+									"} else {",
+									"    console.error('Token not found in response body');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"GrumpyCoder\",\n    \"password\": \"FindMe123$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"token"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Validate bearer token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/validate?token={{bearer_token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"validate"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}"
+								}
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "medical-records-service",
+			"item": [
+				{
+					"name": "Create medical record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"pm.test(\"Schema is valid\", function () {",
+									"  var schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"      medicalRecordId: { type: \"number\" },",
+									"      patient: {",
+									"        type: \"object\",",
+									"        properties: {",
+									"          healthInsuranceNumber: { type: \"string\" },",
+									"          firstName: { type: \"string\" },",
+									"          lastName: { type: \"string\" },",
+									"          genre: { type: \"string\" },",
+									"          dateOfBirth: { type: \"string\" },",
+									"          cityOfBirth: { type: \"string\" },",
+									"          establishedDiagnosis: { type: \"string\" },",
+									"          knownParentList: {",
+									"            type: \"array\",",
+									"            items: {",
+									"              type: \"object\",",
+									"              properties: {",
+									"                firstName: { type: \"string\" },",
+									"                lastName: { type: \"string\" },",
+									"              }",
+									"            }",
+									"          },",
+									"          contactInformation: {",
+									"            type: \"object\",",
+									"            properties: {",
+									"              residentialAddressList: {",
+									"                type: \"array\",",
+									"                items: {",
+									"                  type: \"object\",",
+									"                  properties: {",
+									"                    address: { type: \"string\" }",
+									"                  }",
+									"                }",
+									"              },",
+									"              phoneNumberList: {",
+									"                type: \"array\",",
+									"                items: {",
+									"                  type: \"object\",",
+									"                  properties: {",
+									"                    number: { type: \"string\" }",
+									"                  }",
+									"                }",
+									"              },",
+									"              emailAddressList: {",
+									"                type: \"array\",",
+									"                items: {",
+									"                  type: \"object\",",
+									"                  properties: {",
+									"                    email: { type: \"string\" }",
+									"                  }",
+									"                }",
+									"              }",
+									"            }",
+									"          },",
+									"          isHealthcareProfessional: { type: \"boolean\" },",
+									"          isDoctor: { type: \"boolean\" }",
+									"        }",
+									"      },",
+									"      medicalVisitList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            medicalVisitId: { type: \"number\" },",
+									"            visitedEstablishment: { type: \"string\" },",
+									"            doctorSeen: {",
+									"              type: \"object\",",
+									"              properties: {",
+									"                doctorId: { type: \"number\" },",
+									"                firstName: { type: \"string\" },",
+									"                lastName: { type: \"string\" },",
+									"                specialization: { type: \"string\" },",
+									"              }",
+									"            },",
+									"            visitDate: { type: \"string\" },",
+									"            diagnosisList: {",
+									"              type: \"array\",",
+									"              items: {",
+									"                type: \"object\",",
+									"                properties: {",
+									"                  description: { type: \"string\" },",
+									"                  treatment: { type: \"string\" },",
+									"                }",
+									"              }",
+									"            },",
+									"            summaryOfTheVisitByDoctor: { type: \"string\" },",
+									"            notesForOtherDoctors: { type: \"string\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      medicalHistoryList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            medicalHistoryId: { type: \"number\" },",
+									"            diagnosis: { type: \"string\" },",
+									"            treatment: { type: \"string\" },",
+									"            illnessList: {",
+									"              type: \"array\",",
+									"              items: {",
+									"                type: \"object\",",
+									"                properties: {",
+									"                  description: { type: \"string\" },",
+									"                  onsetOfIllnessDate: { type: \"string\" },",
+									"                  endOfIllnessDate: { type: \"string\" },",
+									"                }",
+									"              }",
+									"            },",
+									"            primaryCareDoctor: {",
+									"              type: \"object\",",
+									"              properties: {",
+									"                doctorId: { type: \"number\" },",
+									"                firstName: { type: \"string\" },",
+									"                lastName: { type: \"string\" },",
+									"                specialization: { type: \"string\" },",
+									"              }",
+									"            }",
+									"          }",
+									"        }",
+									"      }",
+									"    },",
+									"    required: [\"medicalRecordId\", \"patient\", \"medicalVisitList\", \"medicalHistoryList\"]",
+									"  };",
+									"",
+									"  var response = pm.response.json();",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});",
+									"",
+									"// Test to check the response content type",
+									"pm.test(\"Response has content type of application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"// Verify the length of medicalVisitList and medicalHistoryList",
+									"pm.test(\"The medicalVisitList length must be greater than zero\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const medicalVisitList = responseData.medicalVisitList;",
+									"   ",
+									"    pm.expect(medicalVisitList.length).to.be.greaterThan(0, \"Medical visit list should not be empty\");",
+									"",
+									"    medicalVisitList.forEach((visit)=>{",
+									"      const diagnosisList = visit.diagnosisList;",
+									"      pm.expect(diagnosisList.length).to.be.greaterThan(0, \"Diagnosis list should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"The medicalHistoryList length must be greater than zero\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const medicalHistoryList = responseData.medicalHistoryList;",
+									"   ",
+									"    pm.expect(medicalHistoryList.length).to.be.greaterThan(0, \"Medical history list should not be empty\");",
+									"",
+									"    medicalHistoryList.forEach((history)=>{",
+									"      const illnessList = history.illnessList;",
+									"      pm.expect(illnessList.length).to.be.greaterThan(0, \"Illness list should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* FUNCTIONS */",
+									"function getRandomElement(arr) {",
+									"    // Generate a random index between 0 and the length of the array",
+									"    const randomIndex = Math.floor(Math.random() * arr.length);",
+									"    ",
+									"    // Return the element at the random index",
+									"    return arr[randomIndex];",
+									"};",
+									"",
+									"function generateRAMQ() {",
+									"    // Générer quatre lettres majuscules aléatoires",
+									"    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';",
+									"    let randomLetters = '';",
+									"    for (let i = 0; i < 4; i++) {",
+									"        randomLetters += letters.charAt(Math.floor(Math.random() * letters.length));",
+									"    }",
+									"",
+									"    // Générer neuf chiffres aléatoires",
+									"    let randomNumbers = '';",
+									"    for (let i = 0; i < 9; i++) {",
+									"        randomNumbers += Math.floor(Math.random() * 10);",
+									"    }",
+									"",
+									"    // Générer deux chiffres aléatoires",
+									"    let randomTwoDigits = '';",
+									"    for (let i = 0; i < 2; i++) {",
+									"        randomTwoDigits += Math.floor(Math.random() * 10);",
+									"    }",
+									"",
+									"    // Concaténer les parties pour former le numéro RAMQ",
+									"    const ramq = randomLetters + randomNumbers.substring(0, 4) + randomNumbers.substring(4, 8) + randomTwoDigits;",
+									"",
+									"    return ramq;",
+									"};",
+									"",
+									"function getRandomDate() {",
+									"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+									"    const end = new Date(); // Date actuelle",
+									"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+									"}",
+									"",
+									"function formatDateToISO(date) {",
+									"    const year = date.getFullYear();",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+									"    const day = date.getDate().toString().padStart(2, '0');",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"/* SETTING VARIABLES */",
+									"const genre = [\"MALE\", \"FEMALE\"];",
+									"const healthInsuranceNumber = generateRAMQ();",
+									"const randomDate = getRandomDate();",
+									"const isoDate = formatDateToISO(randomDate);",
+									"",
+									"pm.variables.set(\"genre\", getRandomElement(genre));",
+									"pm.collectionVariables.set(\"healthInsuranceNumber\", healthInsuranceNumber);",
+									"pm.variables.set('isoDate', isoDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"patient\": {\n        \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\n        \"firstName\": \"{{$randomFirstName}}\",\n        \"lastName\": \"{{$randomLastName}}\",\n        \"genre\": \"{{genre}}\",\n        \"dateOfBirth\": \"{{isoDate}}\",\n        \"cityOfBirth\": \"{{$randomCity}}\",\n        \"establishedDiagnosis\": \"{{$randomAdjective}}\",\n        \"knownParentList\": [\n            {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\"\n            },\n            {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\"\n            },\n            {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\"\n            }\n        ],\n        \"contactInformation\": {\n            \"residentialAddressList\": [\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                },\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                },\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                }\n            ],\n            \"phoneNumberList\": [\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                },\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                },\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                }\n            ],\n            \"emailAddressList\": [\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                },\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                },\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                }\n            ]\n        },\n        \"isHealthcareProfessional\": {{$randomBoolean}},\n        \"isDoctor\": {{$randomBoolean}}\n    },\n    \"medicalVisitList\": [\n        {\n            \"visitedEstablishment\": \"{{$randomCompanyName}}\",\n            \"doctorSeen\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobType}}\"\n            },\n            \"visitDate\": \"{{isoDate}}\",\n            \"diagnosisList\": [\n                {\n                    \"description\": \"{{$randomJobDescriptor}}\",\n                    \"treatment\": \"{{$randomVerb}}\"\n                },\n                {\n                    \"description\": \"{{$randomJobDescriptor}}\",\n                    \"treatment\": \"{{$randomVerb}}\"\n                },\n                {\n                    \"description\": \"{{$randomJobDescriptor}}\",\n                    \"treatment\": \"{{$randomVerb}}\"\n                }\n            ],\n            \"summaryOfTheVisitByDoctor\": \"{{$randomJobDescriptor}}\",\n            \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\n        }\n    ],\n    \"medicalHistoryList\": [\n        {\n            \"diagnosis\": \"{{$randomAdjective}}\",\n            \"treatment\": \"{{$randomVerb}}\",\n            \"illnessList\": [\n                {\n                    \"description\": \"{{$randomCatchPhraseAdjective}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                }\n            ],\n            \"primaryCareDoctor\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobType}}\"\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/medical-records/patient",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"patient"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Get medical record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "healthInsuranceNumber",
+								"value": "{{healthInsuranceNumber}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/medical-records/patient",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"patient"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "update contact information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									"",
+									"// Verify the length of residentialAddressList, phoneNumberList, and emailAddressList",
+									"pm.test(\"The length of residentialAddressList must be greater than zero\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const residentialAddressList = responseData.residentialAddressList;",
+									"   ",
+									"    pm.expect(residentialAddressList.length).to.be.greaterThan(0, \"Residential Address List should not be empty\");",
+									"",
+									"    residentialAddressList.forEach((address)=>{",
+									"      const addressValue = address.address;",
+									"      pm.expect(addressValue.length).to.be.greaterThan(0, \"Address should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"The length of phoneNumberList must be greater than zero\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const phoneNumberList = responseData.phoneNumberList;",
+									"   ",
+									"    pm.expect(phoneNumberList.length).to.be.greaterThan(0, \"Phone Number List should not be empty\");",
+									"",
+									"    phoneNumberList.forEach((number)=>{",
+									"      const numberValue = number.number;",
+									"      pm.expect(numberValue.length).to.be.greaterThan(0, \"Phone Number should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"The length of emailAddressList must be greater than zero\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const emailAddressList = responseData.emailAddressList;",
+									"   ",
+									"    pm.expect(emailAddressList.length).to.be.greaterThan(0, \"Email Address List should not be empty\");",
+									"",
+									"    emailAddressList.forEach((email)=>{",
+									"      const emailValue = email.email;",
+									"      pm.expect(emailValue.length).to.be.greaterThan(0, \"Email should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"// Test the response time",
+									"pm.test(\"Response time is within acceptable range\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Test for the response content type",
+									"pm.test(\"Response has content type 'application/json'\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"// Test for response schema",
+									"pm.test(\"Response schema is valid\", function () {",
+									"  var schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"      residentialAddressList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            address: { type: \"string\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      phoneNumberList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            number: { type: \"string\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      emailAddressList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            email: { type: \"string\" }",
+									"          }",
+									"        }",
+									"      }",
+									"    },",
+									"    required: [\"residentialAddressList\", \"phoneNumberList\", \"emailAddressList\"],",
+									"  };",
+									"",
+									"  var response = pm.response.json();",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "healthInsuranceNumber",
+								"value": "{{healthInsuranceNumber}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"residentialAddressList\": [\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                },\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                }\n            ],\n            \"phoneNumberList\": [\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                },\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                }\n            ],\n            \"emailAddressList\": [\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                },\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                }\n            ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/medical-records/update-contact-information",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"update-contact-information"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "update medical history",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* FUNCTIONS */",
+									"function getRandomDate() {",
+									"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+									"    const end = new Date(); // Date actuelle",
+									"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+									"}",
+									"",
+									"function formatDateToISO(date) {",
+									"    const year = date.getFullYear();",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+									"    const day = date.getDate().toString().padStart(2, '0');",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"/* SETTING VARIABLES */",
+									"const randomDate = getRandomDate();",
+									"const isoDate = formatDateToISO(randomDate);",
+									"",
+									"pm.variables.set('isoDate', isoDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/* SETTING VARIABLES */",
+									"const requestBody = pm.response.json();",
+									"const medicalHistoryId = requestBody.medicalHistoryId;",
+									"",
+									"pm.collectionVariables.set(\"medicalHistoryId\", medicalHistoryId);",
+									"",
+									"/* TESTS */",
+									"// Verify the length of illnessList",
+									"pm.test(\"The illnessList length must be greater than zero\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const illnessList = responseData.illnessList;",
+									"   ",
+									"    pm.expect(illnessList.length).to.be.greaterThan(0, \"Illness list should not be empty\");",
+									"",
+									"    illnessList.forEach((illness)=>{",
+									"      const description = illness.description;",
+									"      pm.expect(description.length).to.be.greaterThan(0, \"Illness description should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"// Test for response time within acceptable range",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Test for the response content type",
+									"pm.test(\"Response has content type of application/json\", function () {",
+									"    pm.expect(pm.response).to.have.header(\"Content-Type\", \"application/json\");",
+									"});",
+									"",
+									"pm.test(\"Schema is valid\", function () {",
+									"  var schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"      medicalHistoryId: { type: \"number\" },",
+									"      diagnosis: { type: \"string\" },",
+									"      treatment: { type: \"string\" },",
+									"      illnessList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            description: { type: \"string\" },",
+									"            onsetOfIllnessDate: { type: \"string\" },",
+									"            endOfIllnessDate: { type: \"string\" }",
+									"          },",
+									"          required: [\"description\", \"onsetOfIllnessDate\", \"endOfIllnessDate\"]",
+									"        }",
+									"      },",
+									"      primaryCareDoctor: {",
+									"        type: \"object\",",
+									"        properties: {",
+									"          doctorId: { type: \"number\" },",
+									"          firstName: { type: \"string\" },",
+									"          lastName: { type: \"string\" },",
+									"          specialization: { type: \"string\" }",
+									"        },",
+									"        required: [\"doctorId\", \"firstName\", \"lastName\", \"specialization\"]",
+									"      }",
+									"    },",
+									"    required: [\"medicalHistoryId\", \"diagnosis\", \"treatment\", \"illnessList\", \"primaryCareDoctor\"]",
+									"  };",
+									"",
+									"  var response = pm.response.json();",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Medical history ID is a non-negative integer\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.medicalHistoryId).to.be.a('number');",
+									"  pm.expect(responseData.medicalHistoryId).to.be.at.least(0, \"Medical history ID should be a non-negative integer\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Primary care doctor object is present and contains expected properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.primaryCareDoctor).to.exist;",
+									"    pm.expect(responseData.primaryCareDoctor).to.have.property('doctorId');",
+									"    pm.expect(responseData.primaryCareDoctor).to.have.property('firstName');",
+									"    pm.expect(responseData.primaryCareDoctor).to.have.property('lastName');",
+									"    pm.expect(responseData.primaryCareDoctor).to.have.property('specialization');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Ensure that the treatment field is not empty and is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.treatment).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the description in each illness in the illnessList is not empty and is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.illnessList).to.be.an('array');",
+									"    responseData.illnessList.forEach(function(illness) {",
+									"        pm.expect(illness.description).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");",
+									"    });",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "healthInsuranceNumber",
+								"value": "{{healthInsuranceNumber}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"diagnosis\": \"{{$randomAdjective}}\",\n            \"treatment\": \"{{$randomVerb}}\",\n            \"illnessList\": [\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                },\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                },\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                }\n            ],\n            \"primaryCareDoctor\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobType}}\"\n            }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/medical-records/update-medical-history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"update-medical-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update medical visit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* FUNCTIONS */",
+									"function getRandomDate() {",
+									"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+									"    const end = new Date(); // Date actuelle",
+									"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+									"}",
+									"",
+									"function formatDateToISO(date) {",
+									"    const year = date.getFullYear();",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+									"    const day = date.getDate().toString().padStart(2, '0');",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"/* SETTING VARIABLES */",
+									"const randomDate = getRandomDate();",
+									"const isoDate = formatDateToISO(randomDate);",
+									"",
+									"pm.variables.set('isoDate', isoDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/* SETTING VARIABLES */",
+									"const requestBody = pm.response.json();",
+									"const medicalVisitId = requestBody.medicalVisitId;",
+									"",
+									"pm.collectionVariables.set(\"medicalVisitId\", medicalVisitId);",
+									"",
+									"/* TESTS */",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Date is in a valid date format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.visitDate).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+									"});",
+									"",
+									"",
+									"pm.test(\"DiagnosisList contains non-empty description and treatment for each item\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.diagnosisList).to.be.an('array');",
+									"    ",
+									"    responseData.diagnosisList.forEach(function(diagnosis) {",
+									"        pm.expect(diagnosis.description).to.exist.and.to.have.lengthOf.at.least(1, \"Description should not be empty\");",
+									"        pm.expect(diagnosis.treatment).to.exist.and.to.have.lengthOf.at.least(1, \"Treatment should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"// Verify the length of diagnosisList and doctorSeen",
+									"pm.test(\"The length of diagnosisList should be greater than 0\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.diagnosisList.length).to.be.greaterThan(0, \"DiagnosisList should not be empty\");",
+									"",
+									"    responseData.diagnosisList.forEach((diagnosis) => {",
+									"        pm.expect(diagnosis.description.length).to.be.greaterThan(0, \"Description should not be empty\");",
+									"        pm.expect(diagnosis.treatment.length).to.be.greaterThan(0, \"Treatment should not be empty\");",
+									"    });",
+									"",
+									"    pm.expect(responseData.doctorSeen).to.be.an('object').and.to.not.be.empty;",
+									"});",
+									"",
+									"pm.test(\"Response time is within acceptable range\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Response content type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"pm.test(\"Schema is valid\", function () {",
+									"  var schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"      medicalVisitId: { type: \"number\" },",
+									"      visitedEstablishment: { type: \"string\" },",
+									"      doctorSeen: {",
+									"        type: \"object\",",
+									"        properties: {",
+									"          doctorId: { type: \"number\" },",
+									"          firstName: { type: \"string\" },",
+									"          lastName: { type: \"string\" },",
+									"          specialization: { type: \"string\" }",
+									"        },",
+									"        required: [\"doctorId\", \"firstName\", \"lastName\", \"specialization\"]",
+									"      },",
+									"      visitDate: { type: \"string\" },",
+									"      diagnosisList: {",
+									"        type: \"array\",",
+									"        items: {",
+									"          type: \"object\",",
+									"          properties: {",
+									"            description: { type: \"string\" },",
+									"            treatment: { type: \"string\" }",
+									"          },",
+									"          required: [\"description\", \"treatment\"]",
+									"        }",
+									"      },",
+									"      summaryOfTheVisitByDoctor: { type: \"string\" },",
+									"      notesForOtherDoctors: { type: \"string\" }",
+									"    },",
+									"    required: [\"medicalVisitId\", \"visitedEstablishment\", \"doctorSeen\", \"visitDate\", \"diagnosisList\", \"summaryOfTheVisitByDoctor\", \"notesForOtherDoctors\"]",
+									"  };",
+									"",
+									"  var response = pm.response.json();",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "healthInsuranceNumber",
+								"value": "{{healthInsuranceNumber}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n                \"visitedEstablishment\": \"{{$randomCompanyName}}\",\n                \"doctorSeen\": {\n                    \"firstName\": \"{{$randomFirstName}}\",\n                    \"lastName\": \"{{$randomLastName}}\",\n                    \"specialization\": \"{{$randomJobType}}\"\n                },\n                \"visitDate\": \"{{isoDate}}\",\n                \"diagnosisList\": [\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    },\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    },\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    }\n                ],\n                \"summaryOfTheVisitByDoctor\": \"{{$randomJobDescriptor}}\",\n                \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/medical-records/update-medical-visit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"update-medical-visit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medical history",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "healthInsuranceNumber",
+								"value": "{{healthInsuranceNumber}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/medical-records/delete-medical-history?medicalHistoryId={{medicalHistoryId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"delete-medical-history"
+							],
+							"query": [
+								{
+									"key": "medicalHistoryId",
+									"value": "{{medicalHistoryId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medical visit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "healthInsuranceNumber",
+								"value": "{{healthInsuranceNumber}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/medical-records/delete-medical-visit?medicalVisitId={{medicalVisitId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"medical-records",
+								"delete-medical-visit"
+							],
+							"query": [
+								{
+									"key": "medicalVisitId",
+									"value": "{{medicalVisitId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "modifications-archive-service",
+			"item": [
+				{
+					"name": "Client side errors",
+					"item": [
+						{
+							"name": "400 - Bad request",
+							"item": [
+								{
+									"name": "Contact Information with wrong data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"/* FUNCTIONS */",
+													"function getRandomElement(arr) {",
+													"    // Generate a random index between 0 and the length of the array",
+													"    const randomIndex = Math.floor(Math.random() * arr.length);",
+													"    ",
+													"    // Return the element at the random index",
+													"    return arr[randomIndex];",
+													"};",
+													"",
+													"function getRandomDate() {",
+													"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+													"    const end = new Date(); // Date actuelle",
+													"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+													"}",
+													"",
+													"function formatDateToISO(date) {",
+													"    const year = date.getFullYear();",
+													"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+													"    const day = date.getDate().toString().padStart(2, '0');",
+													"    return `${year}-${month}-${day}`;",
+													"}",
+													"",
+													"/* SETTING VARIABLES */",
+													"const randomDate = getRandomDate();",
+													"const isoDate = formatDateToISO(randomDate);",
+													"",
+													"pm.variables.set('isoDate', isoDate);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\r\n    \"medicalVisit\": {\r\n        \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n        \"doctorSeen\": {\r\n            \"firstName\": \"{{$randomFirstName}}\",\r\n            \"lastName\": \"{{$randomLastName}}\",\r\n            \"specialization\": \"{{$randomJobType}}\"\r\n        },\r\n        \"visitDate\": \"{{isoDate}}\",\r\n        \"diagnosisList\": [\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            }\r\n        ],\r\n        \"summaryOfTheVisitByDoctor\": \"{{$randomLoremParagraph}}\",\r\n        \"notesForOtherDoctors\": \"{{$randomLoremParagraph}}\"\r\n    }\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/modifications/contact-information",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"modifications",
+												"contact-information"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Medical History with wrong data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"/* FUNCTIONS */",
+													"function getRandomElement(arr) {",
+													"    // Generate a random index between 0 and the length of the array",
+													"    const randomIndex = Math.floor(Math.random() * arr.length);",
+													"    ",
+													"    // Return the element at the random index",
+													"    return arr[randomIndex];",
+													"};",
+													"",
+													"function getRandomDate() {",
+													"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+													"    const end = new Date(); // Date actuelle",
+													"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+													"}",
+													"",
+													"function formatDateToISO(date) {",
+													"    const year = date.getFullYear();",
+													"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+													"    const day = date.getDate().toString().padStart(2, '0');",
+													"    return `${year}-${month}-${day}`;",
+													"}",
+													"",
+													"/* SETTING VARIABLES */",
+													"const randomDate = getRandomDate();",
+													"const isoDate = formatDateToISO(randomDate);",
+													"",
+													"pm.variables.set('isoDate', isoDate);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"healthInsuranceNumber\": {{healthInsuranceNumber}},\r\n    \"medicalHistory\": {\r\n        \"diagnosis\": \"{{$randomProductName}}\",\r\n        \"treatment\": \"{{$randomVerb}}\",\r\n        \"illnessList\": [\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"onsetOfIllnessDate\": \"{{isoDate}}\",\r\n                \"endOfIllnessDate\": \"{{isoDate}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"onsetOfIllnessDate\": \"{{isoDate}}\",\r\n                \"endOfIllnessDate\": \"{{isoDate}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"onsetOfIllnessDate\": \"{{isoDate}}\",\r\n                \"endOfIllnessDate\": \"{{isoDate}}\"\r\n            }\r\n        ],\r\n        \"primaryDoctor\": {\r\n            \"firstName\": \"{{$randomFirstName}}\",\r\n            \"lastName\": \"{{$randomLastName}}\",\r\n            \"specialization\": \"{{$randomJobType}}\"\r\n        }\r\n    }\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/modifications/medical-history",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"modifications",
+												"medical-history"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Medical Visit with empty diagnosis list",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\r\n    \"medicalVisit\": {\r\n        \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n        \"doctorSeen\": {\r\n            \"firstName\": \"{{$randomFirstName}}\",\r\n            \"lastName\": \"{{$randomLastName}}\",\r\n            \"specialization\": \"{{$randomJobType}}\"\r\n        },\r\n        \"visitDate\": \"{{isoDate}}\",\r\n        \"diagnosisList\": [\r\n            {\r\n                \"description\": \"{{$randomJobDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomJobDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomJobDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            }\r\n        ],\r\n        \"summaryOfTheVisitByDoctor\": \"{{$randomLoremParagraph}}\",\r\n        \"notesForOtherDoctors\": \"{{$randomLoremParagraph}}\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/modifications/medical-visit",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"modifications",
+												"medical-visit"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "404 - Not found",
+							"item": [
+								{
+									"name": "Cancel Non-existing Medical History",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"/* FUNCTIONS */",
+													"function getRandomElement(arr) {",
+													"    // Generate a random index between 0 and the length of the array",
+													"    const randomIndex = Math.floor(Math.random() * arr.length);",
+													"    ",
+													"    // Return the element at the random index",
+													"    return arr[randomIndex];",
+													"};",
+													"",
+													"/* SETTING VARIABLES */",
+													"const modificationType = [\"CONTACT_INFORMATION\", \"MEDICAL_HISTORY\", \"MEDICAL_VISIT\"];",
+													"",
+													"pm.variables.set(\"modificationType\", getRandomElement(modificationType));"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"healthInsuranceNumber\" : \"{{healthInsuranceNumber}}\",\r\n    \"type\" : \"{{modificationType}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/modifications/cancel-modification",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"modifications",
+												"cancel-modification"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Create Contact Information Modification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.modificationId).to.exist;\r",
+									"    pm.expect(responseData.healthInsuranceNumber).to.exist;\r",
+									"    pm.expect(responseData.timestamp).to.exist;\r",
+									"    pm.expect(responseData.type).to.exist;\r",
+									"    pm.expect(responseData.contactInformation).to.exist.and.to.be.an('object');\r",
+									"    pm.expect(responseData.status).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Residential address list is present and is an array\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+									"  pm.expect(responseData.contactInformation.residentialAddressList).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Phone number list is present and is an array\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+									"  pm.expect(responseData.contactInformation.phoneNumberList).to.exist.and.to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Email address list is present and is an array\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"contactInformation\");\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.contactInformation.emailAddressList).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\r\n    \"contactInformation\": {\r\n            \"residentialAddressList\": [\r\n                {\r\n                    \"address\": \"{{$randomStreetAddress}}\"\r\n                },\r\n                {\r\n                    \"address\": \"{{$randomStreetAddress}}\"\r\n                },\r\n                {\r\n                    \"address\": \"{{$randomStreetAddress}}\"\r\n                }\r\n            ],\r\n            \"phoneNumberList\": [\r\n                {\r\n                    \"number\": \"{{$randomPhoneNumber}}\"\r\n                },\r\n                {\r\n                    \"number\": \"{{$randomPhoneNumber}}\"\r\n                },\r\n                {\r\n                    \"number\": \"{{$randomPhoneNumber}}\"\r\n                }\r\n            ],\r\n            \"emailAddressList\": [\r\n                {\r\n                    \"email\": \"{{$randomEmail}}\"\r\n                },\r\n                {\r\n                    \"email\": \"{{$randomEmail}}\"\r\n                },\r\n                {\r\n                    \"email\": \"{{$randomEmail}}\"\r\n                }\r\n            ]\r\n        }\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/modifications/contact-information",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"modifications",
+								"contact-information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Medical Visit Modification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"healthInsuranceNumber must exist\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"     pm.expect(responseData.healthInsuranceNumber).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Modification ID is present and non-negative\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.modificationId).to.exist;\r",
+									"  pm.expect(responseData.modificationId).to.be.a('number');\r",
+									"  pm.expect(responseData.modificationId).to.be.at.least(0, \"Modification ID should be non-negative\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Timestamp is in a valid date format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.timestamp).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d+$/);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* FUNCTIONS */",
+									"function getRandomElement(arr) {",
+									"    // Generate a random index between 0 and the length of the array",
+									"    const randomIndex = Math.floor(Math.random() * arr.length);",
+									"    ",
+									"    // Return the element at the random index",
+									"    return arr[randomIndex];",
+									"};",
+									"",
+									"function getRandomDate() {",
+									"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+									"    const end = new Date(); // Date actuelle",
+									"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+									"}",
+									"",
+									"function formatDateToISO(date) {",
+									"    const year = date.getFullYear();",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+									"    const day = date.getDate().toString().padStart(2, '0');",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"/* SETTING VARIABLES */",
+									"const randomDate = getRandomDate();",
+									"const isoDate = formatDateToISO(randomDate);",
+									"",
+									"pm.variables.set('isoDate', isoDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\r\n    \"medicalVisit\": {\r\n        \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n        \"doctorSeen\": {\r\n            \"firstName\": \"{{$randomFirstName}}\",\r\n            \"lastName\": \"{{$randomLastName}}\",\r\n            \"specialization\": \"{{$randomJobType}}\"\r\n        },\r\n        \"visitDate\": \"{{isoDate}}\",\r\n        \"diagnosisList\": [\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"treatment\": \"{{$randomVerb}}\"\r\n            }\r\n        ],\r\n        \"summaryOfTheVisitByDoctor\": \"{{$randomLoremParagraph}}\",\r\n        \"notesForOtherDoctors\": \"{{$randomLoremParagraph}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/modifications/medical-visit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"modifications",
+								"medical-visit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Medical History Modification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.modificationId).to.exist;",
+									"    pm.expect(responseData.healthInsuranceNumber).to.exist;",
+									"    pm.expect(responseData.timestamp).to.exist;",
+									"    pm.expect(responseData.type).to.exist;",
+									"    pm.expect(responseData.medicalHistory).to.exist;",
+									"    pm.expect(responseData.status).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"IllnessList array is present and contains expected number of elements\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.medicalHistory.illnessList).to.exist.and.to.be.an('array');",
+									"    pm.expect(responseData.medicalHistory.illnessList).to.have.lengthOf.at.least(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Primary doctor object should have firstName, lastName, and specialization\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.medicalHistory.primaryDoctor).to.exist;",
+									"  pm.expect(responseData.medicalHistory.primaryDoctor.firstName).to.be.a('string');",
+									"  pm.expect(responseData.medicalHistory.primaryDoctor.lastName).to.be.a('string');",
+									"  pm.expect(responseData.medicalHistory.primaryDoctor.specialization).to.be.a('string');",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* FUNCTIONS */",
+									"function getRandomElement(arr) {",
+									"    // Generate a random index between 0 and the length of the array",
+									"    const randomIndex = Math.floor(Math.random() * arr.length);",
+									"    ",
+									"    // Return the element at the random index",
+									"    return arr[randomIndex];",
+									"};",
+									"",
+									"function getRandomDate() {",
+									"    const start = new Date(2000, 0, 1); // 1er janvier 2000",
+									"    const end = new Date(); // Date actuelle",
+									"    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+									"}",
+									"",
+									"function formatDateToISO(date) {",
+									"    const year = date.getFullYear();",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Les mois commencent à 0, donc +1",
+									"    const day = date.getDate().toString().padStart(2, '0');",
+									"    return `${year}-${month}-${day}`;",
+									"}",
+									"",
+									"/* SETTING VARIABLES */",
+									"const randomDate = getRandomDate();",
+									"const isoDate = formatDateToISO(randomDate);",
+									"",
+									"pm.variables.set('isoDate', isoDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\r\n    \"medicalHistory\": {\r\n        \"diagnosis\": \"{{$randomProductName}}\",\r\n        \"treatment\": \"{{$randomVerb}}\",\r\n        \"illnessList\": [\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"onsetOfIllnessDate\": \"{{isoDate}}\",\r\n                \"endOfIllnessDate\": \"{{isoDate}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"onsetOfIllnessDate\": \"{{isoDate}}\",\r\n                \"endOfIllnessDate\": \"{{isoDate}}\"\r\n            },\r\n            {\r\n                \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n                \"onsetOfIllnessDate\": \"{{isoDate}}\",\r\n                \"endOfIllnessDate\": \"{{isoDate}}\"\r\n            }\r\n        ],\r\n        \"primaryDoctor\": {\r\n            \"firstName\": \"{{$randomFirstName}}\",\r\n            \"lastName\": \"{{$randomLastName}}\",\r\n            \"specialization\": \"{{$randomJobType}}\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/modifications/medical-history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"modifications",
+								"medical-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Existing Contact Information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* FUNCTIONS */",
+									"function getRandomElement(arr) {",
+									"    // Generate a random index between 0 and the length of the array",
+									"    const randomIndex = Math.floor(Math.random() * arr.length);",
+									"    ",
+									"    // Return the element at the random index",
+									"    return arr[randomIndex];",
+									"};",
+									"",
+									"/* SETTING VARIABLES */",
+									"const modificationType = [\"CONTACT_INFORMATION\", \"MEDICAL_HISTORY\", \"MEDICAL_VISIT\"];",
+									"",
+									"pm.variables.set(\"modificationType\", getRandomElement(modificationType));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"healthInsuranceNumber\" : \"{{healthInsuranceNumber}}\",\r\n    \"type\" : \"{{modificationType}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/modifications/cancel-modification",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"modifications",
+								"cancel-modification"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ramq-service (partial)",
+			"item": [
+				{
+					"name": "create medical record copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function getRandomElement(arr) {",
+									"    // Generate a random index between 0 and the length of the array",
+									"    const randomIndex = Math.floor(Math.random() * arr.length);",
+									"    ",
+									"    // Return the element at the random index",
+									"    return arr[randomIndex];",
+									"};",
+									"",
+									"let currentDate = new Date();",
+									"let isoDate = currentDate.toISOString();",
+									"let genre = [\"MALE\", \"FEMALE\"];",
+									"",
+									"pm.variables.set(\"isoDate\", isoDate);",
+									"pm.variables.set(\"genre\", getRandomElement(genre));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"patient\": {\n        \"firstName\": \"{{$randomFirstName}}\",\n        \"lastName\": \"{{$randomLastName}}\",\n        \"genre\": \"{{genre}}\",\n        \"healthInsuranceNumber\": {{$randomInt}},\n        \"dateOfBirth\": \"{{$isoTimestamp}}\",\n        \"cityOfBirth\": \"{{$randomCity}}\",\n        \"establishedDiagnosis\": \"{{$randomAdjective}}\",\n        \"knownParentList\": [\n            {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\"\n            }\n        ],\n        \"contactInformation\": {\n            \"residentialAddressList\": [\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                },\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                }\n            ],\n            \"phoneNumberList\": [\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                }\n            ],\n            \"emailAddressList\": [\n                {\n                    \"email\": \"{{$randomExampleEmail}}\"\n                }\n            ]\n        },\n        \"isHealthcareProfessional\": {{$randomBoolean}},\n        \"isDoctor\": {{$randomBoolean}}\n    },\n    \"medicalVisitList\": [\n        {\n            \"visitedEstablishment\": \"{{$randomCompanyName}}\",\n            \"doctorSeen\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobDescriptor}}\"\n            },\n            \"visitDate\": \"{{$isoTimestamp}}\",\n            \"diagnosisList\": [\n                {\n                    \"description\": \"{{$randomAdjective}}\",\n                    \"treatment\": \"{{$randomVerb}}\"\n                }\n            ],\n            \"summaryOfTheVisitByDoctor\": \"{{$randomPhrase}}\",\n            \"notesForOtherDoctors\": \"{{$randomLoremParagraph}}\"\n        }\n    ],\n    \"medicalHistoryList\": [\n        {\n            \"diagnosis\": \"{{$randomProductName}}\",\n            \"treatment\": \"{{$randomVerb}}\",\n            \"illnessList\": [\n                {\n                    \"description\": \"{{$randomAdjective}}\",\n                    \"onsetOfIllnessDate\": \"{{$isoTimestamp}}\",\n                    \"endOfIllnessDate\": \"{{$isoTimestamp}}\"\n                }\n            ],\n            \"primaryCareDoctor\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobDescriptor}}\"\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ramq/medical-record-copy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ramq",
+								"medical-record-copy"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "bearer_token",
+			"value": ""
+		},
+		{
+			"key": "healthInsuranceNumber",
+			"value": ""
+		},
+		{
+			"key": "medicalHistoryId",
+			"value": ""
+		},
+		{
+			"key": "medicalVisitId",
+			"value": ""
+		}
+	]
+}
