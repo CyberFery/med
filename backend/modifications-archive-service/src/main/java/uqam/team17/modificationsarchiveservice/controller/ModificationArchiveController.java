@@ -4,7 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import uqam.team17.modificationsarchiveservice.model.*;
+import uqam.team17.modificationsarchiveservice.dto.CancelModificationRequest;
+import uqam.team17.modificationsarchiveservice.dto.ContactInformationRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalHistoryRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalVisitRequest;
+import uqam.team17.modificationsarchiveservice.entity.*;
 import uqam.team17.modificationsarchiveservice.service.ModificationService;
 
 import java.util.Optional;
@@ -17,23 +21,6 @@ public class ModificationArchiveController {
 
     public ModificationArchiveController(ModificationService modification) {
         this.modificationService = modification;
-    }
-
-    @GetMapping("/get-modif")
-    public ResponseEntity<?> getModification(@RequestBody CancelModificationRequest cancelRequest) {
-        try {
-            Optional<Modification> response = modificationService.cancelLastModification(cancelRequest);
-
-            if (response.isPresent()) {
-                Modification modification = response.get();
-                return ResponseEntity.ok().body("The modification with the ID " + modification.getModificationId() + " is cancelled");
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find the thing");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
-        }
-
     }
 
     @PostMapping("/medical-visit")
@@ -80,6 +67,8 @@ public class ModificationArchiveController {
             } else {
 
                 final Modification response = modificationService.saveContactInformation(contactRequest);
+
+
                 return ResponseEntity.ok().body(response);
 
             }

@@ -3,8 +3,12 @@ package uqam.team17.modificationsarchiveservice.service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import uqam.team17.modificationsarchiveservice.dto.CancelModificationRequest;
+import uqam.team17.modificationsarchiveservice.dto.ContactInformationRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalHistoryRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalVisitRequest;
 import uqam.team17.modificationsarchiveservice.repository.ModificationArchiveRepository;
-import uqam.team17.modificationsarchiveservice.model.*;
+import uqam.team17.modificationsarchiveservice.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -19,23 +23,28 @@ public class ModificationService {
     }
 
     public Modification saveContactInformation(ContactInformationRequest contactRequest) {
-        Modification modification = new Modification();
-        modification.setHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber());
-        modification.setTimestamp(LocalDateTime.now());
-        modification.setType(contactRequest.getContactInformation().getType());
-        modification.setContactInformation(contactRequest.getContactInformation());
-        modification.setStatus(Modification.Status.UPDATE);
 
-        return modificationRepository.save(modification);
+        Modification modification = new ModificationBuilder()
+                .addHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber())
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(contactRequest.getContactInformation().getType())
+                .addContact(contactRequest.getContactInformation())
+                .addStatus(Modification.Status.UPDATE)
+                .build();
+
+            return modificationRepository.save(modification);
+
     }
 
     public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest) {
-        Modification modification = new Modification();
-        modification.setHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber());
-        modification.setTimestamp(LocalDateTime.now());
-        modification.setType(historyRequest.getMedicalHistory().getType());
-        modification.setMedicalHistory(historyRequest.getMedicalHistory());
-        modification.setStatus(Modification.Status.UPDATE);
+
+        Modification modification = new ModificationBuilder()
+                .addHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber())
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(historyRequest.getMedicalHistory().getType())
+                .addHistory(historyRequest.getMedicalHistory())
+                .addStatus(Modification.Status.UPDATE)
+                .build();
 
         return modificationRepository.save(modification);
 
@@ -43,19 +52,16 @@ public class ModificationService {
 
 
     public Modification saveMedicalVisit(MedicalVisitRequest visitRequest) {
-        Modification modification = new Modification();
-        modification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
-        modification.setTimestamp(LocalDateTime.now());
-        modification.setType(visitRequest.getMedicalVisit().getType());
-        modification.setMedicalVisit(visitRequest.getMedicalVisit());
-        modification.setStatus(Modification.Status.UPDATE);
+
+        Modification modification = new ModificationBuilder()
+                .addHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber())
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(visitRequest.getMedicalVisit().getType())
+                .addVisit(visitRequest.getMedicalVisit())
+                .addStatus(Modification.Status.UPDATE)
+                .build();
 
         return modificationRepository.save(modification);
-    }
-
-    public Optional<Modification> getModificationById(Long modificationId) {
-
-        return modificationRepository.findById(modificationId);
     }
 
     public Optional<Modification> cancelLastModification(CancelModificationRequest cancelRequest) {
