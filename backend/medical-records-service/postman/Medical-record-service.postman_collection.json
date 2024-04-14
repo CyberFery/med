@@ -349,21 +349,15 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+				"header": [
+					{
+						"key": "healthInsuranceNumber",
+						"value": "{{healthInsuranceNumber}}",
+						"type": "text"
 					}
-				},
+				],
 				"url": {
 					"raw": "{{base_url}}/medical-records/patient",
 					"host": [
@@ -485,10 +479,16 @@
 			],
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "healthInsuranceNumber",
+						"value": "{{healthInsuranceNumber}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\n    \"contactInformation\": {\n            \"residentialAddressList\": [\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                },\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                }\n            ],\n            \"phoneNumberList\": [\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                },\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                }\n            ],\n            \"emailAddressList\": [\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                },\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                }\n            ]\n        }\n\n}",
+					"raw": "{\n    \"residentialAddressList\": [\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                },\n                {\n                    \"address\": \"{{$randomStreetAddress}}\"\n                }\n            ],\n            \"phoneNumberList\": [\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                },\n                {\n                    \"number\": \"{{$randomPhoneNumber}}\"\n                }\n            ],\n            \"emailAddressList\": [\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                },\n                {\n                    \"email\": \"{{$randomEmail}}\"\n                }\n            ]\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -636,10 +636,16 @@
 			],
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "healthInsuranceNumber",
+						"value": "{{healthInsuranceNumber}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n            \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\",\n            \"medicalVisit\": {\n                \"visitedEstablishment\": \"{{$randomCompanyName}}\",\n                \"doctorSeen\": {\n                    \"firstName\": \"{{$randomFirstName}}\",\n                    \"lastName\": \"{{$randomLastName}}\",\n                    \"specialization\": \"{{$randomJobType}}\"\n                },\n                \"visitDate\": \"{{isoDate}}\",\n                \"diagnosisList\": [\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    },\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    },\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    }\n                ],\n                \"summaryOfTheVisitByDoctor\": \"{{$randomJobDescriptor}}\",\n                \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\n            }\n}",
+					"raw": "{\n                \"visitedEstablishment\": \"{{$randomCompanyName}}\",\n                \"doctorSeen\": {\n                    \"firstName\": \"{{$randomFirstName}}\",\n                    \"lastName\": \"{{$randomLastName}}\",\n                    \"specialization\": \"{{$randomJobType}}\"\n                },\n                \"visitDate\": \"{{isoDate}}\",\n                \"diagnosisList\": [\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    },\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    },\n                    {\n                        \"description\": \"{{$randomPhrase}}\",\n                        \"treatment\": \"{{$randomVerb}}\"\n                    }\n                ],\n                \"summaryOfTheVisitByDoctor\": \"{{$randomJobDescriptor}}\",\n                \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -693,10 +699,16 @@
 			],
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "healthInsuranceNumber",
+						"value": "{{healthInsuranceNumber}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\"healthInsuranceNumber\" : \"{{healthInsuranceNumber}}\",\n  \"medicalHistory\": { \n            \"diagnosis\": \"{{$randomAdjective}}\",\n            \"treatment\": \"{{$randomVerb}}\",\n            \"illnessList\": [\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                },\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                },\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                }\n            ],\n            \"primaryCareDoctor\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobType}}\"\n            }\n        }\n }",
+					"raw": "{\n    \"diagnosis\": \"{{$randomAdjective}}\",\n            \"treatment\": \"{{$randomVerb}}\",\n            \"illnessList\": [\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                },\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                },\n                {\n                    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\n                    \"onsetOfIllnessDate\": \"{{isoDate}}\",\n                    \"endOfIllnessDate\": \"{{isoDate}}\"\n                }\n            ],\n            \"primaryCareDoctor\": {\n                \"firstName\": \"{{$randomFirstName}}\",\n                \"lastName\": \"{{$randomLastName}}\",\n                \"specialization\": \"{{$randomJobType}}\"\n            }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -734,16 +746,13 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+				"header": [
+					{
+						"key": "healthInsuranceNumber",
+						"value": "{{healthInsuranceNumber}}",
+						"type": "text"
 					}
-				},
+				],
 				"url": {
 					"raw": "{{base_url}}/medical-records/delete-medical-visit?medicalVisitId=1",
 					"host": [
@@ -781,16 +790,13 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"healthInsuranceNumber\": \"{{healthInsuranceNumber}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+				"header": [
+					{
+						"key": "healthInsuranceNumber",
+						"value": "{{healthInsuranceNumber}}",
+						"type": "text"
 					}
-				},
+				],
 				"url": {
 					"raw": "{{base_url}}/medical-records/delete-medical-history?medicalHistoryId=1",
 					"host": [
