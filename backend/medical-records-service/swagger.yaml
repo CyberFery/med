@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: medical-records-service
+  description: Specification for Medical Records services.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8085
+########################################################################################################################
+paths:
+  /medical-records/consult-medical-record:
+    get:
+      description: User consult medical record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsultMedicalRecordRequest'
+      responses:
+        '200':
+          description: Success, return medical record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsultMedicalRecordResponse'
+        '404':
+          description: Failed to consult medical record, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+  /medical-records/update-contact-information:
+    put:
+      description: update contact information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInformation'
+      responses:
+        '200':
+          description: Success, contact information updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInformation'
+        '404':
+          description: Failed to update contact information, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+  /medical-records/update-medical-visit:
+    put:
+      description: update medical visit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalVisit'
+      responses:
+        '200':
+          description: Success, medical visit updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalVisit'
+        '404':
+          description: Failed to update medical visit, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+  /medical-records/update-medical-history:
+    put:
+      description: update medical history
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalHistory'
+      responses:
+        '200':
+          description: Success, medical history updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalHistory'
+        '404':
+          description: Failed to modify medical history, bad request
+        '500':
+          description: Internal server error.
+
+  ######################################################################################################################
+components:
+    schemas:
+      ConsultMedicalRecordRequest:
+        type: object
+        properties:
+          healthInsuranceNumber:
+            type: string
+            required:
+              - healthInsuranceNumber
+      ConsultMedicalRecordResponse:
+        type: object
+        properties:
+          patient:
+            $ref: '#/components/schemas/Patient'
+            medicalVisitList:
+              type: array
+              items:
+                $ref: '#/components/schemas/MedicalVisit'
+            medicalHistoryList:
+              type: array
+              items:
+                $ref: '#/components/schemas/MedicalHistory'
+            required:
+              - patient
+              - medicalVisitList
+              - medicalHistoryList
+      Patient:
+        type: object
+        properties:
+          firstName:
+            type: string
+          lastName:
+            type: string
+          healthInsuranceNumber:
+            type: string
+          dateOfBirth:
+            type: string
+            format: date-time
+          genre:
+            type: string
+            enum:
+              - FEMALE
+              - MALE
+          establishedDiagnosis:
+            type: string
+          knownParents:
+            type: array
+            items:
+              $ref: '#/components/schemas/Person'
+          cityOfBirth:
+            type: string
+          contactInformations:
+            type: array
+            items:
+              $ref: '#/components/schemas/ContactInformation'
+          isHealthcareProfessional:
+            type: boolean
+          isPhysician:
+            type: boolean
+        required:
+          - firstName
+          - lastName
+          - healthInsuranceNumber
+          - dateOfBirth
+          - genre
+          - establishedDiagnosis
+          - cityOfBirth
+          - isHealthcareProfessional
+          - isPhysician
+
+      MedicalVisit:
+        type: object
+        properties:
+          visitedEstablishment:
+            type: string
+          physicianSeen:
+            $ref: '#/components/schemas/Physician'
+          visitDate:
+            type: string
+            format: date-time
+          diagnosisList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Diagnosis'
+          summaryOfTheVisitByDoctor:
+            type: string
+          notesForOtherDoctors:
+            type: string
+
+      MedicalHistory:
+        type: object
+        properties:
+          diagnosis:
+            type: string
+          treatment:
+            type: string
+          illnessList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Illness'
+          primaryCarePhysician:
+            $ref: '#/components/schemas/Physician'
+
+      Person:
+        type: object
+        properties:
+          firstName:
+            type: string
+          lastName:
+            type: string
+      ContactInformation:
+          type: object
+          properties:
+            residentialAddress:
+              $ref: '#/components/schemas/ResidentialAddress'
+            phoneNumber:
+              $ref: '#/components/schemas/PhoneNumber'
+            emailAddress:
+              $ref: '#/components/schemas/EmailAddress'
+      Diagnosis:
+          type: object
+          properties:
+            description:
+              type: string
+            treatment:
+              type: string
+      Illness:
+          type: object
+          properties:
+            description:
+              type: string
+            onsetOfIllnessDate:
+              type: string
+              format: date-time
+            endOfIllnessDate:
+              type: string
+              format: date-time
+      Physician:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            specialization:
+              type: string
+      ResidentialAddress:
+          type: object
+          properties:
+            addresses:
+              type: array
+              items:
+                type: string
+      PhoneNumber:
+          type: object
+          properties:
+            number:
+              type: integer
+              format: int64
+      EmailAddress:
+          type: object
+          properties:
+            email:
+              type: string
