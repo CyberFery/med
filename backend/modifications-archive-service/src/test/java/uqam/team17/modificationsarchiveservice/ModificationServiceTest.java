@@ -129,13 +129,15 @@ public class ModificationServiceTest {
 
         MedicalVisitRequest visitRequest = new MedicalVisitRequest(healthInsuranceNumber,visit);
 
-        Modification mockModification = new Modification();
+        Modification mockModification = new ModificationBuilder()
+                .addHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber())
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(visitRequest.getMedicalVisit().getType())
+                .addVisit(visitRequest.getMedicalVisit())
+                .addStatus(Modification.Status.UPDATE)
+                .build();
 
-        mockModification.setHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber());
-        mockModification.setTimestamp(LocalDateTime.now());
-        mockModification.setType(visitRequest.getMedicalVisit().getType());
-        mockModification.setMedicalVisit(visitRequest.getMedicalVisit());
-        mockModification.setStatus(Modification.Status.UPDATE);
+
         when(mockRepository.save(any(Modification.class))).thenReturn(mockModification);
 
         Modification saveMod = mockService.saveMedicalVisit(visitRequest);

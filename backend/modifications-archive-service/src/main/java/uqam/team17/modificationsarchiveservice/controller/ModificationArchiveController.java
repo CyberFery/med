@@ -19,23 +19,6 @@ public class ModificationArchiveController {
         this.modificationService = modification;
     }
 
-    @GetMapping("/get-modif")
-    public ResponseEntity<?> getModification(@RequestBody CancelModificationRequest cancelRequest) {
-        try {
-            Optional<Modification> response = modificationService.cancelLastModification(cancelRequest);
-
-            if (response.isPresent()) {
-                Modification modification = response.get();
-                return ResponseEntity.ok().body("The modification with the ID " + modification.getModificationId() + " is cancelled");
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find the thing");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
-        }
-
-    }
-
     @PostMapping("/medical-visit")
     public ResponseEntity<?> createMedicalVisitModification(@RequestBody MedicalVisitRequest visitRequest) {
         try {

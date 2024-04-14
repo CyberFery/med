@@ -60,11 +60,6 @@ public class ModificationService {
         return modificationRepository.save(modification);
     }
 
-    public Optional<Modification> getModificationById(Long modificationId) {
-
-        return modificationRepository.findById(modificationId);
-    }
-
     public Optional<Modification> cancelLastModification(CancelModificationRequest cancelRequest) {
 
         String healthNumber = cancelRequest.getHealthInsuranceNumber();
