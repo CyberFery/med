@@ -9,7 +9,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uqam.team17.modificationsarchiveservice.controller.ModificationArchiveController;
-import uqam.team17.modificationsarchiveservice.model.*;
+import uqam.team17.modificationsarchiveservice.dto.CancelModificationRequest;
+import uqam.team17.modificationsarchiveservice.dto.ContactInformationRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalHistoryRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalVisitRequest;
+import uqam.team17.modificationsarchiveservice.entity.*;
 import uqam.team17.modificationsarchiveservice.service.ModificationService;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

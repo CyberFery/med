@@ -3,8 +3,12 @@ package uqam.team17.modificationsarchiveservice.service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import uqam.team17.modificationsarchiveservice.dto.CancelModificationRequest;
+import uqam.team17.modificationsarchiveservice.dto.ContactInformationRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalHistoryRequest;
+import uqam.team17.modificationsarchiveservice.dto.MedicalVisitRequest;
 import uqam.team17.modificationsarchiveservice.repository.ModificationArchiveRepository;
-import uqam.team17.modificationsarchiveservice.model.*;
+import uqam.team17.modificationsarchiveservice.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
