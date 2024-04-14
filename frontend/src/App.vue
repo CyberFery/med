@@ -17,9 +17,7 @@
       </v-container>
     </v-main>
 
-    <v-footer app fixed>
-      <Footer />
-    </v-footer>
+
   </v-app>
 </template>
 

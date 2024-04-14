@@ -1,9 +1,9 @@
-// src/stores/useAuthStore.js
+// src/stores/useAuthStore.ts
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-const token = ref(localStorage.getItem('authToken'));
+export const token = ref(localStorage.getItem('authToken') || '');
 
 export function useAuthStore() {
   const router = useRouter();
@@ -12,17 +12,20 @@ export function useAuthStore() {
   function setToken(newToken: string) {
     localStorage.setItem('authToken', newToken);
     token.value = newToken;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+    updateAxiosAuthHeader(newToken);
   }
 
   function clearToken() {
     localStorage.removeItem('authToken');
-    token.value = "";
-    delete axios.defaults.headers.common['Authorization'];
+    token.value = '';
+    updateAxiosAuthHeader('');
     router.push('/login');
   }
 
-  return { isAuthenticated, setToken, clearToken };
-}
+  function updateAxiosAuthHeader(newToken: string) {
+    axios.defaults.headers.common['Authorization'] = newToken ? `Bearer ${newToken}` : '';
+  }
 
+  return { isAuthenticated, setToken, clearToken, token };
+}
 
