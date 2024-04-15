@@ -10,25 +10,28 @@ import java.time.LocalDate;
 public class MedicalHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long modHistoryId;
+
     private Long medicalHistoryId;
     private String diagnosis;
     private String treatment;
     @ElementCollection
     private List<Illness> illnessList;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Doctor primaryDoctor;
-
+    @JoinColumn(name = "mod_doc_id")
+    private Doctor primaryCareDoctor;
     public MedicalHistory() {
         // default constructor
     }
 
-    public MedicalHistory(Long medicalHistoryId, String diagnosis, String treatment, List<Illness> illnessList,
-                          Doctor primaryDoctor) {
+    public MedicalHistory(Long modHistoryId, Long medicalHistoryId, String diagnosis, String treatment, List<Illness> illnessList,
+                          Doctor primaryCareDoctor) {
+        this.modHistoryId = modHistoryId;
         this.medicalHistoryId = medicalHistoryId;
         this.diagnosis = diagnosis;
         this.treatment = treatment;
         this.illnessList = illnessList;
-        this.primaryDoctor = primaryDoctor;
+        this.primaryCareDoctor = primaryCareDoctor;
     }
 
     public String getDiagnosis() {
@@ -55,13 +58,6 @@ public class MedicalHistory {
         this.illnessList = illnessList;
     }
 
-    public Doctor getPrimaryDoctor() {
-        return primaryDoctor;
-    }
-
-    public void setPrimaryDoctor(Doctor primaryDoctor) {
-        this.primaryDoctor = primaryDoctor;
-    }
 
     public ModificationType getType() {
         return ModificationType.MEDICAL_HISTORY;
@@ -82,8 +78,24 @@ public class MedicalHistory {
                 ", diagnosis='" + diagnosis + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", illnessList=" + illnessList +
-                ", primaryDoctor=" + primaryDoctor +
+                ", primaryDoctor=" + primaryCareDoctor +
                 '}';
+    }
+
+    public Long getModHistoryId() {
+        return modHistoryId;
+    }
+
+    public void setModHistoryId(Long modHistoryId) {
+        this.modHistoryId = modHistoryId;
+    }
+
+    public Doctor getPrimaryCareDoctor() {
+        return primaryCareDoctor;
+    }
+
+    public void setPrimaryCareDoctor(Doctor primaryCareDoctor) {
+        this.primaryCareDoctor = primaryCareDoctor;
     }
 
     @Embeddable
