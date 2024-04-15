@@ -1,6 +1,20 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:3000'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - Content-Type
+              - Authorization
+              - healthinsurancenumber
+            maxAge: 3600
       routes:
         - id: medical-records-service
           uri: lb://MEDICAL-RECORDS-SERVICE
