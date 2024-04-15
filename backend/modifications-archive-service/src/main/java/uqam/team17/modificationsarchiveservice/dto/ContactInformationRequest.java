@@ -1,5 +1,7 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.dto;
 
+
+import uqam.team17.modificationsarchiveservice.entity.ContactInformation;
 
 public class ContactInformationRequest implements ModificationRequest {
     private String healthInsuranceNumber;

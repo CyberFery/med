@@ -1,9 +1,9 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "medical_visit")
@@ -14,7 +14,7 @@ public class MedicalVisit {
     private String visitedEstablishment;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctorSeen;
-    private Date visitDate;
+    private LocalDate visitDate;
     @ElementCollection
     private List<Diagnosis> diagnosisList;
     private String summaryOfTheVisitByDoctor;
@@ -22,6 +22,18 @@ public class MedicalVisit {
 
     public MedicalVisit() {
         // default constructor
+    }
+
+    public MedicalVisit(Long medicalVisitId, String visitedEstablishment, Doctor doctorSeen, LocalDate visitDate,
+                        List<Diagnosis> diagnosisList, String summaryOfTheVisitByDoctor,
+                        String notesForOtherDoctors) {
+        this.medicalVisitId = medicalVisitId;
+        this.visitedEstablishment = visitedEstablishment;
+        this.doctorSeen = doctorSeen;
+        this.visitDate = visitDate;
+        this.diagnosisList = diagnosisList;
+        this.summaryOfTheVisitByDoctor = summaryOfTheVisitByDoctor;
+        this.notesForOtherDoctors = notesForOtherDoctors;
     }
 
     public String getVisitedEstablishment() {
@@ -40,11 +52,11 @@ public class MedicalVisit {
         this.doctorSeen = doctorSeen;
     }
 
-    public Date getVisitDate() {
+    public LocalDate getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(Date visitDate) {
+    public void setVisitDate(LocalDate visitDate) {
         this.visitDate = visitDate;
     }
 

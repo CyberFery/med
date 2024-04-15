@@ -1,4 +1,4 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.entity;
 
 import jakarta.persistence.*;
 
@@ -16,6 +16,19 @@ public class ContactInformation {
     private List<PhoneNumber> phoneNumberList;
     @ElementCollection
     private List<EmailAddress> emailAddressList;
+
+    public ContactInformation() {
+    }
+
+    public ContactInformation(Long contactInformationId, List<ResidentialAddress> residentialAddressList,
+                              List<PhoneNumber> phoneNumberList, List<EmailAddress> emailAddressList) {
+        this.contactInformationId = contactInformationId;
+        this.residentialAddressList = residentialAddressList;
+        this.phoneNumberList = phoneNumberList;
+        this.emailAddressList = emailAddressList;
+    }
+
+
 
     public List<ResidentialAddress> getResidentialAddressList() {
         return residentialAddressList;
@@ -71,6 +84,10 @@ public class ContactInformation {
             //empty constructor
         }
 
+        public ResidentialAddress(String address) {
+            this.address = address;
+        }
+
         public String getAddress() {
             return address;
         }
@@ -95,6 +112,10 @@ public class ContactInformation {
             // default constructor
         }
 
+        public PhoneNumber(String number) {
+            this.number = number;
+        }
+
         public String getNumber() {
             return number;
         }
@@ -117,6 +138,10 @@ public class ContactInformation {
 
         public EmailAddress() {
             // default constructor
+        }
+
+        public EmailAddress(String email) {
+            this.email = email;
         }
 
         public String getEmail() {

@@ -1,4 +1,4 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +16,13 @@ public class Doctor {
 
     public Doctor() {
         // default constructor
+    }
+
+    public Doctor(Long doctorId, String firstName, String lastName, String specialization) {
+        this.doctorId = doctorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialization = specialization;
     }
 
     public String getFirstName() {

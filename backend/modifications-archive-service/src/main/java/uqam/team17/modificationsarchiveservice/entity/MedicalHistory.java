@@ -1,9 +1,9 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "medical_history")
@@ -20,6 +20,15 @@ public class MedicalHistory {
 
     public MedicalHistory() {
         // default constructor
+    }
+
+    public MedicalHistory(Long medicalHistoryId, String diagnosis, String treatment, List<Illness> illnessList,
+                          Doctor primaryDoctor) {
+        this.medicalHistoryId = medicalHistoryId;
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.illnessList = illnessList;
+        this.primaryDoctor = primaryDoctor;
     }
 
     public String getDiagnosis() {
@@ -80,14 +89,14 @@ public class MedicalHistory {
     @Embeddable
     public static class Illness {
         private String description;
-        private Date onsetOfIllnessDate;
-        private Date endOfIllnessDate;
+        private LocalDate onsetOfIllnessDate;
+        private LocalDate endOfIllnessDate;
 
         public Illness() {
         }
 
 
-        public Illness(String description, Date onsetOfIllnessDate, Date endOfIllnessDate) {
+        public Illness(String description, LocalDate onsetOfIllnessDate, LocalDate endOfIllnessDate) {
             this.description = description;
             this.onsetOfIllnessDate = onsetOfIllnessDate;
             this.endOfIllnessDate = endOfIllnessDate;
@@ -101,19 +110,19 @@ public class MedicalHistory {
             this.description = description;
         }
 
-        public Date getOnsetOfIllnessDate() {
+        public LocalDate getOnsetOfIllnessDate() {
             return onsetOfIllnessDate;
         }
 
-        public void setOnsetOfIllnessDate(Date onsetOfIllnessDate) {
+        public void setOnsetOfIllnessDate(LocalDate onsetOfIllnessDate) {
             this.onsetOfIllnessDate = onsetOfIllnessDate;
         }
 
-        public Date getEndOfIllnessDate() {
+        public LocalDate getEndOfIllnessDate() {
             return endOfIllnessDate;
         }
 
-        public void setEndOfIllnessDate(Date endOfIllnessDate) {
+        public void setEndOfIllnessDate(LocalDate endOfIllnessDate) {
             this.endOfIllnessDate = endOfIllnessDate;
         }
 

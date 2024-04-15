@@ -1,4 +1,6 @@
-package uqam.team17.modificationsarchiveservice.model;
+package uqam.team17.modificationsarchiveservice.dto;
+
+import uqam.team17.modificationsarchiveservice.entity.MedicalVisit;
 
 public class MedicalVisitRequest implements ModificationRequest {
     private String healthInsuranceNumber;
@@ -6,6 +8,11 @@ public class MedicalVisitRequest implements ModificationRequest {
 
     public MedicalVisitRequest() {
         // default constructor
+    }
+
+    public MedicalVisitRequest(String healthInsuranceNumber, MedicalVisit medicalVisit) {
+        this.healthInsuranceNumber = healthInsuranceNumber;
+        this.medicalVisit = medicalVisit;
     }
 
     public String getHealthInsuranceNumber() {
