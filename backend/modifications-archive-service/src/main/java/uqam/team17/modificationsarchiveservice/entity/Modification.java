@@ -20,11 +20,11 @@ public class Modification {
     private ModificationType type;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medical_history_id", unique = true)
+    @JoinColumn(name = "mod_history_id", unique = true)
     private MedicalHistory medicalHistory;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medical_visit_id", unique = true)
+    @JoinColumn(name = "mod_visit_id", unique = true)
     private MedicalVisit medicalVisit;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_information_id", unique = true)

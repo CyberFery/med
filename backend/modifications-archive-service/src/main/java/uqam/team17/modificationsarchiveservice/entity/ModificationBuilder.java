@@ -31,6 +31,7 @@ public class ModificationBuilder {
         return this;
     }
 
+
     public ModificationBuilder addStatus(Modification.Status status){
         this.modification.setStatus(status);
         return this;
