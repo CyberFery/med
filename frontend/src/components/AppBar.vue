@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="deep-orange-lighten-4">
+  <v-toolbar color="black">
     <v-toolbar-title>Doctor - Centralized Medical Records</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon v-for="item in navigationItems" :key="item.pageName" @click="handleNavigation(item)">
@@ -18,7 +18,6 @@ const router = useRouter();
 
 const navigationItems = computed(() => [
   {pageName: "Home", icon: "mdi-home", path: "/"},
-  {pageName: "About", icon: "mdi-information", path: "/about"},
   ...isAuthenticated.value
     ? [{pageName: "Logout", icon: "mdi-logout", action: clearToken}]
     : [

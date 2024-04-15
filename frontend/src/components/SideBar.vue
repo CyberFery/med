@@ -34,7 +34,7 @@ function navigateTo(path) {
 }
 
 .sidebar-item {
-  background-color: #FF7F50;
+  background-color: #000000;
   color: white;
   margin-bottom: 10px;
   border-radius: 5px;

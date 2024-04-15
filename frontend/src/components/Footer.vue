@@ -7,7 +7,7 @@ const icons = [
 
 <template>
   <v-footer
-    class="bg-teal-lighten-5 text-center d-flex flex-column h-auto"
+    class="bg-teal text-center d-flex flex-column h-auto"
   >
     <div>
       <v-btn

@@ -1,19 +1,39 @@
 <template>
-  <div class="form-container">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <div class="input-group">
-        <label for="username">Username:</label>
-        <input id="username" v-model="credentials.username" type="text" required>
-      </div>
-      <div class="input-group">
-        <label for="password">Password:</label>
-        <input id="password" v-model="credentials.password" type="password" required>
-      </div>
-      <button type="submit">Login</button>
-      <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
-    </form>
-  </div>
+  <v-container class="form-container">
+    <v-card class="pa-4" outlined>
+      <v-card-title class="display-1">Login</v-card-title>
+      <v-card-text>
+        <v-form @submit.prevent="login">
+          <v-text-field
+            v-model="credentials.username"
+            label="Username"
+            id="username"
+            type="text"
+            required
+            outlined
+            color="black"
+          ></v-text-field>
+          <v-text-field
+            v-model="credentials.password"
+            label="Password"
+            id="password"
+            type="password"
+            required
+            outlined
+            color="black"
+          ></v-text-field>
+          <v-btn type="submit" color="black" block depressed>Login</v-btn>
+          <v-alert
+            v-if="errorMessage"
+            type="error"
+            dense
+            text
+            class="mt-4"
+          >{{ errorMessage }}</v-alert>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script setup lang="ts">
@@ -45,44 +65,7 @@ async function login() {
 
 <style scoped>
 .form-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #008080;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
+  max-width: 600px; /* Optional for adjusting form size */
+  margin-top: 20vh; /* Centrally aligning the form vertically */
 }
 </style>

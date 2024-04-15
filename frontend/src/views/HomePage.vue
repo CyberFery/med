@@ -4,7 +4,6 @@ import logo from '@/assets/logo.png'; // Make sure the path is correct
 
 <template>
   <v-container>
-    <h1 class="text-center text-h2">Home Page</h1>
     <img :src="logo" alt="Logo Image" /> <!-- Bind the imported image to the src attribute -->
   </v-container>
 </template>

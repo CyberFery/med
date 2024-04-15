@@ -17,11 +17,8 @@
       </v-container>
     </v-main>
 
-    <v-footer app fixed>
-      <Footer/>
-    </v-footer>
-
   </v-app>
+
 </template>
 
 <script setup>
@@ -43,8 +40,8 @@ const {isAuthenticated} = authStore();
 }
 
 .sidebar {
-  height: 100%; /* Ensures the sidebar takes only the available height */
-  overflow-y: auto; /* Adds scroll to sidebar if content is too long */
-  background-color: #424242; /* Use the theme's primary color */
+  height: 100%;
+  overflow-y: auto;
+  background-color: #424242;
 }
 </style>
