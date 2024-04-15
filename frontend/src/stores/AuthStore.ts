@@ -1,11 +1,11 @@
-// src/stores/useAuthStore.ts
+// src/stores/authStore.ts
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 export const token = ref(localStorage.getItem('authToken') || '');
 
-export function useAuthStore() {
+export function authStore() {
   const router = useRouter();
   const isAuthenticated = computed(() => !!token.value);
 

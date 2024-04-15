@@ -11,9 +11,9 @@
 <script setup>
 import {computed} from 'vue';
 import {useRouter} from 'vue-router';
-import {useAuthStore} from '@/stores/useAuthStore';
+import {authStore} from '@/stores/AuthStore';
 
-const {isAuthenticated, clearToken} = useAuthStore();
+const {isAuthenticated, clearToken} = authStore();
 const router = useRouter();
 
 const navigationItems = computed(() => [
@@ -23,7 +23,6 @@ const navigationItems = computed(() => [
     ? [{pageName: "Logout", icon: "mdi-logout", action: clearToken}]
     : [
       {pageName: "Login", icon: "mdi-login", path: "/login"},
-      {pageName: "Register", icon: "mdi-account-plus", path: "/register"},
     ],
 ]);
 

@@ -144,7 +144,11 @@ export default {
       if (this.$refs.form.validate()) {
         this.error = '';
         try {
-          const { data } = await axiosInstance.put('/medical-records/update-medical-history', this.form);
+          const { data } = await axiosInstance.put('/medical-records/update-medical-history', this.form.medicalHistory, {
+            headers: {
+              'healthInsuranceNumber': this.form.healthInsuranceNumber
+            }
+          });
           this.response = data;
           this.submitted = true;
         } catch (error) {

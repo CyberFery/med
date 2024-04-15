@@ -17,6 +17,9 @@
       </v-container>
     </v-main>
 
+    <v-footer app fixed>
+      <Footer/>
+    </v-footer>
 
   </v-app>
 </template>
@@ -25,9 +28,9 @@
 import AppBar from "@/components/AppBar.vue";
 import Footer from "@/components/Footer.vue";
 import SideBar from "@/components/SideBar.vue";
-import {useAuthStore} from "@/stores/useAuthStore";
+import {authStore} from "@/stores/AuthStore";
 
-const {isAuthenticated} = useAuthStore();
+const {isAuthenticated} = authStore();
 </script>
 
 <style scoped>

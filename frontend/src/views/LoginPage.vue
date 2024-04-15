@@ -20,12 +20,12 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/useAuthStore';
+import { authStore } from '@/stores/AuthStore';
 
 const credentials = ref({ username: '', password: '' });
 const errorMessage = ref('');
 const router = useRouter();
-const { setToken } = useAuthStore();
+const { setToken } = authStore();
 
 async function login() {
   errorMessage.value = '';

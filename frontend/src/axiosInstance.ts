@@ -1,6 +1,6 @@
 // src/axiosInstance.js
 import axios from 'axios';
-import { useAuthStore } from '@/stores/useAuthStore';
+import { authStore } from '@/stores/AuthStore';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 // Set the AUTH token for any request
 axiosInstance.interceptors.request.use(config => {
-  const { token } = useAuthStore();
+  const { token } = authStore();
   if (token.value) {
     config.headers.Authorization = `Bearer ${token.value}`;
   }

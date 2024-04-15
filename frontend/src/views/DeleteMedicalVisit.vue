@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title class="text-h1">Delete Medical History</v-card-title>
+      <v-card-title class="text-h1">Delete Medical Visit</v-card-title>
       <v-card-text v-if="!submitted">
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
@@ -11,30 +11,33 @@
             required
           ></v-text-field>
           <v-text-field
-            v-model="form.medicalHistoryId"
-            label="Medical History ID"
+            v-model="form.medicalVisitId"
+            label="Medical Visit ID"
             type="number"
             :rules="[rules.required]"
             required
           ></v-text-field>
           <v-btn :disabled="!valid" color="primary" class="mr-4" @click="submitForm">
-            Delete Medical History
+            Delete Medical Visit
           </v-btn>
         </v-form>
       </v-card-text>
       <v-card-text v-else>
         <div>
-          <h2>Deleted Medical History Details</h2>
-          <p><strong>Medical History ID:</strong> {{ response.medicalHistoryId }}</p>
-          <p><strong>Diagnosis:</strong> {{ response.diagnosis }}</p>
-          <p><strong>Treatment:</strong> {{ response.treatment }}</p>
-          <p><strong>Primary Care Doctor:</strong> {{ response.primaryCareDoctor.firstName }} {{ response.primaryCareDoctor.lastName }} ({{ response.primaryCareDoctor.specialization }})</p>
-          <h3>Illnesses:</h3>
-          <ul>
-            <li v-for="(illness, index) in response.illnessList" :key="index">
-              {{ index + 1 }}. {{ illness.description }} - From: {{ illness.onsetOfIllnessDate }} To: {{ illness.endOfIllnessDate }}
-            </li>
-          </ul>
+          <h2>Deleted Medical Visit Details</h2>
+          <p><strong>Visit Establishment:</strong> {{ response.visitedEstablishment }}</p>
+          <p><strong>Doctor Seen:</strong> {{ response.doctorSeen.firstName }} {{ response.doctorSeen.lastName }} ({{ response.doctorSeen.specialization }})</p>
+          <p><strong>Visit Date:</strong> {{ response.visitDate }}</p>
+          <p><strong>Summary of the Visit:</strong> {{ response.summaryOfTheVisitByDoctor }}</p>
+          <p><strong>Notes for Other Doctors:</strong> {{ response.notesForOtherDoctors }}</p>
+          <div v-if="response.diagnosisList && response.diagnosisList.length">
+            <h3>Diagnoses:</h3>
+            <ul>
+              <li v-for="(diagnosis, index) in response.diagnosisList" :key="index">
+                {{ index + 1 }}. {{ diagnosis.description }} - Treatment: {{ diagnosis.treatment }}
+              </li>
+            </ul>
+          </div>
         </div>
       </v-card-text>
       <!-- Alerts for error and success messages -->
@@ -54,7 +57,7 @@ export default {
       valid: true,
       form: {
         healthInsuranceNumber: '',
-        medicalHistoryId: null
+        medicalVisitId: null,
       },
       submitted: false,
       error: '',
@@ -69,12 +72,12 @@ export default {
       if (this.$refs.form.validate()) {
         this.error = '';
         try {
-          const { data } = await axiosInstance.delete('/medical-records/delete-medical-history', {
-            params: {
-              medicalHistoryId: this.form.medicalHistoryId
+          const { data } = await axiosInstance.delete('/medical-records/delete-medical-visit', {
+            headers: {
+              'healthInsuranceNumber': this.form.healthInsuranceNumber
             },
-            data: {
-              healthInsuranceNumber: this.form.healthInsuranceNumber
+            params: {
+              medicalVisitId: this.form.medicalVisitId
             }
           });
           this.response = data;
