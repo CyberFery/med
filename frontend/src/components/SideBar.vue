@@ -16,9 +16,9 @@ import { useRouter } from 'vue-router';
 
 const items = [
   { title: 'Retrieve Medical Record', icon: 'mdi-file-find', path: '/retrieve-medical-record' },
-  { title: 'Update Medical Visit', icon: 'mdi-hospital-building', path: '/update-medical-visit' },
+  { title: 'Add Medical Visit', icon: 'mdi-hospital-building', path: '/update-medical-visit' },
   { title: 'Delete Medical Visit', icon: 'mdi-delete', path: '/delete-medical-visit' },
-  { title: 'Update Medical History', icon: 'mdi-history', path: '/update-medical-history' },
+  { title: 'Add Medical History', icon: 'mdi-history', path: '/update-medical-history' },
   { title: 'Delete Medical History', icon: 'mdi-delete-forever', path: '/delete-medical-history' }
 ];
 const router = useRouter();
