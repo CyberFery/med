@@ -1091,13 +1091,13 @@
 										"header": [
 											{
 												"key": "healthInsuranceNumber",
-												"value": "\"ABCD123456789\"",
+												"value": "{{healthInsuranceNumber}}",
 												"type": "text"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"medicalVisitId\": 4,\r\n    \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n    \"doctorSeen\": {\r\n        \"doctorId\": 7,\r\n        \"firstName\": \"{{$randomFirstName}}\",\r\n        \"lastName\": \"{{$randomLastName}}\",\r\n        \"specialization\":\"{{$randomJobType}}\"\r\n    },\r\n    \"visitDate\": \"{{isoDate}}\",\r\n    \"diagnosisList\": [\r\n        {\r\n            \"description\": \"{{$randomPhrase}}\",\r\n            \"treatment\": \"{{$randomVerb}}\"\r\n        },\r\n        {\r\n            \"description\": \"{{$randomPhrase}}\",\r\n            \"treatment\": \"{{$randomVerb}}\"\r\n        },\r\n        {\r\n            \"description\": \"{{$randomPhrase}}\",\r\n            \"treatment\": \"{{$randomVerb}}\"\r\n        }\r\n    ],\r\n    \"summaryOfTheVisitByDoctor\":\"{{$randomJobDescriptor}}\",\r\n    \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\r\n}",
+											"raw": "{\r\n    \"medicalVisitId\": {{medicalVisitId}},\r\n    \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n    \"doctorSeen\": {\r\n        \"doctorId\": {{doctorSeenId}},\r\n        \"firstName\": \"{{$randomFirstName}}\",\r\n        \"lastName\": \"{{$randomLastName}}\",\r\n        \"specialization\":\"{{$randomJobType}}\"\r\n    },\r\n    \"visitDate\": \"{{isoDate}}\",\r\n    \"diagnosisList\": [\r\n        {\r\n            \"description\": \"{{$randomPhrase}}\",\r\n            \"treatment\": \"{{$randomVerb}}\"\r\n        },\r\n        {\r\n            \"description\": \"{{$randomPhrase}}\",\r\n            \"treatment\": \"{{$randomVerb}}\"\r\n        },\r\n        {\r\n            \"description\": \"{{$randomPhrase}}\",\r\n            \"treatment\": \"{{$randomVerb}}\"\r\n        }\r\n    ],\r\n    \"summaryOfTheVisitByDoctor\":\"{{$randomJobDescriptor}}\",\r\n    \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1180,15 +1180,6 @@
 												"type": "text"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "\r\n",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "http://localhost:8084/modifications/cancel-medical-history",
 											"protocol": "http",
@@ -1231,7 +1222,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"medicalVisitId\": 4,\r\n    \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n    \"doctorSeen\": {\r\n        \"doctorId\": 7,\r\n        \"firstName\": \"{{$randomFirstName}}\",\r\n        \"lastName\": \"{{$randomLastName}}\",\r\n        \"specialization\":\"{{$randomJobType}}\"\r\n    },\r\n    \"visitDate\": \"{{isoDate}}\",\r\n    \"diagnosisList\": null,\r\n    \"summaryOfTheVisitByDoctor\":\"{{$randomJobDescriptor}}\",\r\n    \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\r\n}",
+											"raw": "{\r\n    \"medicalVisitId\": {{medicalVisitId}},\r\n    \"visitedEstablishment\": \"{{$randomCompanyName}}\",\r\n    \"doctorSeen\": {\r\n        \"doctorId\": {{doctorSeenId}},\r\n        \"firstName\": \"{{$randomFirstName}}\",\r\n        \"lastName\": \"{{$randomLastName}}\",\r\n        \"specialization\":\"{{$randomJobType}}\"\r\n    },\r\n    \"visitDate\": \"{{isoDate}}\",\r\n    \"diagnosisList\": null,\r\n    \"summaryOfTheVisitByDoctor\":\"{{$randomJobDescriptor}}\",\r\n    \"notesForOtherDoctors\": \"{{$randomPhrase}}\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1431,7 +1422,7 @@
 						"header": [
 							{
 								"key": "healthInsuranceNumber",
-								"value": "\"ABCD123456789\"",
+								"value": "{{healthInsuranceNumber}}",
 								"type": "text"
 							}
 						],
