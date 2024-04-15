@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,6 +50,142 @@ public class ModificationServiceTest {
         MockitoAnnotations.openMocks(ModificationServiceTest.class);
     }
 
+    @Test
+    public void saveContactInformationTest(){
+        List<ContactInformation.ResidentialAddress> addressList1 = new ArrayList<>(){{
+            new ContactInformation.ResidentialAddress("405 rue Sainte-Catherine");}};
+        List<ContactInformation.PhoneNumber> phoneList = new ArrayList<>(){{
+            new ContactInformation.PhoneNumber("5148943256");
+        }};
+        List<ContactInformation.EmailAddress> emailList = new ArrayList<>(){{
+            new ContactInformation.EmailAddress("johnsmith@gmail.com");
+        }};
+
+        ContactInformation contact = new ContactInformation(1L,
+                addressList1, phoneList,emailList);
+
+        Modification mockModif = new ModificationBuilder()
+                .addHealthInsuranceNumber(healthInsuranceNumber)
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(contact.getType())
+                .addContact(contact)
+                .addStatus(Modification.Status.UPDATE)
+                .build();
+
+        when(mockRepository.save(any(Modification.class))).thenReturn(mockModif);
+
+        Modification savedMod = mockService.saveContactInformation(healthInsuranceNumber, contact);
+
+        verify(mockRepository,times(1)).save(any(Modification.class));
+
+        assertEquals(mockModif, savedMod);
+
+    }
+
+    @Test
+    public void saveMedicalHistoryTest(){
+        List<MedicalHistory.Illness> listIllness = new ArrayList<>();
+        listIllness.add(illness1);
+        listIllness.add(illness2);
+
+        MedicalHistory history = new MedicalHistory(3L,245L, "sick", "pending",
+                listIllness, doctor1);
+
+
+        Modification mockModification = new ModificationBuilder()
+                .addHealthInsuranceNumber(healthInsuranceNumber2)
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(history.getType())
+                .addHistory(history)
+                .addStatus(Modification.Status.UPDATE)
+                .build();
+
+        when(mockRepository.save(any(Modification.class))).thenReturn(mockModification);
+
+        Modification saveMod = mockService.saveMedicalHistory(healthInsuranceNumber2, history);
+
+        verify(mockRepository,times(1)).save(any(Modification.class));
+
+        assertEquals(mockModification,saveMod);
+    }
+
+    @Test
+    public void saveMedicalVisit(){
+        List<MedicalVisit.Diagnosis> listDiag = new ArrayList<>();
+        String hospital = "General Hospital";
+
+        listDiag.add(diag1);
+        listDiag.add(diag2);
+
+        MedicalVisit visit = new MedicalVisit(5L,334L,hospital,doctor2,date3,listDiag,
+                "Summary", "Notes");
+
+
+        Modification mockModification = new ModificationBuilder()
+                .addHealthInsuranceNumber(healthInsuranceNumber)
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(visit.getType())
+                .addVisit(visit)
+                .addStatus(Modification.Status.UPDATE)
+                .build();
+
+
+        when(mockRepository.save(any(Modification.class))).thenReturn(mockModification);
+
+        Modification saveMod = mockService.saveMedicalVisit(healthInsuranceNumber, visit);
+
+        verify(mockRepository,times(1)).save(any(Modification.class));
+
+        assertEquals(mockModification,saveMod);
+
+
+    }
+
+
+
+    @Test
+    public void cancelVisitTest() {
+        List<MedicalVisit.Diagnosis> listDiag = new ArrayList<>();
+        listDiag.add(diag1);
+        listDiag.add(diag2);
+
+        MedicalVisit visitToCancel =  new MedicalVisit(7L,342L, "General Hospital",
+                doctor2, date2,listDiag, "Summary", "Note" );
+
+
+        Modification result = mockService.cancelVisit(healthInsuranceNumber, visitToCancel);
+
+        ArgumentCaptor<Modification> modificationCaptor = ArgumentCaptor.forClass(Modification.class);
+        verify(mockRepository).save(modificationCaptor.capture());
+        Modification savedModification = modificationCaptor.getValue();
+
+
+        assertEquals(healthInsuranceNumber, savedModification.getHealthInsuranceNumber());
+        assertEquals(visitToCancel, savedModification.getMedicalVisit());
+        assertEquals(Modification.Status.CANCEL, savedModification.getStatus());
+    }
+
+    @Test
+    public void cancelHistoryTest() {
+        List<MedicalHistory.Illness> listIllness = new ArrayList<>();
+        listIllness.add(illness1);
+        listIllness.add(illness2);
+
+
+        MedicalHistory historyToCancel = new MedicalHistory(3L,245L, "sick", "pending",
+                listIllness, doctor1);
+
+        Modification result = mockService.cancelHistory(healthInsuranceNumber, historyToCancel);
+
+        ArgumentCaptor<Modification> modificationCaptor = ArgumentCaptor.forClass(Modification.class);
+        verify(mockRepository).save(modificationCaptor.capture());
+        Modification savedModification = modificationCaptor.getValue();
+
+
+        assertEquals(healthInsuranceNumber, savedModification.getHealthInsuranceNumber());
+        assertEquals(historyToCancel, savedModification.getMedicalHistory());
+        assertEquals(Modification.Status.CANCEL, savedModification.getStatus());
+    }
 
 
 }
