@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class MedicalVisit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long modVisitId;
     private Long medicalVisitId;
     private String visitedEstablishment;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -24,9 +25,10 @@ public class MedicalVisit {
         // default constructor
     }
 
-    public MedicalVisit(Long medicalVisitId, String visitedEstablishment, Doctor doctorSeen, LocalDate visitDate,
+    public MedicalVisit(Long modVisitId,  Long medicalVisitId, String visitedEstablishment, Doctor doctorSeen, LocalDate visitDate,
                         List<Diagnosis> diagnosisList, String summaryOfTheVisitByDoctor,
                         String notesForOtherDoctors) {
+        this.modVisitId = modVisitId;
         this.medicalVisitId = medicalVisitId;
         this.visitedEstablishment = visitedEstablishment;
         this.doctorSeen = doctorSeen;
@@ -108,6 +110,14 @@ public class MedicalVisit {
                 ", summaryOfTheVisitByDoctor='" + summaryOfTheVisitByDoctor + '\'' +
                 ", notesForOtherDoctors='" + notesForOtherDoctors + '\'' +
                 '}';
+    }
+
+    public Long getModVisitId() {
+        return modVisitId;
+    }
+
+    public void setModVisitId(Long modVisitId) {
+        this.modVisitId = modVisitId;
     }
 
     @Embeddable

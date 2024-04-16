@@ -13,4 +13,5 @@ public interface ModificationArchiveRepository extends JpaRepository<Modificatio
     Optional<Modification> findTopByHealthInsuranceNumberAndTypeAndStatusNotOrderByTimestampDesc(String healthInsuranceNumber,
                                                                                                  ModificationType type,
                                                                                                  Modification.Status status);
+
 }
