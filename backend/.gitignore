@@ -3,6 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Generated files ###
+MedicalRecord.json
+MedicalRecord.txt
+
 ### SQLITE ###
 *.sqlite
 
