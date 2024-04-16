@@ -13,7 +13,7 @@ spring:
             allowedHeaders:
               - Content-Type
               - Authorization
-              - healthinsurancenumber
+              - healthInsuranceNumber
             maxAge: 3600
       routes:
         - id: medical-records-service
@@ -22,25 +22,35 @@ spring:
             - Path=/medical-records/**
           filters:
             - AuthenticationFilter
-
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
         - id: ramq-service
           uri: lb://RAMQ-SERVICE
           predicates:
             - Path=/ramq/**
           filters:
             - AuthenticationFilter
-
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
         - id: modifications-archive-service
           uri: lb://MODIFICATIONS-ARCHIVE-SERVICE
           predicates:
             - Path=/modifications/**
           filters:
             - AuthenticationFilter
-
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
         - id: authentication-service
           uri: lb://AUTHENTICATION-SERVICE
           predicates:
             - Path=/auth/**
+          filters:
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
 
   application:
     name: API-GATEWAY
