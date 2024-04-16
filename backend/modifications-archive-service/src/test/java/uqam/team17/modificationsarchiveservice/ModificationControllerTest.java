@@ -17,7 +17,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+
 
 
 @ExtendWith(MockitoExtension.class)
@@ -45,6 +47,8 @@ public class ModificationControllerTest {
                 new ContactInformation.EmailAddress("superfly432@gmail.com")
         );
 
+        String expectedResponse = "Contact Information has been correctly archived";
+
         ContactInformation contactInfo = new ContactInformation(1L, addressList, phoneList, emailList);
 
         Modification expected = new ModificationBuilder()
@@ -61,8 +65,9 @@ public class ModificationControllerTest {
         ResponseEntity<?> response = mockController.createContactInfoModification(healthInsuranceNumber, contactInfo);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-
+        assertEquals(expectedResponse,response.getBody());
         verify(mockService).saveContactInformation(healthInsuranceNumber, contactInfo);
+
     }
 
     @Test
@@ -74,6 +79,8 @@ public class ModificationControllerTest {
                 new MedicalHistory.Illness("description1", start, end),
                 new MedicalHistory.Illness("description2", start, end)
         );
+
+        String expectedResponse = "Medical history has been correctly archived";
 
         MedicalHistory history = new MedicalHistory(4L,4542L, "diagnosis",
                 "treatment",illnessList,doctor);
@@ -92,6 +99,7 @@ public class ModificationControllerTest {
         ResponseEntity<?> response = mockController.createMedicalHistoryModification(healthInsuranceNumber, history);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedResponse,response.getBody());
 
         verify(mockService).saveMedicalHistory(healthInsuranceNumber, history);
     }
@@ -105,6 +113,8 @@ public class ModificationControllerTest {
                 new MedicalVisit.Diagnosis("Heart Murmur", "medication"),
                 new MedicalVisit.Diagnosis("lack of sleep", "sleep medication")
         );
+
+        String expectedResponse = "Medical visit has been correctly archived";
 
         MedicalVisit visit = new MedicalVisit(9L,45463L, hospital, doctor, visitDate,
                 diagnosisList, "Summary", "Note" );
@@ -122,9 +132,9 @@ public class ModificationControllerTest {
 
         ResponseEntity<?> response = mockController.createMedicalVisitModification(healthInsuranceNumber, visit);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
         verify(mockService).saveMedicalVisit(healthInsuranceNumber, visit);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertEquals(expectedResponse,response.getBody());
     }
 
     @Test
@@ -136,6 +146,8 @@ public class ModificationControllerTest {
                 new MedicalVisit.Diagnosis("Heart Murmur", "medication"),
                 new MedicalVisit.Diagnosis("lack of sleep", "sleep medication")
         );
+
+        String expectedResponse = "Medical visit has been cancelled";
 
         MedicalVisit visit = new MedicalVisit(9L,45463L, hospital, doctor, visitDate,
                 diagnosisList, "Summary", "Note" );
@@ -155,7 +167,7 @@ public class ModificationControllerTest {
         ResponseEntity<?> response = mockController.cancelMedicalVisit("healthInsuranceNumber", visit);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-
+        assertEquals(expectedResponse,response.getBody());
         verify(mockService).cancelVisit("healthInsuranceNumber", visit);
     }
 
@@ -168,6 +180,8 @@ public class ModificationControllerTest {
                 new MedicalHistory.Illness("description1", start, end),
                 new MedicalHistory.Illness("description2", start, end)
         );
+
+        String expectedResponse = "Medical history has been cancelled";
 
         MedicalHistory history = new MedicalHistory(4L,4542L, "diagnosis",
                 "treatment",illnessList,doctor);
@@ -187,7 +201,7 @@ public class ModificationControllerTest {
         ResponseEntity<?> response = mockController.cancelMedicalHistory("healthInsuranceNumber",history);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-
+        assertEquals(expectedResponse,response.getBody());
         verify(mockService).cancelHistory("healthInsuranceNumber", history);
     }
 
