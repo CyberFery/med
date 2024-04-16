@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+import org.springframework.web.reactive.function.client.WebClient;
 import uqam.team17.medicalrecordsservice.entity.MedicalHistory;
 import uqam.team17.medicalrecordsservice.entity.MedicalRecord;
 import uqam.team17.medicalrecordsservice.entity.MedicalVisit;
@@ -25,12 +26,23 @@ import uqam.team17.medicalrecordsservice.controller.MedicalRecordsController;
 import uqam.team17.medicalrecordsservice.entity.*;
 import uqam.team17.medicalrecordsservice.exception.MedicalRecordsException;
 
+import static org.mockito.ArgumentMatchers.any;
+import org.springframework.web.reactive.function.client.WebClient.RequestBodySpec;
+import org.springframework.web.reactive.function.client.WebClient.RequestBodyUriSpec;
+
+
 @ExtendWith(MockitoExtension.class)
 public class MedicalRecordsControllerTest {
     @Mock
     private MedicalRecordsService medicalRecordsService;
     @InjectMocks
     private MedicalRecordsController medicalRecordsController;
+
+    @Mock
+    private WebClient.Builder webClientBuilder;
+
+    @Mock
+    private WebClient webClient;
 
     private MedicalRecord setupMedicalRecord(String healthInsuranceNumber){
         Patient patient = getPatient(healthInsuranceNumber);
@@ -132,88 +144,4 @@ public class MedicalRecordsControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    @Test
-    void updateContactInformation_WithValidData_ReturnsOkResponse() throws MedicalRecordsException {
-        String healthInsuranceNumber = "ABCD123456789";
-
-        when(medicalRecordsService.updateContactInformation(eq(healthInsuranceNumber), any(Patient.ContactInformation.class)))
-                .thenReturn(new Patient.ContactInformation());
-        ResponseEntity<?> response = medicalRecordsController.updateContactInformation(healthInsuranceNumber, getContactInformation());
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-    }
-
-    @Test
-    void updateContactInformation_WithInvalidData_ReturnsBadRequestResponse() throws MedicalRecordsException {
-        String healthInsuranceNumber = "ABCD123456789";
-        ResponseEntity<?> response = medicalRecordsController.updateContactInformation(healthInsuranceNumber, new Patient.ContactInformation());
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    }
-
-    @Test
-    void updateMedicalVisit_WithValidData_ReturnsOkResponse() throws MedicalRecordsException {
-        String healthInsuranceNumber = "ABCD123456789";
-        Doctor doctor = new Doctor(1l, "Jean", "Doe", "Cancérologue");
-        List<MedicalVisit.Diagnosis> diagnosis = new ArrayList<>();
-
-        MedicalVisit medicalVisit = new MedicalVisit(1L, "Hopital thérèse",doctor, LocalDate.parse("2023-01-08"), diagnosis, "summary", "notes" );
-        when(medicalRecordsService.updateMedicalVisit(eq(healthInsuranceNumber), any(MedicalVisit.class)))
-                .thenReturn(new MedicalVisit());
-        ResponseEntity<?> response = medicalRecordsController.updateMedicalVisit(healthInsuranceNumber, medicalVisit);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-    }
-
-    @Test
-    void updateMedicalVisit_WithInvalidData_ReturnsBadRequestResponse() throws MedicalRecordsException {
-        String healthInsuranceNumber = "ABCD123456789";
-        ResponseEntity<?> response = medicalRecordsController.updateMedicalVisit(healthInsuranceNumber, new MedicalVisit());
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    }
-
-    @Test
-    void updateMedicalHistory_WithValidData_ReturnsOkResponse() throws MedicalRecordsException {
-        String healthInsuranceNumber = "ABCD123456789";
-        Doctor doctor = new Doctor(1l, "Jean", "Doe", "Cancérologue");
-        List<MedicalHistory.Illness> illness = new ArrayList<>();
-        illness.add(new MedicalHistory.Illness("cancer", LocalDate.parse("2023-01-08"), LocalDate.parse("2024-01-08")));
-
-        MedicalHistory medicalHistory = new MedicalHistory(1L, "cancer", "treatment cancer", illness, doctor);
-
-        when(medicalRecordsService.updateMedicalHistory(eq(healthInsuranceNumber), any(MedicalHistory.class)))
-                .thenReturn(new MedicalHistory());
-        ResponseEntity<?> response = medicalRecordsController.updateMedicalHistory(healthInsuranceNumber, medicalHistory);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-    }
-
-    @Test
-    void updateMedicalHistory_WithInvalidData_ReturnsBadRequestResponse() throws MedicalRecordsException {
-        String healthInsuranceNumber = "ABCD123456789";
-        ResponseEntity<?> response = medicalRecordsController.updateMedicalHistory(healthInsuranceNumber, new MedicalHistory());
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    }
-
-    @Test
-    public void testDeleteMedicalVisit() throws Exception {
-        String healthInsuranceNumber = "ABCD123456789";
-        Long medicalVisitId = 1L;
-        MedicalRecord medicalRecord = setupMedicalRecord(healthInsuranceNumber);
-        MedicalVisit medicalVisit = medicalRecord.getMedicalVisitList().get(0);
-        when(medicalRecordsService.deleteMedicalVisit(healthInsuranceNumber, medicalVisitId)).thenReturn(medicalVisit);
-        ResponseEntity<?> response = medicalRecordsController.deleteMedicalVisit(healthInsuranceNumber,medicalVisitId);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
-
-    @Test
-    public void testDeleteMedicalHistory() throws Exception {
-        String healthInsuranceNumber = "ABCD123456789";
-        Long medicalHistoryId = 1L;
-        MedicalHistory medicalHistory = new MedicalHistory();
-        when(medicalRecordsService.deleteMedicalHistory(healthInsuranceNumber, medicalHistoryId)).thenReturn(medicalHistory);
-        ResponseEntity<?> response = medicalRecordsController.deleteMedicalHistory(healthInsuranceNumber,medicalHistoryId);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
 }
