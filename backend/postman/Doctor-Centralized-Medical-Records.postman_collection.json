@@ -66,6 +66,7 @@
 									"",
 									"// Parse the response body to extract the token",
 									"const token = pm.response.text();",
+									"pm.collectionVariables.set(\"bearer_token\", token);",
 									"",
 									"// Check if token is found and save it to collection variable",
 									"if (token && token.length > 0) {",
@@ -1815,9 +1816,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{bearer_token}}/modifications/cancel-medical-history",
+							"raw": "{{base_url}}/modifications/cancel-medical-history",
 							"host": [
-								"{{bearer_token}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"modifications",
@@ -1966,6 +1967,16 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearer_token}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
