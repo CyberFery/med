@@ -3,15 +3,10 @@ package uqam.team17.modificationsarchiveservice.service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import uqam.team17.modificationsarchiveservice.dto.CancelModificationRequest;
-import uqam.team17.modificationsarchiveservice.dto.ContactInformationRequest;
-import uqam.team17.modificationsarchiveservice.dto.MedicalHistoryRequest;
-import uqam.team17.modificationsarchiveservice.dto.MedicalVisitRequest;
 import uqam.team17.modificationsarchiveservice.repository.ModificationArchiveRepository;
 import uqam.team17.modificationsarchiveservice.entity.*;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,13 +17,13 @@ public class ModificationService {
         this.modificationRepository = repository;
     }
 
-    public Modification saveContactInformation(ContactInformationRequest contactRequest) {
+    public Modification saveContactInformation(String healthInsuranceNumber, ContactInformation contact) {
 
         Modification modification = new ModificationBuilder()
-                .addHealthInsuranceNumber(contactRequest.getHealthInsuranceNumber())
+                .addHealthInsuranceNumber(healthInsuranceNumber)
                 .addTimestamp(LocalDateTime.now())
-                .addModificationType(contactRequest.getContactInformation().getType())
-                .addContact(contactRequest.getContactInformation())
+                .addModificationType(ModificationType.CONTACT_INFORMATION)
+                .addContact(contact)
                 .addStatus(Modification.Status.UPDATE)
                 .build();
 
@@ -36,13 +31,13 @@ public class ModificationService {
 
     }
 
-    public Modification saveMedicalHistory(MedicalHistoryRequest historyRequest) {
+    public Modification saveMedicalHistory(String healthInsuranceNumber, MedicalHistory history) {
 
         Modification modification = new ModificationBuilder()
-                .addHealthInsuranceNumber(historyRequest.getHealthInsuranceNumber())
+                .addHealthInsuranceNumber(healthInsuranceNumber)
                 .addTimestamp(LocalDateTime.now())
-                .addModificationType(historyRequest.getMedicalHistory().getType())
-                .addHistory(historyRequest.getMedicalHistory())
+                .addModificationType(ModificationType.MEDICAL_HISTORY)
+                .addHistory(history)
                 .addStatus(Modification.Status.UPDATE)
                 .build();
 
@@ -51,36 +46,45 @@ public class ModificationService {
     }
 
 
-    public Modification saveMedicalVisit(MedicalVisitRequest visitRequest) {
+    public Modification saveMedicalVisit(String healthInsuranceNumber, MedicalVisit visit) {
 
         Modification modification = new ModificationBuilder()
-                .addHealthInsuranceNumber(visitRequest.getHealthInsuranceNumber())
+                .addHealthInsuranceNumber(healthInsuranceNumber)
                 .addTimestamp(LocalDateTime.now())
-                .addModificationType(visitRequest.getMedicalVisit().getType())
-                .addVisit(visitRequest.getMedicalVisit())
+                .addModificationType(ModificationType.MEDICAL_VISIT)
+                .addVisit(visit)
                 .addStatus(Modification.Status.UPDATE)
                 .build();
 
         return modificationRepository.save(modification);
     }
 
-    public Optional<Modification> cancelLastModification(CancelModificationRequest cancelRequest) {
+    public Modification cancelVisit(String healthInsuranceNumber, MedicalVisit visit) {
 
-        String healthNumber = cancelRequest.getHealthInsuranceNumber();
-        ModificationType modType = cancelRequest.getType();
+        Modification modification = new ModificationBuilder()
+                .addHealthInsuranceNumber(healthInsuranceNumber)
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(ModificationType.MEDICAL_VISIT)
+                .addVisit(visit)
+                .addStatus(Modification.Status.CANCEL)
+                .build();
 
-        Optional<Modification> optionalModif = modificationRepository.
-                findTopByHealthInsuranceNumberAndTypeAndStatusNotOrderByTimestampDesc(healthNumber, modType,
-                        Modification.Status.CANCEL);
-
-        if (optionalModif.isPresent()) {
-            Modification modification = optionalModif.get();
-
-            modification.setStatus(Modification.Status.CANCEL);
-            modificationRepository.save(modification);
-            return Optional.of(modification);
-        }
-
-        return Optional.empty();
+        return modificationRepository.save(modification);
     }
+
+    public Modification cancelHistory(String healthInsuranceNumber, MedicalHistory history) {
+
+        Modification modification = new ModificationBuilder()
+                .addHealthInsuranceNumber(healthInsuranceNumber)
+                .addTimestamp(LocalDateTime.now())
+                .addModificationType(ModificationType.MEDICAL_HISTORY)
+                .addHistory(history)
+                .addStatus(Modification.Status.CANCEL)
+                .build();
+
+        return modificationRepository.save(modification);
+    }
+
+
+
 }

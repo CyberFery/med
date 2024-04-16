@@ -4,14 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import uqam.team17.modificationsarchiveservice.dto.CancelModificationRequest;
-import uqam.team17.modificationsarchiveservice.dto.ContactInformationRequest;
-import uqam.team17.modificationsarchiveservice.dto.MedicalHistoryRequest;
-import uqam.team17.modificationsarchiveservice.dto.MedicalVisitRequest;
 import uqam.team17.modificationsarchiveservice.entity.*;
 import uqam.team17.modificationsarchiveservice.service.ModificationService;
 
-import java.util.Optional;
 
 
 @RestController
@@ -24,14 +19,17 @@ public class ModificationArchiveController {
     }
 
     @PostMapping("/medical-visit")
-    public ResponseEntity<?> createMedicalVisitModification(@RequestBody MedicalVisitRequest visitRequest) {
+    public ResponseEntity<?> createMedicalVisitModification(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber,
+                                                            @RequestBody MedicalVisit visit) {
         try {
-            if (visitRequest == null || !visitRequest.isValid()) {
+            if ( healthInsuranceNumber == null ||
+                    visit == null ||
+                    visit.getDiagnosisList() == null) {
 
                 return ResponseEntity.badRequest().body("Failed to backup medical visit, wrong format");
             } else {
 
-                final Modification response = modificationService.saveMedicalVisit(visitRequest);
+                final Modification response = modificationService.saveMedicalVisit(healthInsuranceNumber, visit);
                 return ResponseEntity.ok().body(response);
             }
         } catch (Exception e) {
@@ -40,15 +38,18 @@ public class ModificationArchiveController {
     }
 
     @PostMapping("/medical-history")
-    public ResponseEntity<?> createMedicalHistoryModification(@RequestBody MedicalHistoryRequest historyRequest) {
+    public ResponseEntity<?> createMedicalHistoryModification(@RequestHeader("healthInsuranceNumber")
+                                                                  String healthInsuranceNumber,
+                                                              @RequestBody MedicalHistory history) {
 
         try {
-            if (historyRequest == null || !historyRequest.isValid()) {
+            if (healthInsuranceNumber == null || history == null ||
+                history.getIllnessList() == null) {
 
                 return ResponseEntity.badRequest().body("Failed to backup medical history, wrong format");
             } else {
 
-                final Modification response = modificationService.saveMedicalHistory(historyRequest);
+                final Modification response = modificationService.saveMedicalHistory(healthInsuranceNumber, history);
                 return ResponseEntity.ok(response);
 
             }
@@ -60,13 +61,17 @@ public class ModificationArchiveController {
     }
 
     @PostMapping("/contact-information")
-    public ResponseEntity<?> createContactInfoModification(@RequestBody ContactInformationRequest contactRequest) {
+    public ResponseEntity<?> createContactInfoModification(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber,
+                                                           @RequestBody ContactInformation contact) {
         try {
-            if (contactRequest == null || !contactRequest.isValid()) {
+            if (healthInsuranceNumber == null || contact == null ||
+                contact.getResidentialAddressList() == null ||
+                contact.getPhoneNumberList() == null ||
+                contact.getEmailAddressList() == null) {
                 return ResponseEntity.badRequest().body("Failed to backup contact information, wrong format");
             } else {
 
-                final Modification response = modificationService.saveContactInformation(contactRequest);
+                final Modification response = modificationService.saveContactInformation(healthInsuranceNumber, contact);
 
 
                 return ResponseEntity.ok().body(response);
@@ -78,19 +83,41 @@ public class ModificationArchiveController {
 
     }
 
-    @PostMapping("/cancel-modification")
-    public ResponseEntity<?> cancelModification(@RequestBody CancelModificationRequest cancelRequest) {
+    @PostMapping("/cancel-medical-visit")
+    public ResponseEntity<?> cancelMedicalVisit(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber,
+                                                @RequestBody MedicalVisit visit){
         try {
-            Optional<Modification> response = modificationService.cancelLastModification(cancelRequest);
-
-            if (response.isPresent()) {
-                Modification modification = response.get();
-                return ResponseEntity.ok().body("The modification with the ID " + modification.getModificationId() + " is cancelled");
+            if (healthInsuranceNumber == null || visit == null) {
+                return ResponseEntity.badRequest().body("Failed to cancel medical visit, wrong format");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find the thing");
+
+                final Modification response = modificationService.cancelVisit(healthInsuranceNumber, visit);
+                return ResponseEntity.ok().body(response);
+
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
         }
+
     }
+
+    @PostMapping("/cancel-medical-history")
+    public ResponseEntity<?> cancelMedicalHistory(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber,
+                                                @RequestBody MedicalHistory history){
+        try {
+            if (healthInsuranceNumber == null || history == null) {
+                return ResponseEntity.badRequest().body("Failed to cancel medical visit, wrong format");
+            } else {
+
+                final Modification response = modificationService.cancelHistory(healthInsuranceNumber, history);
+                return ResponseEntity.ok().body(response);
+
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
+        }
+
+    }
+
+
 }

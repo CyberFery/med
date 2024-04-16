@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long modDocId;
     private Long doctorId;
     private String firstName;
     private String lastName;
@@ -18,7 +19,8 @@ public class Doctor {
         // default constructor
     }
 
-    public Doctor(Long doctorId, String firstName, String lastName, String specialization) {
+    public Doctor(Long modDocId, Long doctorId, String firstName, String lastName, String specialization) {
+        this.modDocId = modDocId;
         this.doctorId = doctorId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,5 +67,13 @@ public class Doctor {
                 ", lastName='" + lastName + '\'' +
                 ", specialization='" + specialization + '\'' +
                 '}';
+    }
+
+    public Long getModDocId() {
+        return modDocId;
+    }
+
+    public void setModDocId(Long modDocId) {
+        this.modDocId = modDocId;
     }
 }
