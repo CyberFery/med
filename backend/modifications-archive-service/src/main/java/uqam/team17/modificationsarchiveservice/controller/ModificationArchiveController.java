@@ -30,7 +30,12 @@ public class ModificationArchiveController {
             } else {
 
                 final Modification response = modificationService.saveMedicalVisit(healthInsuranceNumber, visit);
-                return ResponseEntity.ok().body(response);
+                if(response != null){
+                    return ResponseEntity.ok().body("Medical visit has been correctly archived");
+                }else {
+                    return ResponseEntity.ok().body("The medical visit has not been archived");
+                }
+
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
@@ -50,7 +55,11 @@ public class ModificationArchiveController {
             } else {
 
                 final Modification response = modificationService.saveMedicalHistory(healthInsuranceNumber, history);
-                return ResponseEntity.ok(response);
+                if(response != null){
+                    return ResponseEntity.ok().body("Medical history has been correctly archived");
+                }else {
+                    return ResponseEntity.ok().body("The medical history has not been archived");
+                }
 
             }
 
@@ -73,8 +82,11 @@ public class ModificationArchiveController {
 
                 final Modification response = modificationService.saveContactInformation(healthInsuranceNumber, contact);
 
-
-                return ResponseEntity.ok().body(response);
+                if(response != null){
+                    return ResponseEntity.ok().body("Contact Information has been correctly archived");
+                }else {
+                    return ResponseEntity.ok().body("Contact Information has not been archived");
+                }
 
             }
         } catch (Exception e) {
@@ -92,8 +104,11 @@ public class ModificationArchiveController {
             } else {
 
                 final Modification response = modificationService.cancelVisit(healthInsuranceNumber, visit);
-                return ResponseEntity.ok().body(response);
-
+                if(response != null){
+                    return ResponseEntity.ok().body("Medical visit has been cancelled");
+                }else {
+                    return ResponseEntity.ok().body("The medical visit has not been cancelled");
+                }
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error happened");
@@ -110,7 +125,11 @@ public class ModificationArchiveController {
             } else {
 
                 final Modification response = modificationService.cancelHistory(healthInsuranceNumber, history);
-                return ResponseEntity.ok().body(response);
+                if(response != null){
+                    return ResponseEntity.ok().body("Medical history has been cancelled");
+                }else {
+                    return ResponseEntity.ok().body("The medical history has not been cancelled");
+                }
 
             }
         } catch (Exception e) {
