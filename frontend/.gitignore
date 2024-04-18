@@ -46,3 +46,4 @@ lost+found/
 *.old
 *.cache
 *.sass-cache
+*.lock

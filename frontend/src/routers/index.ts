@@ -2,11 +2,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomePage from "@/views/HomePage.vue";
 import LoginPage from "@/views/LoginPage.vue";
-import RetrieveMedicalRecord from "@/views/RetrieveMedicalRecord.vue";
-import UpdateMedicalVisit from "@/views/UpdateMedicalVisit.vue";
-import DeleteMedicalVisit from "@/views/DeleteMedicalVisit.vue";
-import DeleteMedicalHistory from "@/views/DeleteMedicalHistory.vue";
-import UpdateMedicalHistory from "@/views/UpdateMedicalHistory.vue"; // Ensure this import is correct
+import RetrieveMedicalRecord from "@/components/RetrieveMedicalRecord.vue";
+import UpdateMedicalVisit from "@/components/UpdateMedicalVisit.vue";
+import DeleteMedicalVisit from "@/components/DeleteMedicalVisit.vue";
+import DeleteMedicalHistory from "@/components/DeleteMedicalHistory.vue";
+import UpdateMedicalHistory from "@/components/UpdateMedicalHistory.vue"; // Ensure this import is correct
 import { authStore } from '@/stores/AuthStore';
 
 
