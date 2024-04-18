@@ -47,6 +47,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                     authorizationHeader = authorizationHeader.substring(7);
                     try {
+                        logger.info("Validating token");
                         jwtUtil.validateToken(authorizationHeader);
                         logger.info("Token validation successful");
                     } catch (Exception e) {
