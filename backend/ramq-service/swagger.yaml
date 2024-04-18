@@ -1,0 +1,343 @@
+openapi: 3.0.0
+info:
+  title: ramq-service
+  description: Specification for RAMQ services.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8085
+########################################################################################################################
+paths:
+  /ramq/medical-record-copies:
+    get:
+      summary: Get all medical record copies.
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal server error.
+  ######################################################################################################################
+  /ramq/medical-record-copy:
+    post:
+      summary: Reconstruct medical record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '201':
+          description: Success, reconstruct done.
+        '400':
+          description: Bad request, reconstruction failed.
+        '500':
+          description: Internal server error.
+  ######################################################################################################################
+  /ramq/medical-record:
+    post:
+      summary: Create a new medical record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '201':
+          description: Medical record created successfully.
+        '400':
+          description: Failed to create medical record, bad request.
+        '500':
+          description: Internal server error.
+########################################################################################################################components:
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        genre:
+          type: string
+        healthInsuranceNumber:
+          type: integer
+        dateOfBirth:
+          type: string
+          format: date-time
+        cityOfBirth:
+          type: string
+        establishedDiagnosis:
+          type: string
+        knownParentList:
+          type: array
+          items:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+        contactInformationList:
+          type: array
+          items:
+            type: object
+            properties:
+              residentialAddressList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+              phoneNumberList:
+                type: array
+                items:
+                  type: object
+                properties:
+                  number:
+                    type: string
+              emailAddressList:
+                type: array
+                items:
+                  type: object
+                properties:
+                  email:
+                    type: string
+        isHealthcareProfessional:
+          type: boolean
+        isDoctor:
+          type: boolean
+
+    MedicalVisit:
+      type: object
+      properties:
+        visitedEstablishment:
+          type: string
+        doctorSeen:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            specialization:
+              type: string
+        visitDate:
+          type: string
+          format: date-time
+        diagnosisList:
+          type: array
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+              treatment:
+                type: string
+        summaryOfTheVisitByDoctor:
+          type: string
+        notesForOtherDoctors:
+          type: string
+
+    Illness:
+      type: object
+      properties:
+        description:
+          type: string
+        onsetOfIllnessDate:
+          type: string
+          format: date-time
+        endOfIllnessDate:
+          type: string
+          format: date-time
+
+    MedicalHistory:
+      type: object
+      properties:
+        diagnosis:
+          type: string
+        treatment:
+          type: string
+        illnessList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Illness'
+        primaryCareDoctor:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            specialization:
+              type: string
+
+    RequestBody:
+      type: object
+      properties:
+        patient:
+          $ref: '#/components/schemas/Patient'
+        medicalVisitList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalVisit'
+        medicalHistoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalHistory'
+
+    PatientResponse:
+      type: object
+      properties:
+        patientId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        genre:
+          type: string
+        healthInsuranceNumber:
+          type: integer
+        dateOfBirth:
+          type: string
+          format: date-time
+        cityOfBirth:
+          type: string
+        establishedDiagnosis:
+          type: string
+        knownParentList:
+          type: array
+          items:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+        contactInformationList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactInformationResponse'
+        isHealthcareProfessional:
+          type: boolean
+        isDoctor:
+          type: boolean
+
+    ContactInformationResponse:
+      type: object
+      properties:
+        residentialAddressList:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+        phoneNumberList:
+          type: array
+          items:
+            type: object
+          properties:
+            number:
+              type: string
+        emailAddressList:
+          type: array
+          items:
+            type: object
+          properties:
+            email:
+              type: string
+
+    DoctorResponse:
+      type: object
+      properties:
+        doctorId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialization:
+          type: string
+
+    DiagnosisResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        treatment:
+          type: string
+
+    IllnessResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        onsetOfIllnessDate:
+          type: string
+          format: date-time
+        endOfIllnessDate:
+          type: string
+          format: date-time
+
+    MedicalVisitResponse:
+      type: object
+      properties:
+        medicalVisitId:
+          type: integer
+        visitedEstablishment:
+          type: string
+        doctorSeen:
+          $ref: '#/components/schemas/DoctorResponse'
+        visitDate:
+          type: string
+          format: date-time
+        diagnosisList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosisResponse'
+        summaryOfTheVisitByDoctor:
+          type: string
+        notesForOtherDoctors:
+          type: string
+
+    MedicalHistoryResponse:
+      type: object
+      properties:
+        medicalHistoryId:
+          type: integer
+        diagnosis:
+          type: string
+        treatment:
+          type: string
+        illnessList:
+          type: array
+          items:
+            $ref: '#/components/schemas/IllnessResponse'
+        primaryCareDoctor:
+          $ref: '#/components/schemas/DoctorResponse'
+
+    ApiResponse:
+      type: object
+      properties:
+        medicalRecordCopyId:
+          type: integer
+        patient:
+          $ref: '#/components/schemas/PatientResponse'
+        medicalVisitList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalVisitResponse'
+        medicalHistoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalHistoryResponse'
