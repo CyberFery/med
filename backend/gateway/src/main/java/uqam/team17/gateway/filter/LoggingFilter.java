@@ -12,7 +12,6 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 
-    @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
             logger.info("Incoming request to {} {}", exchange.getRequest().getMethod(), exchange.getRequest().getURI());
