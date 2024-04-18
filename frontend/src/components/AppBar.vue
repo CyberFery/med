@@ -1,56 +1,36 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const items = ref([
-  {
-    pageName: "Home",
-    icon: "mdi-home",
-    path: "/"
-  },
-  {
-    pageName: "Login",
-    icon: "mdi-login",
-    path: "/login"
-  },
-  {
-    pageName: "About",
-    icon: "mdi-information",
-    path: "/about"
-  }
-]);
-</script>
-
 <template>
-  <v-toolbar class="bg-grey-darken-3" elevation="8">
+  <v-toolbar color="black">
     <v-toolbar-title>Doctor - Centralized Medical Records</v-toolbar-title>
-
-    <v-spacer/>
-
-    <v-btn>
-      <v-icon>mdi-magnify</v-icon>
+    <v-spacer></v-spacer>
+    <v-btn icon v-for="item in navigationItems" :key="item.pageName" @click="handleNavigation(item)">
+      <v-icon>{{ item.icon }}</v-icon>
     </v-btn>
-
-    <v-btn>
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn>
-
-    <template v-slot:extension>
-      <v-tabs
-        center-active
-        align-tabs="center"
-      >
-        <v-tab
-          v-for="item in items"
-          :key="item.path"
-          :to="item.path"
-        >
-          <v-icon>{{ item.icon }}</v-icon>
-          {{ item.pageName }}
-        </v-tab>
-      </v-tabs>
-    </template>
   </v-toolbar>
 </template>
 
-<style scoped>
-</style>
+<script setup>
+import {computed} from 'vue';
+import {useRouter} from 'vue-router';
+import {authStore} from '@/stores/AuthStore';
+
+const {isAuthenticated, clearToken} = authStore();
+const router = useRouter();
+
+const navigationItems = computed(() => [
+  {pageName: "Home", icon: "mdi-home", path: "/"},
+  ...isAuthenticated.value
+    ? [{pageName: "Logout", icon: "mdi-logout", action: clearToken}]
+    : [
+      {pageName: "Login", icon: "mdi-login", path: "/login"},
+    ],
+]);
+
+function handleNavigation(item) {
+  if (item.action) {
+    item.action();
+    router.push('/');
+  } else {
+    router.push(item.path);
+  }
+}
+</script>

@@ -1,78 +1,71 @@
-<script setup lang="ts">
-import {useField, useForm} from 'vee-validate'
-import axios from 'axios';
-
-const {handleSubmit, handleReset} = useForm({
-  validationSchema: {
-    userName(value: any) {
-      if (value?.length >= 2 && value?.length <= 20) return true
-
-      return 'User name needs to be at least 2 and maximum 20 characters.'
-    },
-
-    password(value: any) {
-      if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/.test(value)) return true
-
-      return 'Password must meet the following criteria: at least one uppercase letter, at least one lowercase letter, at least one digit, at least one special character (!@#$%^&*), and a minimum length of 8 characters.'
-    },
-  },
-})
-
-const userName = useField('userName')
-const password = useField('password')
-
-const submit = handleSubmit(async (values) => {
-  try {
-    const response = await axios.post('http://localhost:8080/authentication', {
-      userName: values.userName,
-      password: values.password,
-    });
-    console.log(response.data); // Handle the response as needed
-  } catch (error) {
-    console.error('Error submitting form:', error);
-  }
-});
-</script>
-
 <template>
-  <h1 class="text-center text-h2 mt-6 mb-4">User Secure Login</h1>
-
-  <v-row align="center" justify="center">
-    <v-col cols="12" sm="8" md="6">
-      <form class="text-center" @submit.prevent="submit">
-        <v-text-field
-          class="my-6"
-          v-model="userName.value.value"
-          :counter="20"
-          :error-messages="userName.errorMessage.value"
-          label="User Name"
-        />
-
-        <v-text-field
-          class="mt-6"
-          v-model="password.value.value"
-          :error-messages="password.errorMessage.value"
-          label="Password"
-          type="password"
-        />
-
-        <v-container>
-          <v-btn
-            class="bg-green-accent-1 me-4"
-            type="submit"
-          >
-            Submit
-          </v-btn>
-
-          <v-btn class="bg-red-accent-1" @click="handleReset">
-            Clear
-          </v-btn>
-        </v-container>
-
-      </form>
-    </v-col>
-  </v-row>
+  <v-container class="form-container">
+    <v-card class="pa-4" outlined>
+      <v-card-title class="display-1">Login</v-card-title>
+      <v-card-text>
+        <v-form @submit.prevent="login">
+          <v-text-field
+            v-model="credentials.username"
+            label="Username"
+            id="username"
+            type="text"
+            required
+            outlined
+            color="black"
+          ></v-text-field>
+          <v-text-field
+            v-model="credentials.password"
+            label="Password"
+            id="password"
+            type="password"
+            required
+            outlined
+            color="black"
+          ></v-text-field>
+          <v-btn type="submit" color="black" block depressed>Login</v-btn>
+          <v-alert
+            v-if="errorMessage"
+            type="error"
+            dense
+            text
+            class="mt-4"
+          >{{ errorMessage }}</v-alert>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
+<script setup lang="ts">
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { authStore } from '@/stores/AuthStore';
+
+const credentials = ref({ username: '', password: '' });
+const errorMessage = ref('');
+const router = useRouter();
+const { setToken } = authStore();
+
+async function login() {
+  errorMessage.value = '';
+  try {
+    const response = await axios.post('http://localhost:8080/auth/token', credentials.value);
+    setToken(response.data);  // Assume the response data is the token
+    router.push('/').catch(err => console.error('Router push failed:', err));
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response) {
+      errorMessage.value = err.response.data || 'An error occurred during login.';
+    } else {
+      errorMessage.value = 'An unexpected error occurred.';
+    }
+  }
+}
+</script>
+
 <style scoped>
+.form-container {
+  max-width: 600px; /* Optional for adjusting form size */
+  margin-top: 20vh; /* Centrally aligning the form vertically */
+}
 </style>
