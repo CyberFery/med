@@ -47,4 +47,3 @@ lost+found/
 *.cache
 *.sass-cache
 *.lock
-*.vim
