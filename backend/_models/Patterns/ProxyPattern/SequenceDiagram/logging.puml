@@ -1,0 +1,19 @@
+@startuml
+participant "Client (Frontend)" as Client
+participant "Gateway API" as Gateway
+participant "LoggingFilter (Proxy)" as Proxy
+
+Client -> Gateway: sendRequest()
+Gateway -> Proxy: createFilter()
+activate Proxy
+Proxy -> Proxy: apply(config)
+Proxy -> Proxy: logIncomingRequest()
+Proxy -> Gateway: filter(exchange, chain)
+activate Gateway
+Gateway -> Gateway: forward request
+deactivate Gateway
+Gateway -> Proxy: return Response
+Proxy -> Proxy: logOutgoingResponse()
+deactivate Proxy
+Gateway -> Client: Response
+@enduml
