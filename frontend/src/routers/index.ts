@@ -5,9 +5,13 @@ import LoginPage from "@/views/LoginPage.vue";
 import RetrieveMedicalRecord from "@/components/RetrieveMedicalRecord.vue";
 import UpdateMedicalVisit from "@/components/UpdateMedicalVisit.vue";
 import DeleteMedicalVisit from "@/components/DeleteMedicalVisit.vue";
+import ModifyMedicalVisit from "@/components/ModifyMedicalVisit.vue";
 import DeleteMedicalHistory from "@/components/DeleteMedicalHistory.vue";
 import UpdateMedicalHistory from "@/components/UpdateMedicalHistory.vue"; // Ensure this import is correct
+import ModifyMedicalHistory from "@/components/ModifyMedicalHistory.vue";
 import { authStore } from '@/stores/AuthStore';
+
+
 
 
 declare module 'vue-router' {
@@ -23,8 +27,10 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/retrieve-medical-record', name: 'RetrieveMedicalRecord', component: RetrieveMedicalRecord, meta: { requiresAuth: true } },
   { path: '/update-medical-visit', name: 'UpdateMedicalVisit', component: UpdateMedicalVisit, meta: { requiresAuth: true } },
   { path: '/delete-medical-visit', name: 'DeleteMedicalVisit', component: DeleteMedicalVisit, meta: { requiresAuth: true } },
+  { path: '/modify-medical-visit', name: 'ModifyMedicalVisit', component: ModifyMedicalVisit, meta: { requiresAuth: true } },
   { path: '/delete-medical-history', name: 'DeleteMedicalHistory', component: DeleteMedicalHistory, meta: { requiresAuth: true } },
-  { path: '/update-medical-history', name: 'UpdateMedicalHistory', component: UpdateMedicalHistory, meta: { requiresAuth: true } }
+  { path: '/update-medical-history', name: 'UpdateMedicalHistory', component: UpdateMedicalHistory, meta: { requiresAuth: true } },
+  { path: '/modify-medical-history', name: 'ModifyMedicalHistory', component: ModifyMedicalHistory, meta: { requiresAuth: true } }
 ];
 
 const router = createRouter({

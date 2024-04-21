@@ -12,6 +12,8 @@ declare module 'vue' {
     DeleteMedicalHistory: typeof import('./src/components/DeleteMedicalHistory.vue')['default']
     DeleteMedicalVisit: typeof import('./src/components/DeleteMedicalVisit.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
+    ModifyMedicalHistory: typeof import('./src/components/ModifyMedicalHistory.vue')['default']
+    ModifyMedicalVisit: typeof import('./src/components/ModifyMedicalVisit.vue')['default']
     RetrieveMedicalRecord: typeof import('./src/components/RetrieveMedicalRecord.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
