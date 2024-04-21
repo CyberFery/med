@@ -65,22 +65,6 @@ s'enregistrer et de découvrir les autres services disponibles dans le système.
 
 Chaque service dispose de son propre fichier de configuration `application.properties` et de son `pom.xml` pour définir
 les propriétés spécifiques à ce service.
-Assurez-vous de configurer correctement chaque service avant de les déployer.
-
-### Build et Exécution avec Maven :
-
-> **Note :** Il est recommandé d'utiliser directement les outils offerts par IntelliJ IDEA pour maven.
-
-Pour construire et exécuter chaque service dans le terminal :
-
-1. Naviguez vers le répertoire racine de chaque service ou du parent des services (pour tout lancer)
-2. Exécutez la commande suivante :
-
-```bash
-cd backend # ou cd backend/medical-records-service par exemple
-mvn clean install
-mvn spring-boot:run
-```
 
 ### Les ports utilisés en `localhost` par les services :
 
@@ -91,22 +75,35 @@ mvn spring-boot:run
 5. 8084: `modifications-archive-service`
 6. 8085: `ramq-service`
 
-### Génération des fichiers de base de données pour les services :
+# Instructions d'Installation et de Démarrage
 
-Lorsque le service est démarré le fichier `.sqlite` et les tables sont automatiquement générés par Spring Boot.
+## Dépendances
 
-### Lancer les tests
+Avant de lancer l'application, assurez-vous d'avoir installé les dépendances nécessaires listées ci-dessous. Voici les étapes pour installer chaque outil requis :
 
-```bash
-cd backend
-mvn test
-```
+- **Maven** : Suivez les instructions sur le site officiel pour installer Maven sur votre système.
+- **Node.js et npm** : Téléchargez et installez Node.js depuis leur [site officiel](https://nodejs.org/). npm est inclus avec l'installation de Node.js.
+- **Yarn** : Après avoir installé npm, vous pouvez installer Yarn en utilisant la commande `npm install -g yarn`.
+- **Newman** : Newman est nécessaire pour exécuter des collections Postman via la ligne de commande. Installez-le globalement avec npm en utilisant la commande `npm install -g newman`.
 
-## Configuration - Frontend
+## Comment Exécuter l'Application
 
-### Build et Exécution en `localhost:3000` :
+Pour démarrer l'application, suivez les étapes ci-dessous dans l'ordre spécifié :
 
-```bash
-cd frontend
-yarn dev
-```
+1. **Démarrage des Microservices** :
+    - Naviguez vers le dossier `backend` avec la commande `cd backend`.
+    - Exécutez le script pour démarrer tous les microservices en utilisant `./runAllMicroservices.sh`. Il est important que ce soit le premier script à être exécuté.
+
+2. **Initialisation de la Base de Données** :
+    - Après avoir démarré les microservices, exécutez le script `./dbseeding.sh` pour peupler la base de données.
+
+3. **Configuration du Frontend** :
+    - Changez de répertoire pour le frontend en exécutant `cd frontend`.
+    - Installez les dépendances en utilisant `yarn install` ou `npm install`.
+    - Pour démarrer le serveur de développement, utilisez `yarn dev` ou `npm run dev`.
+
+## Accès à l'Application
+
+- Pour accéder à l'application, ouvrez votre navigateur et allez à l'URL suivante : http://localhost:3000/. Veuillez noter que l'API Gateway n'accepte que les requêtes  provenant de cette adresse et non de http://127.0.0.1:3000/.
+
+En suivant ces instructions, vous devriez être en mesure de démarrer l'application sans problèmes.
