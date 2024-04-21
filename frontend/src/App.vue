@@ -35,8 +35,8 @@ const {isAuthenticated} = authStore();
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically */
-  height: calc(100vh - (48px + 48px)); /* Adjust based on actual height of AppBar and Footer */
+  justify-content: center;
+  height: calc(100vh - (48px + 48px));
 }
 
 .sidebar {

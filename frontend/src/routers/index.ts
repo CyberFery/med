@@ -7,7 +7,7 @@ import UpdateMedicalVisit from "@/components/UpdateMedicalVisit.vue";
 import DeleteMedicalVisit from "@/components/DeleteMedicalVisit.vue";
 import ModifyMedicalVisit from "@/components/ModifyMedicalVisit.vue";
 import DeleteMedicalHistory from "@/components/DeleteMedicalHistory.vue";
-import UpdateMedicalHistory from "@/components/UpdateMedicalHistory.vue"; // Ensure this import is correct
+import UpdateMedicalHistory from "@/components/UpdateMedicalHistory.vue";
 import ModifyMedicalHistory from "@/components/ModifyMedicalHistory.vue";
 import { authStore } from '@/stores/AuthStore';
 
