@@ -27,6 +27,9 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 - Patron Factory
   - Diagramme de classes
   - Diagrammes de séquence
+
+---
+
 # Patron Strategy
 Nous avons utilisé le patron `Strategy` pour permettre au médecin de télécharger le dossier du patient en format Json ou Txt. 
 Ainsi, le code est évolutif et on pourrait ajouter d'autres formats à l'avenir.
@@ -39,6 +42,8 @@ Ainsi, le code est évolutif et on pourrait ajouter d'autres formats à l'avenir
 ![](./_models/Patterns/StrategyPattern/SequenceDiagram/JsonDownloaderStrategy.png)
 ### Txt Strategy
 ![](./_models/Patterns/StrategyPattern/SequenceDiagram/TxtDownloaderStrategy.png)
+
+---
 
 # Patron Factory
 ## Problème
@@ -68,3 +73,49 @@ Le patron Factory abstrait la création des objets (jetons dans ce cas) en isola
 
 ### Validation de Jetons
 **Flux** : Le Client demande la validation d'un jeton. AuthController transmet la demande à AuthService, qui utilise TokenFactory pour valider le jeton. Le résultat est renvoyé au client.
+
+---
+
+# Patron Proxy
+
+> Dans notre API Gateway, nous avons intégré quatre types de proxies: l'authentification, la journalisation, le contrôle du débit et la traçabilité.
+>
+> Ces proxies agissent comme des filtres qui interceptent les requêtes entrantes et sortantes, leur permettant d'<u>ajouter des fonctionnalités supplémentaires sans modifier le comportement de l'API</u> elle-même.
+
+1. **Journalisation** : Affiche des informations pertinentes concernant les requêtes entrantes et sortantes. Suivre et analyser le flux de données dans le système, facilitant ainsi le <u>débogage</u> et la <u>surveillance</u> des performances.
+2. **Authentification** : Gérer les autorisations et les permissions d'accès aux ressources, garantissant ainsi la sécurité et la confidentialité des données.
+  - **Vérification rapide de jeton** : Valider les jetons d'authentification ou d'accès, permettant un contrôle d'accès efficace aux ressources protégées.
+3. **Ajout d’en-tête dans les requêtes** : Suivre les requêtes entrantes et sortantes, fournissant ainsi une traçabilité et une analyse approfondie du flux de données.
+4. **Limitation du nombre de requêtes par adresse IP** : Dans un intervalle de temps donné (dans notre cas maximum 30 par minute par IP), ce qui aide à prévenir les attaques de déni de service.
+
+Nous avont décidé d'utiliser le proxy journalisation pour présenter les détails du patron.
+
+## Proxy - Journalisation
+
+### **Présentation du Diagramme de Classe**
+
+Voyons maintenant les principaux éléments de notre diagramme:
+
+1. **GatewayAPI (Sujet)**: Il s'agit de notre API Gateway, qui est le point d'entrée principal de notre système. Il expose une méthode `sendRequest()` pour envoyer des requêtes.
+2. **LoggingFilter (Proxy)**: Ce proxy est responsable de la journalisation des requêtes entrantes et sortantes. Il <u>intercepte les requêtes et réponses</u>, enregistre les détails pertinents et laisse passer la requête vers le système sous-jacent.
+3. **GatewayFilter (Sujet Réel)**: C'est l'interface qui définit le comportement des filtres réels utilisés par notre API Gateway. Dans notre cas, LoggingFilter implémente cette interface.
+4. **Logger (Utilitaire)**: Il s'agit d'un utilitaire de journalisation utilisé par le LoggingFilter pour enregistrer les messages de journalisation.
+5. **AbstractGatewayFilterFactory (Usine)**: Cette classe est une usine abstraite qui crée différents types de filtres en fonction de la configuration fournie.
+
+> Ces classes interagissent de manière à intercepter les requêtes, à ajouter des fonctionnalités supplémentaires telles que la journalisation et à laisser passer les requêtes vers le système sous-jacent.
+
+### **Présentation du Diagramme de Séquence**
+
+> Dans notre cas, nous allons nous concentrer sur **le scénario** où <u>une requête est interceptée par le proxy</u> de journalisation (`LoggingFilter`)  présent dans l’``API Gateway` avant d'être transmise au système sous-jacent.
+
+Voici les étapes principales de ce scénario:
+
+1. `Client` (Frontend) envoie une requête à notre `API Gateway`.
+2. `Gateway API` intercepte la requête et applique automatiquement le proxy de journalisation.
+3. Le `LoggingFilter` (Proxy) est activé et enregistre les détails de la requête entrante, tels que la méthode `HTTP` et l'`URI` (Identifiant Uniforme de Ressource).
+4. La requête est ensuite transmise au système sous-jacent via la méthode `filter()` de `GatewayFilter` (Sujet Réel).
+5. Le système traite la requête et génère une réponse.
+6. La réponse est renvoyée à `LoggingFilter`, qui enregistre également <u>les détails</u> de la réponse sortante.
+7. Finalement, la réponse est renvoyée au `Client` (Frontend).
+
+**Motivation :** Ce processus permet à notre système de <u>garder une trace détaillée</u> de toutes les requêtes et réponses, ce qui est précieux pour le débogage, la surveillance et l'analyse des performances.
