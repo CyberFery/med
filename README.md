@@ -97,6 +97,16 @@ Pour démarrer l'application, suivez les étapes ci-dessous dans l'ordre spécif
 2. **Initialisation de la Base de Données** :
     - Après avoir démarré les microservices, exécutez le script `./dbseeding.sh` pour peupler la base de données.
 
+## Données des bases de données
+
+- **Dossier Médical pour le patient**: Mario
+   - **Numéro d'assurance social**: DOEM010190035
+
+- **Docteur**: Cole Palmer
+   - **Nom d'utilisateur**: cole_palmer
+   - **Mot de passe**: GOLDENboot2024
+
+
 3. **Configuration du Frontend** :
     - Changez de répertoire pour le frontend en exécutant `cd frontend`.
     - Installez les dépendances en utilisant `yarn install` ou `npm install`.
