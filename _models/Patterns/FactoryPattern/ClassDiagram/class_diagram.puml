@@ -1,0 +1,35 @@
+@startuml
+
+interface TokenFactory {
+    +generateToken(credentials : AuthCredentials) : String
+    +validateToken(token : String) : void
+}
+
+class JwtTokenFactory implements TokenFactory {
+    +generateToken(credentials : AuthCredentials) : String
+    +validateToken(token : String) : void
+}
+
+
+
+package "tokens"  {
+interface Token {
+    +getTokenData() : String
+    +validate() : void
+}
+
+class JwtToken implements Token {
+    +getTokenData() : String
+    +validate() : void
+}
+
+class OAuthToken implements Token {
+    +getTokenData() : String
+    +validate() : void
+}
+}
+
+JwtTokenFactory -right-> JwtToken : creates
+
+
+@enduml
