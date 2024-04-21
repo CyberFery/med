@@ -1,0 +1,54 @@
+@startuml
+actor Client as "Client"
+entity Controller as "AuthController"
+entity AuthService as "AuthService"
+entity TokenFactory as "TokenFactory"
+entity Token as "Token"
+
+== Token Generation ==
+Client -> Controller: requestToken(credentials)
+activate Controller
+Controller -> AuthService: generateToken(credentials)
+activate AuthService
+AuthService -> TokenFactory: createFactory()
+activate TokenFactory
+TokenFactory --> AuthService: factory
+deactivate TokenFactory
+AuthService -> TokenFactory: generateToken(credentials)
+activate TokenFactory
+TokenFactory -> Token: new()
+activate Token
+Token --> TokenFactory: token
+TokenFactory -> Token: getTokenData()
+Token --> TokenFactory: return TokenData
+deactivate Token
+TokenFactory --> AuthService: return token
+deactivate TokenFactory
+AuthService --> Controller: return token
+deactivate AuthService
+Controller --> Client: token
+deactivate Controller
+
+== Token Validation ==
+Client -> Controller: validateToken(token)
+activate Controller
+Controller -> AuthService: validateToken(token)
+activate AuthService
+AuthService -> TokenFactory: createFactory()
+activate TokenFactory
+TokenFactory --> AuthService: factory
+deactivate TokenFactory
+AuthService -> TokenFactory: validateToken(token)
+activate TokenFactory
+TokenFactory -> Token: validate()
+activate Token
+Token --> TokenFactory: return validation result
+deactivate Token
+TokenFactory --> AuthService: return result
+deactivate TokenFactory
+AuthService --> Controller: return result
+deactivate AuthService
+Controller --> Client: validation response
+deactivate Controller
+
+@enduml
