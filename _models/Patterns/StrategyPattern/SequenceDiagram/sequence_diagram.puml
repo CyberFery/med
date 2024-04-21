@@ -1,0 +1,43 @@
+@startuml JsonDownloaderStrategy
+participant "Medical Record Service" as Service
+participant "Medical Record Downloader" as Downloader
+participant "Download Strategy" as Strategy
+participant "Json Download Strategy" as Json
+
+activate Service
+Service -> Downloader : setDownloadStrategy(DownloadStrategy downloadStrategy)
+activate Downloader
+Service -> Downloader : downloadMedicalRecord(MedicalRecord medicalRecord)
+Downloader -> Strategy : downloadMedicalRecord(MedicalRecord medicalRecord)
+activate Strategy
+Strategy -> Json : downloadMedicalRecord(MedicalRecord medicalRecord)
+deactivate Strategy
+activate Json
+Json -> Downloader
+deactivate Json
+Downloader -> Service
+deactivate Downloader
+
+@enduml
+
+@startuml TxtDownloaderStrategy
+participant "Medical Record Service" as Service
+participant "Medical Record Downloader" as Downloader
+participant "Download Strategy" as Strategy
+participant "Txt Download Strategy" as Txt
+
+activate Service
+Service -> Downloader : setDownloadStrategy(DownloadStrategy downloadStrategy)
+activate Downloader
+Service -> Downloader : downloadMedicalRecord(MedicalRecord medicalRecord)
+Downloader -> Strategy : downloadMedicalRecord(MedicalRecord medicalRecord)
+activate Strategy
+Strategy -> Txt : downloadMedicalRecord(MedicalRecord medicalRecord)
+deactivate Strategy
+activate Txt
+Txt -> Downloader
+deactivate Txt
+Downloader -> Service
+deactivate Downloader
+
+@enduml

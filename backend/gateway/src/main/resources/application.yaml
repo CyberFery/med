@@ -1,0 +1,61 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:3000'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - Content-Type
+              - Authorization
+              - healthInsuranceNumber
+            maxAge: 3600
+      routes:
+        - id: medical-records-service
+          uri: lb://MEDICAL-RECORDS-SERVICE
+          predicates:
+            - Path=/medical-records/**
+          filters:
+            - AuthenticationFilter
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
+        - id: ramq-service
+          uri: lb://RAMQ-SERVICE
+          predicates:
+            - Path=/ramq/**
+          filters:
+            - AuthenticationFilter
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
+        - id: modifications-archive-service
+          uri: lb://MODIFICATIONS-ARCHIVE-SERVICE
+          predicates:
+            - Path=/modifications/**
+          filters:
+            - AuthenticationFilter
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
+        - id: authentication-service
+          uri: lb://AUTHENTICATION-SERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - LoggingFilter
+            - RateLimitingFilter
+            - TracingFilter
+
+  application:
+    name: API-GATEWAY
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,30 @@
+@startuml MedicalRecordDownloader
+
+title "Download MedicalRecord using strategy pattern"
+
+class MedicalRecordService {
++downloadMedicalRecordJsonStrategy(MedicalRecord medicalRecord): void
++downloadMedicalRecordTxtStrategy(MedicalRecord medicalRecord): void
+}
+
+class MedicalRecordDownloader {
++setDownloadStrategy(DownloadStrategy downloadStrategy): void
++downloadMedicalRecord(MedicalRecord medicalRecord): void
+}
+
+interface DownloadStrategy {
++downloadMedicalRecord(MedicalRecord medicalRecord): void
+}
+
+class JsonDownloadStrategy implements DownloadStrategy{
++downloadMedicalRecord(MedicalRecord medicalRecord): void
+}
+
+class TxtDownloadStrategy implements DownloadStrategy{
++downloadMedicalRecord(MedicalRecord medicalRecord): void
+}
+
+MedicalRecordService -> MedicalRecordDownloader
+MedicalRecordDownloader o--> " strategy" DownloadStrategy
+
+@enduml
