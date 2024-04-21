@@ -27,8 +27,6 @@ import uqam.team17.medicalrecordsservice.entity.*;
 import uqam.team17.medicalrecordsservice.exception.MedicalRecordsException;
 
 import static org.mockito.ArgumentMatchers.any;
-import org.springframework.web.reactive.function.client.WebClient.RequestBodySpec;
-import org.springframework.web.reactive.function.client.WebClient.RequestBodyUriSpec;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -144,4 +142,81 @@ public class MedicalRecordsControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    @Test
+    void updateContactInformation_WithValidData_ReturnsOkResponse() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+
+        when(medicalRecordsService.updateContactInformation(eq(healthInsuranceNumber), any(Patient.ContactInformation.class)))
+                .thenReturn(new Patient.ContactInformation());
+        ResponseEntity<?> response = medicalRecordsController.updateContactInformation(healthInsuranceNumber, getContactInformation());
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+    }
+
+    @Test
+    void updateContactInformation_WithInvalidData_ReturnsBadRequestResponse() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        ResponseEntity<?> response = medicalRecordsController.updateContactInformation(healthInsuranceNumber, new Patient.ContactInformation());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    void updateExistentMedicalVisit_WithValidData_ReturnsOkResponse() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        Doctor doctor = new Doctor(1l, "Jean", "Doe", "Cancérologue");
+        List<MedicalVisit.Diagnosis> diagnosis = new ArrayList<>();
+
+        MedicalVisit medicalVisit = new MedicalVisit(1L, "Hopital thérèse",doctor, LocalDate.parse("2023-01-08"), diagnosis, "summary", "notes" );
+        when(medicalRecordsService.updateExistentMedicalVisit(eq(healthInsuranceNumber), any(MedicalVisit.class)))
+                .thenReturn(new MedicalVisit());
+        ResponseEntity<?> response = medicalRecordsController.updateExistentMedicalVisit(healthInsuranceNumber, medicalVisit);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+    }
+
+    @Test
+    void updateExistentMedicalVisit_WithInvalidData_ReturnsBadRequestResponse()  {
+        String healthInsuranceNumber = "ABCD123456789";
+        ResponseEntity<?> response = medicalRecordsController.updateExistentMedicalVisit(healthInsuranceNumber, new MedicalVisit());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    void updateExistentMedicalHistory_WithValidData_ReturnsOkResponse() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        Doctor doctor = new Doctor(1l, "Jean", "Doe", "Cancérologue");
+        List<MedicalHistory.Illness> illness = new ArrayList<>();
+        illness.add(new MedicalHistory.Illness("cancer", LocalDate.parse("2023-01-08"), LocalDate.parse("2024-01-08")));
+
+        MedicalHistory medicalHistory = new MedicalHistory(1L, "cancer", "treatment cancer", illness, doctor);
+
+        when(medicalRecordsService.updateExistentMedicalHistory(eq(healthInsuranceNumber), any(MedicalHistory.class)))
+                .thenReturn(new MedicalHistory());
+        ResponseEntity<?> response = medicalRecordsController.updateExistentMedicalHistory(healthInsuranceNumber, medicalHistory);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+    }
+
+    @Test
+    void updateExistentMedicalHistory_WithInvalidData_ReturnsBadRequestResponse() {
+        String healthInsuranceNumber = "ABCD123456789";
+        ResponseEntity<?> response = medicalRecordsController.updateExistentMedicalHistory(healthInsuranceNumber, new MedicalHistory());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    void updateMedicalVisit_WithInvalidData_ReturnsBadRequestResponse() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        ResponseEntity<?> response = medicalRecordsController.updateMedicalVisit(healthInsuranceNumber, new MedicalVisit());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    void updateMedicalHistory_WithInvalidData_ReturnsBadRequestResponse() throws MedicalRecordsException {
+        String healthInsuranceNumber = "ABCD123456789";
+        ResponseEntity<?> response = medicalRecordsController.updateMedicalHistory(healthInsuranceNumber, new MedicalHistory());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
 }

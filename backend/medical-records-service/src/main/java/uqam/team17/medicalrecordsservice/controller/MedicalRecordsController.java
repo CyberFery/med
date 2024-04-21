@@ -49,7 +49,6 @@ public class MedicalRecordsController {
         if (medicalRecord == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medical Record not found for patient with health insurance number : " + healthInsuranceNumber);
         }
-
         medicalRecordsService.downloadMedicalRecordJsonStrategy(medicalRecord);
         medicalRecordsService.downloadMedicalRecordTxtStrategy(medicalRecord);
         return ResponseEntity.ok(medicalRecord);
@@ -64,14 +63,12 @@ public class MedicalRecordsController {
                 || contactInformation.getEmailAddressList() == null
         )
             return ResponseEntity.badRequest().body("Failed to update contact information, invalid format");
-
         Patient.ContactInformation contactInformationUpdated = medicalRecordsService.updateContactInformation(healthInsuranceNumber, contactInformation);
-
         return ResponseEntity.ok(contactInformationUpdated);
     }
 
     @PutMapping("/update-medical-visit")
-    public ResponseEntity<?> updateMedicalVisit(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestBody MedicalVisit medicalVisit) throws MedicalRecordsException {
+    public ResponseEntity<?> updateMedicalVisit(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestBody MedicalVisit medicalVisit) {
         if (Validation.validHealthInsuranceNumber(healthInsuranceNumber)
                 || medicalVisit == null
                 || medicalVisit.getDiagnosisList() == null
@@ -79,11 +76,9 @@ public class MedicalRecordsController {
             return ResponseEntity.badRequest().body("Failed to update medical visit, invalid format");
         }
 
-
-        MedicalVisit medicalVisitUpdated = medicalRecordsService.updateMedicalVisit(healthInsuranceNumber, medicalVisit);
-
-        WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
         try {
+            MedicalVisit medicalVisitUpdated = medicalRecordsService.updateMedicalVisit(healthInsuranceNumber, medicalVisit);
+            WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
             ResponseEntity<String> response = client.post()
                     .uri("/modifications/medical-visit")
                     .header("healthInsuranceNumber", healthInsuranceNumber)
@@ -93,15 +88,13 @@ public class MedicalRecordsController {
                     .block();
 
             return ResponseEntity.ok(medicalVisitUpdated);
-
         } catch (Exception e) {
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update medical visit");
         }
     }
 
     @PutMapping("/update-medical-history")
-    public ResponseEntity<?> updateMedicalHistory(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestBody MedicalHistory medicalHistory) throws MedicalRecordsException {
+    public ResponseEntity<?> updateMedicalHistory(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestBody MedicalHistory medicalHistory) {
         if (Validation.validHealthInsuranceNumber(healthInsuranceNumber)
                 || medicalHistory == null
                 || medicalHistory.getIllnessList() == null
@@ -109,10 +102,9 @@ public class MedicalRecordsController {
             return ResponseEntity.badRequest().body("Failed to update medical history, invalid format");
         }
 
-        MedicalHistory medicalHistoryUpdated = medicalRecordsService.updateMedicalHistory(healthInsuranceNumber, medicalHistory);
-
-        WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
         try {
+            MedicalHistory medicalHistoryUpdated = medicalRecordsService.updateMedicalHistory(healthInsuranceNumber, medicalHistory);
+            WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
             ResponseEntity<String> response = client.post()
                     .uri("/modifications/medical-history")
                     .header("healthInsuranceNumber", healthInsuranceNumber)
@@ -120,25 +112,23 @@ public class MedicalRecordsController {
                     .retrieve()
                     .toEntity(String.class)
                     .block();
-
             return ResponseEntity.ok(medicalHistoryUpdated);
 
         } catch (Exception e) {
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update medical history");
         }
 
     }
 
     @DeleteMapping("/delete-medical-visit")
-    public ResponseEntity<?> deleteMedicalVisit(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestParam Long medicalVisitId) throws MedicalRecordsException {
+    public ResponseEntity<?> deleteMedicalVisit(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestParam Long medicalVisitId) {
         if (Validation.validHealthInsuranceNumber(healthInsuranceNumber)) {
             return ResponseEntity.badRequest().body("Invalid health insurance number format!");
         }
-        MedicalVisit medicalVisit = medicalRecordsService.deleteMedicalVisit(healthInsuranceNumber, medicalVisitId);
 
-        WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
         try {
+            MedicalVisit medicalVisit = medicalRecordsService.deleteMedicalVisit(healthInsuranceNumber, medicalVisitId);
+            WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
             ResponseEntity<String> response = client.post()
                     .uri("/modifications/cancel-medical-visit")
                     .header("healthInsuranceNumber", healthInsuranceNumber)
@@ -150,20 +140,19 @@ public class MedicalRecordsController {
             return ResponseEntity.ok(medicalVisit);
 
         } catch (Exception e) {
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel medical visit");
         }
     }
 
     @DeleteMapping("/delete-medical-history")
-    public ResponseEntity<?> deleteMedicalHistory(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestParam Long medicalHistoryId) throws MedicalRecordsException {
+    public ResponseEntity<?> deleteMedicalHistory(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestParam Long medicalHistoryId) {
         if (Validation.validHealthInsuranceNumber(healthInsuranceNumber)) {
             return ResponseEntity.badRequest().body("Invalid health insurance number format!");
         }
-        MedicalHistory medicalHistory = medicalRecordsService.deleteMedicalHistory(healthInsuranceNumber, medicalHistoryId);
 
-        WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
         try {
+            MedicalHistory medicalHistory = medicalRecordsService.deleteMedicalHistory(healthInsuranceNumber, medicalHistoryId);
+            WebClient client = webClientBuilder.baseUrl(modificationArchiveBaseUrl).build();
             ResponseEntity<String> response = client.post()
                     .uri("/modifications/cancel-medical-history")
                     .header("healthInsuranceNumber", healthInsuranceNumber)
@@ -171,16 +160,47 @@ public class MedicalRecordsController {
                     .retrieve()
                     .toEntity(String.class)
                     .block();
-
             return ResponseEntity.ok(medicalHistory);
 
-
         } catch (Exception e) {
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update medical history");
         }
 
-
     }
 
+    @PutMapping("/update-medical-visit-by-id")
+    public ResponseEntity<?> updateExistentMedicalVisit(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestBody MedicalVisit medicalVisit) {
+        if (Validation.validHealthInsuranceNumber(healthInsuranceNumber)
+                || medicalVisit == null
+                || medicalVisit.getDiagnosisList() == null
+        ){
+            return ResponseEntity.badRequest().body("Failed to update medical visit, invalid format");
+        }
+
+        try {
+            MedicalVisit medicalVisitUpdated = medicalRecordsService.updateExistentMedicalVisit(healthInsuranceNumber, medicalVisit);
+            return ResponseEntity.ok(medicalVisitUpdated);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update medical visit");
+        }
+    }
+
+    @PutMapping("/update-medical-history-by-id")
+    public ResponseEntity<?> updateExistentMedicalHistory(@RequestHeader("healthInsuranceNumber") String healthInsuranceNumber, @RequestBody MedicalHistory medicalHistory) {
+        if (Validation.validHealthInsuranceNumber(healthInsuranceNumber)
+                || medicalHistory == null
+                || medicalHistory.getIllnessList() == null
+        ) {
+            return ResponseEntity.badRequest().body("Failed to update medical history, invalid format");
+        }
+
+        try {
+            MedicalHistory medicalHistoryUpdated = medicalRecordsService.updateExistentMedicalHistory(healthInsuranceNumber, medicalHistory);
+            return ResponseEntity.ok(medicalHistoryUpdated);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update medical history");
+        }
+    }
 }
