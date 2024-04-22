@@ -149,6 +149,8 @@ patient, de la date et de l'heure de création de la modification, du type de mo
 modifié incluant les modifications apportées. Il faut considérer qu'une modification ne peut avoir qu'un seul objet 
 `contact information`, `medical history` ou `medical visit`, ce qui constitue une relation d'exclusion mutuelle.
 
+## Diagramme de classe
+
 Pour gérer la construction d'une modification, on utilise le patron builder.
 
 ![](./_models/Patterns/BuilderPattern/ClassDiagram/builder_class.png)
@@ -158,21 +160,14 @@ Le `Modification Builder` contient plusieurs fonctions responsables d'ajouter le
 similaires à l'ajout de condiments à un burger. Le `Modification Service` joue le rôle de directeur et se contente de 
 demander au builder de construire une modification à partir des informations fournies par le `Modification Controller`.
 
+
+## Diagrammes de séquence
+
 <img src="_models/Patterns/BuilderPattern/SequenceDiagram/builder_sequence.png" width="800" height="500">
 
 
 La figure ci dessus présente la séquence de la création d'une modification d'une visite médicale (ici il s'agit d'un ajout)
 
-1. Le `Modification Controller` a reçu une requette et il contacte le `Modification Service`pour qu'il enregistre une modification.
-2. Le `Modification Service`crée un builder qui lui même initialize une modification.
-3. Le service ajoute ensuite les éléments d'une modification qu'il a besoin.
-4. Le service peut demander au builder d'ajouter une visite médicale, un antécédent médical ou une coordonée (ici c'est une visite)
-5. Après avoir ajouté tout ce qu'il a besoin le service demande au builder de build
-6. `Modification Builder` renvoie enfin le bon type de modification au service
-
-
-Ce patron aide a caché la construction de l'objet et enlève la responsabilité au `Modification Service` de gérer la 
-construction de la modification. 
 
 1. Le Modification Controller reçoit une requête et contacte le Modification Service pour enregistrer une modification.
 2. Le Modification Service crée un builder qui initialise ensuite une modification.
