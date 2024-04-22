@@ -9,9 +9,6 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
-# puml images
-_models/**/*.png
-
 # AWS User-specific
 .idea/**/aws.xml
 
