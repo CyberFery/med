@@ -96,6 +96,8 @@ Nous avont décidé d'utiliser le proxy journalisation pour présenter les déta
 
 Voyons maintenant les principaux éléments de notre diagramme:
 
+![class_diagram.png](./_models/Patterns/ProxyPattern/ClassDiagram/class_diagram.png)
+
 1. **GatewayAPI (Sujet)**: Il s'agit de notre API Gateway, qui est le point d'entrée principal de notre système. Il expose une méthode `sendRequest()` pour envoyer des requêtes.
 2. **LoggingFilter (Proxy)**: Ce proxy est responsable de la journalisation des requêtes entrantes et sortantes. Il <u>intercepte les requêtes et réponses</u>, enregistre les détails pertinents et laisse passer la requête vers le système sous-jacent.
 3. **GatewayFilter (Sujet Réel)**: C'est l'interface qui définit le comportement des filtres réels utilisés par notre API Gateway. Dans notre cas, LoggingFilter implémente cette interface.
@@ -109,6 +111,8 @@ Voyons maintenant les principaux éléments de notre diagramme:
 > Dans notre cas, nous allons nous concentrer sur **le scénario** où <u>une requête est interceptée par le proxy</u> de journalisation (`LoggingFilter`)  présent dans l’``API Gateway` avant d'être transmise au système sous-jacent.
 
 Voici les étapes principales de ce scénario:
+
+![class_diagram.png](./_models/Patterns/ProxyPattern/SequenceDiagram/sequence_diagram.png)
 
 1. `Client` (Frontend) envoie une requête à notre `API Gateway`.
 2. `Gateway API` intercepte la requête et applique automatiquement le proxy de journalisation.
