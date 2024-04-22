@@ -153,7 +153,7 @@ modifié incluant les modifications apportées. Il faut considérer qu'une modif
 
 Pour gérer la construction d'une modification, on utilise le patron builder.
 
-![](./_models/Patterns/BuilderPattern/ClassDiagram/builder_class.png)
+
 
 
 Le `Modification Builder` contient plusieurs fonctions responsables d'ajouter les composantes d'une modification, 
@@ -163,7 +163,7 @@ demander au builder de construire une modification à partir des informations fo
 
 ## Diagrammes de séquence
 
-<img src="_models/Patterns/BuilderPattern/SequenceDiagram/builder_sequence.png" width="800" height="500">
+![](./_models/Patterns/BuilderPattern/SequenceDiagram/builder_sequence.png)
 
 
 La figure ci dessus présente la séquence de la création d'une modification d'une visite médicale (ici il s'agit d'un ajout)
