@@ -27,6 +27,12 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 - Patron Factory
   - Diagramme de classes
   - Diagrammes de séquence
+- Patron Proxy
+  - Diagramme de classes
+  - Diagrammes de séquence
+- Patron Builder
+  - Diagramme de classes
+  - Diagramme de séquence
 
 ---
 
@@ -119,3 +125,7 @@ Voici les étapes principales de ce scénario:
 7. Finalement, la réponse est renvoyée au `Client` (Frontend).
 
 **Motivation :** Ce processus permet à notre système de <u>garder une trace détaillée</u> de toutes les requêtes et réponses, ce qui est précieux pour le débogage, la surveillance et l'analyse des performances.
+
+
+# Patron Builder
+
