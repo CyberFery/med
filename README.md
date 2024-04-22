@@ -100,7 +100,7 @@ Pour démarrer l'application, suivez les étapes ci-dessous dans l'ordre spécif
 ## Données des bases de données
 
 - **Dossier Médical pour le patient**: Mario
-   - **Numéro d'assurance social**: DOEM010190035
+   - **Numéro d'assurance maladie**: DOEM010190035
 
 - **Docteur**: Cole Palmer
    - **Nom d'utilisateur**: cole_palmer
