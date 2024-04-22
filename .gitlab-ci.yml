@@ -31,7 +31,7 @@ test:
     - 'mvn $MAVEN_CLI_OPTS test'
   only:
     variables:
-      - $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 # Build stage
 build:
@@ -41,4 +41,4 @@ build:
     - 'mvn $MAVEN_CLI_OPTS clean package'
   only:
     variables:
-      - $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

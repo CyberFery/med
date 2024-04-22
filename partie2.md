@@ -12,7 +12,7 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 
 ## Présenté par :
 
-| Nom       | Prénom  | Code Permanent 
+| Nom       | Prénom  | Code Permanent|
 |-----------|---------|---------------|
 | Montpetit | Carl    | MONC08069000  | 
 | Blemur    | Lindsay | BLEL21578506  | 
@@ -27,6 +27,12 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 - Patron Factory
   - Diagramme de classes
   - Diagrammes de séquence
+- Patron Proxy
+  - Diagramme de classes
+  - Diagrammes de séquence
+- Patron Builder
+  - Diagramme de classes
+  - Diagramme de séquence
 
 ---
 
@@ -123,3 +129,56 @@ Voici les étapes principales de ce scénario:
 7. Finalement, la réponse est renvoyée au `Client` (Frontend).
 
 **Motivation :** Ce processus permet à notre système de <u>garder une trace détaillée</u> de toutes les requêtes et réponses, ce qui est précieux pour le débogage, la surveillance et l'analyse des performances.
+
+
+# Patron Builder
+
+### Problématique
+
+
+Pour stocker les modifications dans la base de données, nous sommes confrontés à une problématique : comment stocker 
+les modifications ? Faut-il stocker le dossier médical complet ? Un dossier médical se compose de trois parties 
+différentes qui sont les plus susceptibles d'être modifiées : les coordonnées du patient, les antécédents médicaux du 
+patient et les visites médicales. Pour résoudre cela, une nouvelle classe, `Modification`, a été ajoutée au diagramme 
+de classe de notre conception initiale. Il faut être conscient qu'une modification est tout ce qui change le dossier 
+médical du patient. Ceci correspond aux modifications normales apposés par un médecin, mais aussi aux ajouts et retrait
+de choses au dossier. C'est à dire qu'ajouter une visite médicale va créer une modification qui sera entreposé dans la 
+base de donnée de même que d'enlever une visite médicale au dossier. 
+
+![](./_models/Patterns/BuilderPattern/ClassDiagram/classe_modification.png)
+
+
+La classe Modification est composée d'un identifiant généré par la base de données, du numéro d'assurance maladie du 
+patient, de la date et de l'heure de création de la modification, du type de modification, de son statut et de l'objet 
+modifié incluant les modifications apportées. Il faut considérer qu'une modification ne peut avoir qu'un seul objet 
+`contact information`, `medical history` ou `medical visit`, ce qui constitue une relation d'exclusion mutuelle.
+
+## Diagramme de classe
+
+Pour gérer la construction d'une modification, on utilise le patron builder.
+
+
+
+
+Le `Modification Builder` contient plusieurs fonctions responsables d'ajouter les composantes d'une modification, 
+similaires à l'ajout de condiments à un burger. Le `Modification Service` joue le rôle de directeur et se contente de 
+demander au builder de construire une modification à partir des informations fournies par le `Modification Controller`.
+
+
+## Diagrammes de séquence
+
+![](./_models/Patterns/BuilderPattern/SequenceDiagram/builder_sequence.png)
+
+
+La figure ci dessus présente la séquence de la création d'une modification d'une visite médicale (ici il s'agit d'un ajout)
+
+
+1. Le Modification Controller reçoit une requête et contacte le Modification Service pour enregistrer une modification.
+2. Le Modification Service crée un builder qui initialise ensuite une modification.
+3. Le service ajoute ensuite les éléments nécessaires à la modification.
+4. Il peut demander au builder d'ajouter une visite médicale, des antécédents médicaux ou des coordonnées (dans ce cas, une visite).
+5. Après avoir ajouté tous les éléments nécessaires, le service demande au builder de finaliser la construction.
+6. Le Modification Builder renvoie finalement le bon type de modification au service.
+
+Ce modèle permet de masquer la construction de l'objet et décharge le Modification Service de la responsabilité de 
+gérer la construction de la modification.
