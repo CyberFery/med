@@ -1,0 +1,44 @@
+@startuml
+
+!include _common.style
+left to right direction
+
+class ModificationService  << Director >>{
+    - ModificationArchiveRepository modificationRepository;
+    + ModificationService(ModificationArchiveRepository repository)
+    + saveContactInformation(healthInsuranceNumber: String, contact: ContactInformation):Modification
+    + saveMedicalHistory(healthInsuranceNumber: String, history: MedicalHistory):Modification
+    + saveMedicalVisit(healthInsuranceNumber: String, visit: MedicalVisit):Modification
+    + cancelVisit(healthInsuranceNumber: String, visit MedicalVisit):Modification
+    + cancelHistory(healthInsuranceNumber: String, history MedicalHistory):Modification
+}
+
+class ModificationBuilder <<Concrete Builder>> {
+    - modification: Modification
+    + ModificationBuilder()
+    + addModificationId(Long): ModificationBuilder
+    + addHealthInsuranceNumber(String): ModificationBuilder
+    + addTimestamp(LocalDateTime): ModificationBuilder
+    + addModificationType(ModificationType): ModificationBuilder
+    + addContact(ContactInformation): ModificationBuilder
+    + addHistory(MedicalHistory): ModificationBuilder
+    + addVisit(MedicalVisit): ModificationBuilder
+    + addStatus(Status): ModificationBuilder
+    + build(): Modification
+}
+
+class Modification <<Product>> {
+    - modificationId: Long
+    - healthInsuranceNumber: String
+    - timestamp: LocalDateTime
+    - contactInformation: ContactInformation
+    - medicalHistory : MedicalHistory
+    - medicalVisit : MedicalVisit
+    + Modification()
+    + Modification(Long, String, LocalDateTime, ModificationType, ContactInformation, Status)
+}
+
+ModificationService .. ModificationBuilder
+ModificationBuilder .. Modification
+
+@enduml

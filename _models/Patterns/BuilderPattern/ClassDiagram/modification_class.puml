@@ -1,0 +1,63 @@
+@startuml
+!include _common.style
+left to right direction
+skinparam linetype ortho
+
+class Modification {
+    - modificationId: Long
+    - healthInsuranceNumber: String
+    - timestamp: LocalDateTime
+    + Modification()
+    + Modification(Long, String, LocalDateTime, ModificationType, ContactInformation, Status)
+}
+
+class MedicalHistory {
+    - modHistoryId: Long
+    - medicalHistoryId: Long
+    - diagnosis: String
+    - treatment: String
+    - illnessList: List<Illness>
+    - primaryCareDoctor: Doctor
+    + MedicalHistory()
+    + MedicalHistory(Long, Long, String, String, List<Illness>, Doctor)
+}
+
+class MedicalVisit {
+    - modVisitId: Long
+    - medicalVisitId: Long
+    - visitedEstablishment: String
+    - doctorSeen: Doctor
+    - visitDate: LocalDate
+    - diagnosisList: List<Diagnosis>
+    - summaryOfTheVisitByDoctor: String
+    - notesForOtherDoctors: String
+    + MedicalVisit()
+    + MedicalVisit(Long, Long, String, Doctor, LocalDate, List<Diagnosis>, String, String)
+}
+
+class ContactInformation {
+    - residentialAddressList: List<ResidentialAddress>
+    - phoneNumberList: List<PhoneNumber>
+    - emailAddressList: List<EmailAddress>
+    + ContactInformation()
+    + ContactInformation(Long, List<ResidentialAddress>, List<PhoneNumber>, List<EmailAddress>)
+}
+
+enum ModificationType {
+    MEDICAL_VISIT
+    MEDICAL_HISTORY
+    CONTACT_INFORMATION
+}
+
+enum Status {
+    UPDATE
+    CANCEL
+}
+
+Modification -->"1\n medicalHistory\n XOR" MedicalHistory
+Modification -->"1\n medicalVisit\n XOR" MedicalVisit
+Modification --> "1\n contactInformation\n XOR" ContactInformation
+Modification -> "1\n type" ModificationType
+Modification ->"1\n status" Status
+
+@enduml

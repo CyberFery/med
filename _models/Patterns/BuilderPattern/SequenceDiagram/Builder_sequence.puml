@@ -1,0 +1,26 @@
+@startuml
+!include _common.style
+
+participant "md:ModificationService" as service
+
+
+[-> service: saveMedicalVisit(healthNum, visit)
+activate service
+    create participant "mb:ModificationBuilder" as builder
+    service -> builder: new()
+    activate builder
+        create participant "mod:Modification" as modification
+        builder -> modification: new()
+        modification --> builder
+    service -> builder: addHealthInsuranceNumber(healthNum)
+    service -> builder: addTimestamp(now)
+    service -> builder: addModificationType(type)
+    service -> builder: addVisit(visit)
+    service -> builder: addStatus(UPDATE)
+    service -> builder: build()
+    builder --> service: mod
+
+
+
+
+@enduml
