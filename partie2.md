@@ -21,16 +21,16 @@ Le dossier médical centralisé est un logiciel permettant aux utilisateurs du s
 
 
 ## Table des matières
-- Patron Strategy
+- [Patron Strategy](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie2.md?ref_type=heads#patron-strategy)
   - Diagramme de classes
   - Diagrammes de séquence
-- Patron Factory
+- [Patron Factory](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie2.md?ref_type=heads#patron-factory)
   - Diagramme de classes
   - Diagrammes de séquence
-- Patron Proxy
+- [Patron Proxy](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie2.md?ref_type=heads#patron-proxy)
   - Diagramme de classes
   - Diagrammes de séquence
-- Patron Builder
+- [Patron Builder](https://gitlab.info.uqam.ca/montpetit.carl/equipe17-inf5153-h2024-projet/-/blob/main/partie2.md?ref_type=heads#patron-builder)
   - Diagramme de classes
   - Diagramme de séquence
 
@@ -157,7 +157,7 @@ modifié incluant les modifications apportées. Il faut considérer qu'une modif
 
 Pour gérer la construction d'une modification, on utilise le patron builder.
 
-
+![](./_models/Patterns/BuilderPattern/ClassDiagram/builder_class.png)
 
 
 Le `Modification Builder` contient plusieurs fonctions responsables d'ajouter les composantes d'une modification, 
