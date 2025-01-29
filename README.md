@@ -1,5 +1,3 @@
-# equipe17-inf5153-h2024-projet
-
 # Doctor - Centralized Medical Records
 
 Doctor - Centralized Medical Records est un projet basé sur une architecture de microservices, conçu pour gérer les dossiers
